@@ -82,6 +82,14 @@
     shell = pkgs.zsh;
   };
 
+
+  environment.etc = {
+  #  "zshrc".source = ./packages/zsh/zshrc;
+    "sway/config".source = ./packages/sway/config;
+    "xdg/waybar".source = ./packages/waybar;
+    "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -126,7 +134,6 @@
 
   programs.zsh = {
     enable = true;
-    interactiveShellInit = "source /etc/nixos/dotfiles/zshrc"; 
   };
 
   # List services that you want to enable:
