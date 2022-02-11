@@ -30,8 +30,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = true;
-  networking.interfaces.wlp2s0.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -84,10 +83,10 @@
 
 
   environment.etc = {
-  #  "zshrc".source = ./packages/zsh/zshrc;
     "sway/config".source = ./packages/sway/config;
     "xdg/waybar".source = ./packages/waybar;
     "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
+    zshrc.text = (builtins.readFile ./packages/zsh/zshrc); 
   };
 
   # List packages installed in system profile. To search, run:
