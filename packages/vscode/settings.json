@@ -1,0 +1,20 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+    "explorer.confirmDragAndDrop": false,
+    "files.associations": {
+        "*.fl": "frameless"
+    },
+    "[haskell]": {
+        "editor.formatOnSave": true
+    },
+    "[strictly]": {
+        "editor.insertSpaces": false,
+        "editor.tabSize": 4
+    },
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "window.zoomLevel": 1
+}
