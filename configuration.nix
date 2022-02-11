@@ -123,6 +123,10 @@
     ];
   };
 
+  fonts.fonts = with pkgs;  [
+    font-awesome
+  ];
+
   programs.git = {
     enable = true;
     config = {
