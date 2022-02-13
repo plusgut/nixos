@@ -99,7 +99,8 @@
   environment.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
-  };
+    CHROME_BIN="chromium";
+ };
 
   environment.etc = {
     "sway/config".source = ./packages/sway/config;
@@ -117,6 +118,7 @@
     htop
     killall
     firefox
+    chromium
     font-awesome
     pamixer
     vscode
