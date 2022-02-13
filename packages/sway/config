@@ -25,7 +25,7 @@ set $right l
 set $term kitty 
 set $browser chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
 #set $browser MOZ_ENABLE_WAYLAND=1 LIBVA_DRIVER_NAME=i965 firefox
-set $browser MOZ_ENABLE_WAYLAND=1 GTK_THEME=Adwaita:dark firefox
+set $browser GTK_THEME=Adwaita:dark firefox
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.

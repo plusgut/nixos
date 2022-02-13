@@ -68,6 +68,18 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+      gtkUsePortal = true;
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -84,6 +96,10 @@
     shell = pkgs.zsh;
   };
 
+  environment.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = "1";
+    XDG_CURRENT_DESKTOP = "sway";
+  };
 
   environment.etc = {
     "sway/config".source = ./packages/sway/config;
@@ -125,6 +141,7 @@
       dmenu
       waybar
       kitty
+      mako
     ];
   };
 
