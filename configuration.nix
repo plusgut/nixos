@@ -69,6 +69,8 @@
     pulse.enable = true;
   };
 
+  services.fwupd.enable = true;
+
   xdg = {
     portal = {
       enable = true;
@@ -120,12 +122,13 @@
     firefox
     chromium
     font-awesome
-    pamixer
+    pulsemixer
     vscode
     nodejs
     yarn
     ghc
     cabal-install
+    mtr
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

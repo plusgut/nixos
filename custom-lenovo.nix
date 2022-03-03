@@ -44,6 +44,10 @@
     "openvpn/percha.ovpn".source = ./private/openvpn/percha.ovpn;
   };
 
+  environment.systemPackages = with pkgs; [
+    irssi
+  ];
+
   security.pki.certificateFiles = [
     ./private/pki/ca-chain-percha.pem
     ./private/pki/ca-chain-qsc-muc.pem
