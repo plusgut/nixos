@@ -148,6 +148,7 @@
       waybar
       kitty
       mako
+      grim
     ];
   };
 
