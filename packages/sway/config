@@ -7,6 +7,8 @@
 exec mako
 
 ### Variables
+set $cursor_theme phinger-cursors-light
+set $cursor_size 48
 
 set $ws1 1
 set $ws2 2
@@ -31,7 +33,11 @@ set $browser GTK_THEME=Adwaita:dark firefox
 # on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
-#
+
+seat seat0 xcursor_theme $cursor_theme $cursor_size
+exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
+exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill 
 #
@@ -60,7 +66,7 @@ input type:touchpad {
   tap enabled
 }
 
-output eDP-1 scale 1.5
+output eDP-1 scale 1
 input type:keyboard {
   xkb_layout "de,us"
 }
@@ -179,6 +185,6 @@ bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
 bindsym XF86MonBrightnessUp exec "brightnessctl set 5%+"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5 #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5 #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pamixer --toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5
+bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5
+bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute

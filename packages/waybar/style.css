@@ -3,7 +3,7 @@
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     min-height: 0;
     color: #efefef;
 }
@@ -14,7 +14,7 @@
 
 #workspaces button {
     margin: 0 3px;
-    padding: 7px;
+    padding: 10px;
     background-color:rgba(0, 0, 0, 0.1);
 }
 
@@ -25,8 +25,8 @@
 }
 
 .modules-right label {
-    margin: 0 3px;
-    padding: 7px;
+    margin: 0 5px;
+    padding: 10px;
     background-color:rgba(0, 0, 0, 0.1);
 }
 

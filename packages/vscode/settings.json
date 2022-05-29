@@ -16,7 +16,7 @@
         "editor.tabSize": 4
     },
     "javascript.updateImportsOnFileMove.enabled": "never",
-    "window.zoomLevel": 1,
     "typescript.preferences.jsxAttributeCompletionStyle": "none",
-    "javascript.preferences.jsxAttributeCompletionStyle": "none"
+    "javascript.preferences.jsxAttributeCompletionStyle": "none",
+    "window.zoomLevel": 2
 }

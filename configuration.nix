@@ -17,7 +17,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 20;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -46,23 +46,13 @@
      keyMap = "de";
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-
-  
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  security.sudo.enable = true;
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -83,10 +73,6 @@
     };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  security.sudo.enable = true;
 
   users.users.root.initialHashedPassword = "";
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -105,10 +91,16 @@
     CHROME_BIN="chromium";
  };
 
+  environment.extraInit = ''
+     export XDG_DATA_DIRS=${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
+  '';
+
   environment.etc = {
     "sway/config".source = ./packages/sway/config;
     "xdg/waybar".source = ./packages/waybar;
     "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
+  #  "xdg/gtk-2.0/gtkrc".source = ./packages/gtk-2.0/gtkrc;
+  #  "xdg/gtk-3.0/settings.ini".source = ./packages/gtk-3.0/settings.ini;
     zshrc.text = (builtins.readFile ./packages/zsh/zshrc); 
   };
 
@@ -129,7 +121,9 @@
     yarn
     ghc
     cabal-install
+    haskell-language-server
     mtr
+    phinger-cursors
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -149,6 +143,10 @@
       kitty
       mako
       grim
+      glib
+      gtk-engine-murrine
+      gtk_engines
+      gsettings-desktop-schemas
     ];
   };
 
@@ -186,6 +184,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }
 
