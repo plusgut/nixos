@@ -99,8 +99,7 @@
     "sway/config".source = ./packages/sway/config;
     "xdg/waybar".source = ./packages/waybar;
     "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
-  #  "xdg/gtk-2.0/gtkrc".source = ./packages/gtk-2.0/gtkrc;
-  #  "xdg/gtk-3.0/settings.ini".source = ./packages/gtk-3.0/settings.ini;
+    "xdg/gtk-3.0/settings.ini".source = ./packages/gtk-3.0/settings.ini;
     zshrc.text = (builtins.readFile ./packages/zsh/zshrc); 
   };
 
