@@ -18,6 +18,7 @@
     "javascript.updateImportsOnFileMove.enabled": "never",
     "typescript.preferences.jsxAttributeCompletionStyle": "none",
     "javascript.preferences.jsxAttributeCompletionStyle": "none",
-    "window.zoomLevel": 2,
-    "editor.bracketPairColorization.enabled": false
+    "window.zoomLevel": 3,
+    "editor.bracketPairColorization.enabled": false,
+    "explorer.confirmDelete": false
 }
