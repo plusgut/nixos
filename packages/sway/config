@@ -4,8 +4,6 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-exec mako
-
 ### Variables
 set $cursor_theme phinger-cursors-light
 set $cursor_size 48
@@ -188,3 +186,5 @@ bindsym XF86MonBrightnessUp exec "brightnessctl set 5%+"
 bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5
 bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5
 bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute
+
+exec mako

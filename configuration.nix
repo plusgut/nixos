@@ -130,6 +130,7 @@
     haskell-language-server
     mtr
     phinger-cursors
+    ntfy
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
