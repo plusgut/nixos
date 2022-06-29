@@ -131,7 +131,6 @@
     mtr
     phinger-cursors
     ntfy
-    tigervnc
     nmap
     steam
   ];
