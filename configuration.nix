@@ -132,12 +132,11 @@
     ntfy
     nmap
     steam
-  ];
-
-  hardware.opengl.driSupport32Bit = true;
     xdg-utils
     nmap
   ];
+
+  hardware.opengl.driSupport32Bit = true;
 
   programs.vim.defaultEditor = true;
 
