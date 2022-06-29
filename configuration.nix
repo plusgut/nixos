@@ -114,7 +114,6 @@
   environment.systemPackages = with pkgs; [
     usbutils
     brightnessctl
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     btop
     killall
@@ -136,6 +135,11 @@
   ];
 
   hardware.opengl.driSupport32Bit = true;
+    xdg-utils
+    nmap
+  ];
+
+  programs.vim.defaultEditor = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -183,7 +187,7 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

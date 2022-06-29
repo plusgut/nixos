@@ -20,5 +20,6 @@
     "javascript.preferences.jsxAttributeCompletionStyle": "none",
     "window.zoomLevel": 3,
     "editor.bracketPairColorization.enabled": false,
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "haskell.manageHLS": "PATH"
 }
