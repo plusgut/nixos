@@ -130,7 +130,13 @@
     haskell-language-server
     mtr
     phinger-cursors
+    ntfy
+    tigervnc
+    nmap
+    steam
   ];
+
+  hardware.opengl.driSupport32Bit = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
