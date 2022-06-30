@@ -94,15 +94,15 @@
   environment.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
+    XDG_CONFIG_HOME = "/home/plusgut/nixos/packages";
     CHROME_BIN="chromium";
- };
+   };
 
   environment.extraInit = ''
      export XDG_DATA_DIRS=${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
   '';
 
   environment.etc = {
-    "sway/config".source = ./packages/sway/config;
     "xdg/waybar".source = ./packages/waybar;
     "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
     "xdg/gtk-3.0/settings.ini".source = ./packages/gtk-3.0/settings.ini;
@@ -137,8 +137,6 @@
   ];
 
   hardware.opengl.driSupport32Bit = true;
-
-  programs.vim.defaultEditor = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -179,6 +177,24 @@
 
   programs.zsh = {
     enable = true;
+  };
+
+  programs.neovim = {
+    enable = true;
+    withRuby = false;
+    withPython3 = false;
+    defaultEditor = true;
+    configure = {
+      customRC = "
+        source $XDG_CONFIG_HOME/nvim/init.vim
+      ";
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        # loaded on launch
+	start = [ nerdtree nvim-lspconfig ];
+        # manually loadable by calling `:packadd $plugin-name`
+        opt = [ ];
+      };
+    };
   };
 
   # List services that you want to enable:

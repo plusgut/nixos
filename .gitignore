@@ -1,3 +1,6 @@
 /hardware-configuration.nix
 /packages/vscode/*
+/packages/dconf
+/packages/mimeapps.list
+/packages/pulse
 /private
