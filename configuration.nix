@@ -186,11 +186,11 @@
     defaultEditor = true;
     configure = {
       customRC = "
-        source $XDG_CONFIG_HOME/nvim/init.vim
+        source $XDG_CONFIG_HOME/nvim/init.lua
       ";
       packages.myVimPackage = with pkgs.vimPlugins; {
         # loaded on launch
-	start = [ nerdtree nvim-lspconfig ];
+	start = [ nord-nvim nerdtree nvim-lspconfig scrollbar-nvim ];
         # manually loadable by calling `:packadd $plugin-name`
         opt = [ ];
       };

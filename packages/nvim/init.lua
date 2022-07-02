@@ -1,3 +1,18 @@
+-- Settings
+vim.opt.number = true
+
+-- Theme
+vim.g.nord_borders = true
+vim.g.nord_italic = false
+require('nord').set()
+
+-- NERDTree
+-- vim.keymap.set('n', '<Leader>T', ':NERDTreeFocus<CR>')
+vim.api.nvim_create_autocmd('VimEnter', {
+  pattern = '*',
+  command = 'NERDTree'
+})
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -33,10 +48,11 @@ local on_attach = function(client, bufnr)
 end
 
 local lsp_flags = {
-  -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
 require('lspconfig')['hls'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
+
+
