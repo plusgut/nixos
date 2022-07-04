@@ -1,4 +1,5 @@
 -- Settings
+vim.g.mapleader = ' '
 vim.opt.number = true
 
 -- Theme
@@ -9,8 +10,12 @@ require('nord').set()
 -- Scrollbar
 require("scrollbar").setup()
 
+-- Telescope
+require('telescope').setup()
+vim.keymap.set('n', '<Leader>ff', ':Telescope git_files<CR>')
+
 -- NERDTree
--- vim.keymap.set('n', '<Leader>T', ':NERDTreeFocus<CR>')
+vim.keymap.set('n', '<Leader>T', ':NERDTreeFocus<CR>')
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = '*',
   command = 'NERDTree'
@@ -54,8 +59,11 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 require('lspconfig')['hls'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
+  on_attach = on_attach,
+  flags = lsp_flags,
 }
 
-
+require('lspconfig')['tsserver'].setup{
+  on_attch = on_attach,
+  flags = lsp_flags,
+}

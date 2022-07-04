@@ -145,7 +145,8 @@ in {
     xdg-utils
     nmap
     nix-prefetch-scripts
-  ];
+    nodePackages.typescript-language-server
+ ];
 
   hardware.opengl.driSupport32Bit = true;
 
@@ -201,7 +202,7 @@ in {
       ";
       packages.myVimPackage = with pkgs.vimPlugins; {
         # loaded on launch
-	start = [ nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
+	start = [ telescope-nvim nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
         # manually loadable by calling `:packadd $plugin-name`
         opt = [ ];
       };
