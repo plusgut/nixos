@@ -4,7 +4,17 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  nvim-scrollbar = pkgs.vimUtils.buildVimPlugin {
+    name = "scrollbar";
+    src = pkgs.fetchgit {
+      url = "https://github.com/petertriho/nvim-scrollbar";
+      rev = "3ef33825db78e663ef6284f4056ce7aaa6cfe1c9";
+      sha256 = "10i37cg69my6r688bcyac1jff8w69vd16gnlkx2sfi825qb0646m";
+    };
+  };
+
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -134,6 +144,7 @@
     steam
     xdg-utils
     nmap
+    nix-prefetch-scripts
   ];
 
   hardware.opengl.driSupport32Bit = true;
@@ -190,7 +201,7 @@
       ";
       packages.myVimPackage = with pkgs.vimPlugins; {
         # loaded on launch
-	start = [ nord-nvim nerdtree nvim-lspconfig scrollbar-nvim ];
+	start = [ nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
         # manually loadable by calling `:packadd $plugin-name`
         opt = [ ];
       };

@@ -6,6 +6,9 @@ vim.g.nord_borders = true
 vim.g.nord_italic = false
 require('nord').set()
 
+-- Scrollbar
+require("scrollbar").setup()
+
 -- NERDTree
 -- vim.keymap.set('n', '<Leader>T', ':NERDTreeFocus<CR>')
 vim.api.nvim_create_autocmd('VimEnter', {
