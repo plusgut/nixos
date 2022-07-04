@@ -72,6 +72,17 @@ in {
 
   services.fwupd.enable = true;
 
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.gutenprint ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    publish.userServices = true;
+  };
+
   xdg = {
     portal = {
       enable = true;
@@ -202,7 +213,7 @@ in {
       ";
       packages.myVimPackage = with pkgs.vimPlugins; {
         # loaded on launch
-	start = [ telescope-nvim nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
+	start = [ barbar-nvim telescope-nvim nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
         # manually loadable by calling `:packadd $plugin-name`
         opt = [ ];
       };
