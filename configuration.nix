@@ -157,6 +157,8 @@ in {
     nmap
     nix-prefetch-scripts
     nodePackages.typescript-language-server
+    kakoune
+    kak-lsp
  ];
 
   hardware.opengl.driSupport32Bit = true;

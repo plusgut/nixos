@@ -1,0 +1,30 @@
+colorscheme nord
+add-highlighter global/ number-lines 
+
+hook global InsertCompletionShow .* %{
+  map window insert <tab> <c-n>
+  map window insert <s-tab> <c-p>
+}
+
+hook global InsertCompletionHide .* %{
+  unmap window insert <tab> <c-n>
+  unmap window insert <s-tab> <c-p>
+}
+
+eval %sh{kak-lsp --kakoune -s $kak_session}  # Not needed if you load it with plug.kak.
+lsp-enable
+lsp-inlay-hints-enable global
+hook global WinSetOption filetype=<language> %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
+}
+
+lsp-inlay-diagnostics-enable global
+
+#define-command -override -hidden lsp-show-error -params 1 -docstring "Render error" %{
+#  nop %sh{kitty @ set-tab-color active_bg=red inactive_bg=darkred}
+#}
