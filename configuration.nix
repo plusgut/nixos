@@ -117,7 +117,9 @@ in {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_CONFIG_HOME = "/home/plusgut/nixos/packages";
     CHROME_BIN="chromium";
-   };
+    EDITOR = "kak";
+    TERMINAL = "kitty";
+  };
 
   environment.extraInit = ''
      export XDG_DATA_DIRS=${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
@@ -208,7 +210,7 @@ in {
     enable = true;
     withRuby = false;
     withPython3 = false;
-    defaultEditor = true;
+    defaultEditor = false;
     configure = {
       customRC = "
         source $XDG_CONFIG_HOME/nvim/init.lua

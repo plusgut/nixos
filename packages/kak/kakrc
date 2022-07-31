@@ -1,5 +1,6 @@
 colorscheme nord
 add-highlighter global/ number-lines 
+#add-highlighter window/git-diff flag-lines Default git_diff_flags
 
 hook global InsertCompletionShow .* %{
   map window insert <tab> <c-n>
@@ -31,3 +32,15 @@ lsp-inlay-diagnostics-enable global
 
 kaktree-enable
 enable-auto-pairs
+
+def ide %{
+    rename-client main
+    set global jumpclient main
+
+    new rename-client tools
+    set global toolsclient tools
+
+    new rename-client docs
+    set global docsclient docs
+}
+

@@ -1,1 +1,0 @@
-../dependencies/kakoune/share/kak/autoload/windowing/kitty.kak
