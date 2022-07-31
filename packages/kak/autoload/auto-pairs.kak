@@ -1,0 +1,1 @@
+../dependencies/auto-pairs.kak
