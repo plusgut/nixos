@@ -150,16 +150,16 @@ in {
     haskell-language-server
     mtr
     phinger-cursors
-    ntfy
     nmap
     steam
     xdg-utils
     nmap
     nix-prefetch-scripts
     nodePackages.typescript-language-server
+    broot
     kakoune
     kak-lsp
- ];
+];
 
   hardware.opengl.driSupport32Bit = true;
 
@@ -215,7 +215,7 @@ in {
       ";
       packages.myVimPackage = with pkgs.vimPlugins; {
         # loaded on launch
-	start = [ barbar-nvim telescope-nvim nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
+      start = [ barbar-nvim telescope-nvim nvim-scrollbar nord-nvim nerdtree nvim-lspconfig ];
         # manually loadable by calling `:packadd $plugin-name`
         opt = [ ];
       };

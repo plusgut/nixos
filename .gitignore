@@ -1,6 +1,8 @@
 /hardware-configuration.nix
 /packages/Code/*
+/packages/vscode/*
 /packages/dconf
 /packages/mimeapps.list
 /packages/pulse
+/packages/chromium
 /private

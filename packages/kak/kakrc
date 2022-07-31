@@ -28,3 +28,6 @@ lsp-inlay-diagnostics-enable global
 #define-command -override -hidden lsp-show-error -params 1 -docstring "Render error" %{
 #  nop %sh{kitty @ set-tab-color active_bg=red inactive_bg=darkred}
 #}
+
+kaktree-enable
+enable-auto-pairs
