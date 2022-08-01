@@ -1,5 +1,7 @@
 colorscheme nord
-add-highlighter global/ number-lines 
+add-highlighter global/ number-lines
+add-highlighter global/ show-matching
+add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
 hook global InsertCompletionShow .* %{
@@ -39,8 +41,5 @@ def ide %{
 
     new rename-client tools
     set global toolsclient tools
-
-    new rename-client docs
-    set global docsclient docs
 }
 

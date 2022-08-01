@@ -68,8 +68,9 @@ evaluate-commands %sh{
         face global Prompt             ${nord4}+b
         face global MatchingChar       ${nord4},${nord1}+b
         face global BufferPadding      ${nord11},${nord0}
-    "
-}
+
+        face global Whitespace         ${nord3}
+"}
 
 face global InfoDefault               Information
 face global InfoBlock                 Information

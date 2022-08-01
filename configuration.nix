@@ -161,6 +161,9 @@ in {
     broot
     kakoune
     kak-lsp
+    wakatime
+    fzf
+    ranger
 ];
 
   hardware.opengl.driSupport32Bit = true;
