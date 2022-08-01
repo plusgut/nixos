@@ -4,6 +4,10 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
+map global normal <c-n> ':new<ret>'
+
+map global normal <c-p> ':fzf-mode<ret>'
+
 hook global InsertCompletionShow .* %{
   map window insert <tab> <c-n>
   map window insert <s-tab> <c-p>
