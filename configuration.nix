@@ -164,6 +164,7 @@ in {
     wakatime
     fzf
     ranger
+    wl-clipboard
 ];
 
   hardware.opengl.driSupport32Bit = true;
