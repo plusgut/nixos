@@ -165,6 +165,7 @@ in {
     fzf
     ranger
     wl-clipboard
+    nb
 ];
 
   hardware.opengl.driSupport32Bit = true;
