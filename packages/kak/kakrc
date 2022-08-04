@@ -100,7 +100,7 @@ The program passed as argument will be executed in the new terminal' \
         if [ -n "$kak_client_env_KITTY_LISTEN_ON" ]; then
             listen="--to=$kak_client_env_KITTY_LISTEN_ON"
         fi
-        kitty @ $listen launch --no-response --type=os-window --title=floating --cwd="$PWD" $match "$@"
+        kitty @ $listen launch --no-response --type=overlay --cwd="$PWD" $match "$@"
     }
 }
 
