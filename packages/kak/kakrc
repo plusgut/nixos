@@ -2,6 +2,7 @@ source /home/plusgut/nixos/packages/kak/dependencies/auto-pairs.kak/rc/auto-pair
 source /home/plusgut/nixos/packages/kak/dependencies/fzf.kak/rc/fzf.kak
 source /home/plusgut/nixos/packages/kak/dependencies/fzf.kak/rc/modules/fzf-file.kak
 source /home/plusgut/nixos/packages/kak/dependencies/wakatime/wakatime.kak
+source /home/plusgut/nixos/packages/kak/dependencies/active-window/rc/active-window.kak
 
 require-module fzf
 

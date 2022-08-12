@@ -7,3 +7,6 @@
 [submodule "packages/kak/dependencies/wakatime"]
 	path = packages/kak/dependencies/wakatime
 	url = git@github.com:WhatNodyn/kakoune-wakatime.git
+[submodule "packages/kak/dependencies/active-window"]
+	path = packages/kak/dependencies/active-window
+	url = git@github.com:greenfork/active-window.kak.git
