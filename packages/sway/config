@@ -75,7 +75,7 @@ output eDP-1 scale 1
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 hide_edge_borders smart
-default_border none
+default_border pixel 1
 input type:touchpad {
   tap enabled
 }
