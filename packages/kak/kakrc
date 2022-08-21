@@ -8,6 +8,8 @@ source /home/plusgut/nixos/packages/kak/dependencies/active-window/rc/active-win
 
 require-module fzf
 
+enable-auto-pairs
+
 colorscheme nord
 add-highlighter global/ number-lines
 add-highlighter global/ show-matching
@@ -54,6 +56,4 @@ hook global NormalKey y|d|c %{ nop %sh{
 #define-command -override -hidden lsp-show-error -params 1 -docstring "Render error" %{
 #  nop %sh{kitty @ set-tab-color active_bg=red inactive_bg=darkred}
 #}
-
-enable-auto-pairs
 
