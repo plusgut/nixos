@@ -5,6 +5,8 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  networking.hostName = "plusgut-lenovo";
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];

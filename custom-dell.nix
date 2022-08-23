@@ -7,6 +7,8 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  networking.hostName = "plusgut-dell"
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
