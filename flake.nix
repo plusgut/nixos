@@ -1,12 +1,13 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixos-hardware.url = github:NixOS/nixos-hardware;
     fenix = {
       url = "github:nix-community/fenix";
     };
   };
 
-  outputs = { self, nixpkgs, fenix, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, fenix, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
 
@@ -250,6 +251,7 @@
       modules = [
         common
         ./custom-lenovo.nix
+         nixos-hardware.nixosModules.dell-xps-13-9380
       ];
     };
   };
