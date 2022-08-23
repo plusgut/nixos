@@ -15,11 +15,6 @@ let
   };
 
 in {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
   nixpkgs.config.allowUnfree = true;
 
   system.autoUpgrade.enable = true;
