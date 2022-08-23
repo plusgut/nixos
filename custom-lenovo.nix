@@ -43,7 +43,7 @@
   };
 
   environment.etc = {
-    "openvpn/percha.ovpn".source = ./private/openvpn/percha.ovpn;
+    "openvpn/percha.ovpn".source = /home/plusgut/nixos/private/openvpn/percha.ovpn;
   };
 
   environment.systemPackages = with pkgs; [
@@ -51,7 +51,7 @@
   ];
 
   security.pki.certificateFiles = [
-    ./private/pki/ca-chain-percha.pem
-    ./private/pki/ca-chain-qsc-muc.pem
+    /home/plusgut/nixos/private/pki/ca-chain-percha.pem
+    /home/plusgut/nixos/private/pki/ca-chain-qsc-muc.pem
   ];
 }
