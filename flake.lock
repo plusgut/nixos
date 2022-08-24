@@ -19,6 +19,70 @@
         "type": "github"
       }
     },
+    "kak-active-window": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1589392870,
+        "narHash": "sha256-6GLt9g20ddbXb29Vdl0YXFDWC73qip9cVU8EgdNlYbs=",
+        "owner": "greenfork",
+        "repo": "active-window.kak",
+        "rev": "988db69cfbb88bd741d089bb43b0be551693e7c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "greenfork",
+        "repo": "active-window.kak",
+        "type": "github"
+      }
+    },
+    "kak-auto-pairs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647175978,
+        "narHash": "sha256-MgqCuGj03ctKty2yQgQvy6qV/0s7euNwukhSjqauqW8=",
+        "owner": "alexherbo2",
+        "repo": "auto-pairs.kak",
+        "rev": "bfdcb8566076f653ec707f86207f83ea75173ce9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexherbo2",
+        "repo": "auto-pairs.kak",
+        "type": "github"
+      }
+    },
+    "kak-fzf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1655492496,
+        "narHash": "sha256-TxlfhxJihAohDpOddl8zT9LE4iimudHPeO83CLMgRDA=",
+        "owner": "andreyorst",
+        "repo": "fzf.kak",
+        "rev": "5f5aa98e063149172d7a322ca5100f41ba57ab0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andreyorst",
+        "repo": "fzf.kak",
+        "type": "github"
+      }
+    },
+    "kak-wakatime": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648487078,
+        "narHash": "sha256-juDRQ+ICJUOKa2HPk7JiMd/h+V2tKa9rfTquvaZHHcw=",
+        "owner": "WhatNodyn",
+        "repo": "kakoune-wakatime",
+        "rev": "d3529c13c9227b2de89e4cd53ada43a5b83d7844",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WhatNodyn",
+        "repo": "kakoune-wakatime",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1660407119,
@@ -68,6 +132,10 @@
     "root": {
       "inputs": {
         "fenix": "fenix",
+        "kak-active-window": "kak-active-window",
+        "kak-auto-pairs": "kak-auto-pairs",
+        "kak-fzf": "kak-fzf",
+        "kak-wakatime": "kak-wakatime",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2"
       }
