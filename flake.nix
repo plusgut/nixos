@@ -196,6 +196,12 @@
         ranger
         wl-clipboard
         nb
+        (fenix.packages.x86_64-linux.combine [
+          fenix.packages.x86_64-linux.latest.cargo
+          fenix.packages.x86_64-linux.latest.rustc
+          fenix.packages.x86_64-linux.latest.rustfmt
+          fenix.packages.x86_64-linux.targets.wasm32-unknown-unknown.latest.rust-std
+        ])
       ];
 
       hardware.opengl.driSupport32Bit = true;
