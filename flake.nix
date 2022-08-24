@@ -5,9 +5,26 @@
     fenix = {
       url = "github:nix-community/fenix";
     };
+    kak-fzf= {
+      url = "github:andreyorst/fzf.kak";
+      flake = false;
+    };
+    kak-auto-pairs = {
+      url = "github:alexherbo2/auto-pairs.kak";
+      flake = false;
+    };
+    kak-wakatime= {
+      url = "github:WhatNodyn/kakoune-wakatime";
+      flake = false;
+    };
+    kak-active-window= {
+      url = "github:greenfork/active-window.kak";
+      flake = false;
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, fenix, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, kak-fzf, kak-auto-pairs, kak-wakatime, kak-active-window, fenix, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
 
@@ -148,7 +165,31 @@
         nix-prefetch-scripts
         nodePackages.typescript-language-server
         broot
-        kakoune
+        (kakoune.override {
+          plugins = with kakounePlugins ; [
+            (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+              pname = "fzf";
+              version = "master";
+              src = kak-fzf;
+            })
+            (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+              pname = "auto-pairs";
+              version = "master";
+              src = kak-auto-pairs;
+            })
+            (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+              pname = "wakatime";
+              version = "master";
+              src = kak-wakatime;
+            })
+            (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+              pname = "active-window";
+              version = "master";
+              src = kak-active-window;
+            })
+
+          ];
+        })
         kak-lsp
         wakatime
         fzf
