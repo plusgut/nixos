@@ -4,6 +4,7 @@
     nixos-hardware.url = github:NixOS/nixos-hardware;
     fenix = {
       url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     kak-fzf= {
       url = "github:andreyorst/fzf.kak";
@@ -187,7 +188,6 @@
               version = "master";
               src = kak-active-window;
             })
-
           ];
         })
         kak-lsp
