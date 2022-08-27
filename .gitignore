@@ -1,4 +1,3 @@
-/hardware-configuration.nix
 /packages/Code/*
 /packages/vscode/*
 /packages/dconf
