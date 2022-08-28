@@ -6,10 +6,6 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kak-fzf= {
-      url = "github:andreyorst/fzf.kak";
-      flake = false;
-    };
     kak-auto-pairs = {
       url = "github:alexherbo2/auto-pairs.kak";
       flake = false;
@@ -25,7 +21,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, kak-fzf, kak-auto-pairs, kak-wakatime, kak-active-window, fenix, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, fenix, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
 
@@ -169,11 +165,6 @@
         (kakoune.override {
           plugins = with kakounePlugins ; [
             (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-              pname = "fzf";
-              version = "master";
-              src = kak-fzf;
-            })
-            (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
               pname = "auto-pairs";
               version = "master";
               src = kak-auto-pairs;
@@ -190,10 +181,13 @@
             })
           ];
         })
+        kakoune-cr
         kak-lsp
         wakatime
         fzf
-        ranger
+        lf
+        fd
+        tig
         wl-clipboard
         nb
         (fenix.packages.x86_64-linux.combine [

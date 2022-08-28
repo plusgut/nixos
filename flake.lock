@@ -53,22 +53,6 @@
         "type": "github"
       }
     },
-    "kak-fzf": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1655492496,
-        "narHash": "sha256-TxlfhxJihAohDpOddl8zT9LE4iimudHPeO83CLMgRDA=",
-        "owner": "andreyorst",
-        "repo": "fzf.kak",
-        "rev": "5f5aa98e063149172d7a322ca5100f41ba57ab0a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "andreyorst",
-        "repo": "fzf.kak",
-        "type": "github"
-      }
-    },
     "kak-wakatime": {
       "flake": false,
       "locked": {
@@ -121,7 +105,6 @@
         "fenix": "fenix",
         "kak-active-window": "kak-active-window",
         "kak-auto-pairs": "kak-auto-pairs",
-        "kak-fzf": "kak-fzf",
         "kak-wakatime": "kak-wakatime",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
