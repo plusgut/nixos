@@ -18,7 +18,6 @@
       url = "github:greenfork/active-window.kak";
       flake = false;
     };
-
   };
 
   outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, fenix, ... }@attrs:
