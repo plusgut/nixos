@@ -34,10 +34,11 @@
         # Example:
         #  execution: nvim +{line} {file}
         {
-            invocation: edit
+            invocation: ok
             key: enter
-            execution: "echo {file}"
+            external: "kcr edit -- {file}"
             leave_broot: true
+            apply_to: "file"
         }
 
         # A convenient shortcut to create new text files in
