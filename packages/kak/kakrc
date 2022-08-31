@@ -1,3 +1,7 @@
+evaluate-commands %sh{
+  kcr init kakoune
+}
+
 require-module kitty
 
 enable-auto-pairs
@@ -8,13 +12,9 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
-evaluate-commands %sh{
-  kcr init kakoune
-}
-
 map global normal <c-n> ':connect terminal kcr attach<ret>'
 map global normal <c-t> ":connect kitty-terminal-tab kcr attach<ret>"
-map global normal <c-p> ':fzf-files<ret>'
+map global normal <c-p> ':broot<ret>'
 map global normal <c-b> ':fzf-buffers<ret>'
 map global normal <c-c> ':connect terminal<ret>'
 
@@ -64,6 +64,17 @@ define-command -override fzf-buffers %{
   connect kitty-terminal-overlay sh -c %{
     kcr get --raw --value buflist | fzf --preview 'kcr cat --raw {}' | xargs kcr send buffer --
   }
+}
+
+
+define-command -override broot %{
+  connect kitty-terminal-overlay sh -c %{
+    broot | xargs kcr edit --
+  }
+}
+
+define-command -override lf %{
+  connect kitty-terminal-overlay lf %arg{@}
 }
 
 define-command kitty-terminal-overlay -params 1.. -docstring '
