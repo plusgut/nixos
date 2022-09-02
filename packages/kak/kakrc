@@ -12,11 +12,11 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
-map global normal <c-n> ':connect terminal kcr attach<ret>'
-map global normal <c-t> ":connect kitty-terminal-tab kcr attach<ret>"
-map global normal <c-p> ':broot<ret>'
-map global normal <c-b> ':fzf-buffers<ret>'
-map global normal <c-c> ':connect terminal<ret>'
+map global user n -docstring "new window" ":connect terminal kcr attach<ret>"
+map global user t -docstring "new tab" ":connect kitty-terminal-tab kcr attach<ret>"
+map global user p -docstring "file explorer " ":broot<ret>"
+map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
+map global user c -docstring "new terminal" ":connect terminal<ret>"
 
 set-option global kitty_window_type "os-window"
 
@@ -45,7 +45,7 @@ hook global WinSetOption filetype=<language> %{
 
 lsp-inlay-diagnostics-enable global
 
-# Use system's clipboard
+# Use system"s clipboard
 hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | wl-copy > /dev/null 2>&1 &
 }}
@@ -62,7 +62,7 @@ define-command -override fzf-files %{
 
 define-command -override fzf-buffers %{
   connect kitty-terminal-overlay sh -c %{
-    kcr get --raw --value buflist | fzf --preview 'kcr cat --raw {}' | xargs kcr send buffer --
+    kcr get --raw --value buflist | fzf --preview "kcr cat --raw {}" | xargs kcr send buffer --
   }
 }
 
@@ -77,9 +77,9 @@ define-command -override lf %{
   connect kitty-terminal-overlay lf %arg{@}
 }
 
-define-command kitty-terminal-overlay -params 1.. -docstring '
+define-command kitty-terminal-overlay -params 1.. -docstring "
 kitty-terminal-tab <program> [<arguments>]: create a new terminal as kitty tab
-The program passed as argument will be executed in the new terminal' \
+The program passed as argument will be executed in the new terminal" \
 %{
     nop %sh{
         match=""
