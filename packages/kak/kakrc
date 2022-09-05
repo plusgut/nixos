@@ -18,6 +18,7 @@ map global user t -docstring "new tab" ":connect kitty-terminal-tab kcr attach<r
 map global user p -docstring "file explorer " ":broot<ret>"
 map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
 map global user c -docstring "new terminal" ":connect terminal<ret>"
+map global user w -docstring "close buffer" ":delete-buffer!<ret>"
 
 map global user g -docstring "git" ":enter-user-mode git<ret>" 
 
