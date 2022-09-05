@@ -3,7 +3,6 @@ evaluate-commands %sh{
 }
 
 source "/home/plusgut/nixos/packages/kak/git.kak"
-source "/home/plusgut/nixos/packages/kak/languageserver.kak"
 require-module kitty
 
 enable-auto-pairs
@@ -22,7 +21,7 @@ map global user c -docstring "new terminal" ":connect terminal<ret>"
 map global user w -docstring "close buffer" ":delete-buffer!<ret>"
 
 map global user g -docstring "git" ":enter-user-mode git<ret>" 
-map global user l -docstring "languageserver" ":enter-user-mode languageserver<ret>" 
+map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
 
 set-option global kitty_window_type "os-window"
 
