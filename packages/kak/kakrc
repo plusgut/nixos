@@ -2,6 +2,7 @@ evaluate-commands %sh{
   kcr init kakoune
 }
 
+source "/home/plusgut/nixos/packages/kak/git.kak"
 require-module kitty
 
 enable-auto-pairs
@@ -17,6 +18,8 @@ map global user t -docstring "new tab" ":connect kitty-terminal-tab kcr attach<r
 map global user p -docstring "file explorer " ":broot<ret>"
 map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
 map global user c -docstring "new terminal" ":connect terminal<ret>"
+
+map global user g -docstring "git" ":enter-user-mode git<ret>" 
 
 set-option global kitty_window_type "os-window"
 
