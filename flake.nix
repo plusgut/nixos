@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = github:NixOS/nixos-hardware;
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     kak-auto-pairs = {
       url = "github:alexherbo2/auto-pairs.kak";
       flake = false;
@@ -20,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, fenix, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nixpkgs.config.allowUnfree = true;
 
@@ -189,12 +185,6 @@
         tig
         wl-clipboard
         nb
-        (fenix.packages.x86_64-linux.combine [
-          fenix.packages.x86_64-linux.latest.cargo
-          fenix.packages.x86_64-linux.latest.rustc
-          fenix.packages.x86_64-linux.latest.rustfmt
-          fenix.packages.x86_64-linux.targets.wasm32-unknown-unknown.latest.rust-std
-        ])
       ];
 
       hardware.opengl.driSupport32Bit = true;
