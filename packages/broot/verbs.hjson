@@ -36,7 +36,7 @@
         {
             invocation: ok
             key: enter
-            external: "kcr edit -- {file}"
+            external: "$EDITOR {file}"
             leave_broot: true
             apply_to: "file"
         }

@@ -2,7 +2,8 @@ evaluate-commands %sh{
   kcr init kakoune
 }
 
-source "/home/plusgut/nixos/packages/kak/git.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
 require-module kitty
 
 enable-auto-pairs
@@ -13,15 +14,14 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
-map global user n -docstring "new window" ":connect terminal kcr attach<ret>"
-map global user t -docstring "new tab" ":connect kitty-terminal-tab kcr attach<ret>"
-map global user p -docstring "file explorer " ":broot<ret>"
-map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
-map global user c -docstring "new terminal" ":connect terminal<ret>"
-map global user w -docstring "close buffer" ":delete-buffer!<ret>"
+map global user n -docstring "new window" ": connect terminal kcr attach<ret>"
+map global user t -docstring "new tab" ": connect kitty-terminal-tab kcr attach<ret>"
+map global user b -docstring "fuzzy buffers" ": fzf-buffers<ret>"
+map global user c -docstring "new terminal" ": connect terminal<ret>"
+map global user w -docstring "close buffer" ": delete-buffer!<ret>"
 
-map global user g -docstring "git" ":enter-user-mode git<ret>" 
-map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
+map global user g -docstring "git" ": enter-user-mode git<ret>" 
+map global user l -docstring "languageserver" ": enter-user-mode lsp<ret>"
 
 set-option global kitty_window_type "os-window"
 
@@ -71,12 +71,6 @@ define-command -override fzf-buffers %{
   }
 }
 
-
-define-command -override broot %{
-  connect kitty-terminal-overlay sh -c %{
-    broot | xargs kcr edit --
-  }
-}
 
 define-command -override lf %{
   connect kitty-terminal-overlay lf %arg{@}
