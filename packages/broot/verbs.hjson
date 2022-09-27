@@ -45,8 +45,8 @@
         # the current directory or below
         {
             invocation: create {subpath}
-            execution: "$EDITOR {directory}/{subpath}"
-            leave_broot: false
+            external: "$EDITOR {directory}/{subpath}"
+            leave_broot: true
         }
 
         {
