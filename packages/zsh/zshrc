@@ -3952,3 +3952,4 @@ unfunction grml_status_feature
 
 setopt nobanghist
 eval "$(zoxide init zsh)"
+alias cd="z"
