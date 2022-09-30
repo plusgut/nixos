@@ -1,4 +1,5 @@
 /packages/Code/*
+/packages/btop
 /packages/vscode/*
 /packages/dconf
 /packages/mimeapps.list
