@@ -185,10 +185,10 @@
         tig
         wl-clipboard
         nb
+        zoxide
       ];
 
       hardware.opengl.driSupport32Bit = true;
-
       # Some programs need SUID wrappers, can be configured further or are
       # started in user sessions.
       # programs.mtr.enable = true;
