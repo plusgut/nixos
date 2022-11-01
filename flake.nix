@@ -18,6 +18,7 @@
 
   outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, ... }@attrs:
     let common = ({ pkgs, ... }: {
+      nix.settings.auto-optimise-store = true;
       nixpkgs.config.allowUnfree = true;
 
       system.autoUpgrade.enable = true;
