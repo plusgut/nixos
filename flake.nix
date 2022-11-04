@@ -134,6 +134,7 @@
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs ; [
+        pciutils
         usbutils
         brightnessctl
         wget
@@ -188,6 +189,7 @@
         nb
         zoxide
       ];
+
 
       hardware.opengl.driSupport32Bit = true;
       # Some programs need SUID wrappers, can be configured further or are
