@@ -138,7 +138,7 @@
         usbutils
         brightnessctl
         wget
-        btop
+        bottom
         killall
         firefox
         chromium
