@@ -19,6 +19,7 @@
   outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nix.settings.auto-optimise-store = true;
+      nix.settings.experimental-features = [ "nix-command" "flakes" ];
       nixpkgs.config.allowUnfree = true;
 
       system.autoUpgrade.enable = true;
@@ -147,9 +148,6 @@
         vscode
         nodejs
         yarn
-        ghc
-        cabal-install
-        haskell-language-server
         mtr
         phinger-cursors
         nmap
