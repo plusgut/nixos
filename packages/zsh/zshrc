@@ -3952,4 +3952,5 @@ unfunction grml_status_feature
 
 setopt nobanghist
 eval "$(zoxide init zsh)"
+eval "$(direnv hook zsh)"
 alias cd="_ZO_ECHO=1 z"

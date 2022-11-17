@@ -146,8 +146,6 @@
         font-awesome
         pulsemixer
         vscode
-        nodejs
-        yarn
         mtr
         phinger-cursors
         nmap
@@ -186,6 +184,7 @@
         wl-clipboard
         nb
         zoxide
+        direnv
       ];
 
 
