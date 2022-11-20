@@ -9,7 +9,8 @@
         "*.fl": "frameless"
     },
     "[haskell]": {
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.bracketPairColorization.enabled": true,
     },
     "[strictly]": {
         "editor.insertSpaces": false,
