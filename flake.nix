@@ -185,6 +185,7 @@
         nb
         zoxide
         direnv
+        bat
       ];
 
 
