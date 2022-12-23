@@ -121,10 +121,6 @@
         TERMINAL = "kitty";
       };
 
-      environment.extraInit = ''
-        export XDG_DATA_DIRS=${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS
-      '';
-
       environment.etc = {
         "xdg/waybar".source = ./packages/waybar;
         "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
@@ -207,10 +203,8 @@
           kitty
           mako
           grim
-          glib
           gtk-engine-murrine
           gtk_engines
-          gsettings-desktop-schemas
         ];
       };
 
