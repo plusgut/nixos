@@ -205,6 +205,8 @@
           grim
           gtk-engine-murrine
           gtk_engines
+          swayidle
+          swaylock
         ];
       };
 
