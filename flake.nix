@@ -21,6 +21,7 @@
       nix.settings.auto-optimise-store = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       nixpkgs.config.allowUnfree = true;
+      nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
       system.autoUpgrade.enable = true;
       system.autoUpgrade.allowReboot = false;

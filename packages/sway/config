@@ -31,8 +31,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term kitty 
-set $browser chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
-#set $browser MOZ_ENABLE_WAYLAND=1 LIBVA_DRIVER_NAME=i965 firefox
+#set $browser chromium
 set $browser firefox
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -42,8 +41,6 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 seat seat0 xcursor_theme $cursor_theme $cursor_size
 exec --no-startup-id xdg-settings set default-web-browser firefox.desktop
-exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
-exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-size $cursor_size
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill 
