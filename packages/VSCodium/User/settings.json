@@ -19,7 +19,7 @@
     "javascript.updateImportsOnFileMove.enabled": "never",
     "typescript.preferences.jsxAttributeCompletionStyle": "none",
     "javascript.preferences.jsxAttributeCompletionStyle": "none",
-    "window.zoomLevel": 3,
+    "window.zoomLevel": 3.5,
     "editor.bracketPairColorization.enabled": false,
     "explorer.confirmDelete": false,
     "haskell.manageHLS": "PATH",

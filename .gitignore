@@ -1,6 +1,5 @@
-/packages/Code/*
+/packages/VSCodium/*
 /packages/btop
-/packages/vscode/*
 /packages/dconf
 /packages/mimeapps.list
 /packages/pulse

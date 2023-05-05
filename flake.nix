@@ -142,7 +142,17 @@
         chromium
         font-awesome
         pulsemixer
-        vscode
+        (vscode-with-extensions.override {
+          vscode = vscodium;
+          vscodeExtensions = with vscode-extensions; [
+            mkhl.direnv
+            haskell.haskell
+            justusadam.language-haskell
+            bbenoist.nix
+            rust-lang.rust-analyzer
+            WakaTime.vscode-wakatime
+          ];
+        })
         mtr
         phinger-cursors
         nmap
