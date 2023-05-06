@@ -14,9 +14,10 @@
       url = "github:greenfork/active-window.kak";
       flake = false;
     };
+    strictly-vscode-extension.url = "github:strictly-lang/vscode-plugin/streams";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, strictly-vscode-extension, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nix.settings.auto-optimise-store = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -151,6 +152,7 @@
             bbenoist.nix
             rust-lang.rust-analyzer
             WakaTime.vscode-wakatime
+            strictly-vscode-extension.packages.${system}.strictly
           ];
         })
         mtr
