@@ -129,11 +129,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1683360436,
-        "narHash": "sha256-3rwqUBb+d/gimm8QZotYPkQnEioEDTm8R288o01o/I0=",
+        "lastModified": 1683362182,
+        "narHash": "sha256-xkHDUQHdEpYhUIG9wQjLOp/dMJwHwN5boR5Z/wS/XMU=",
         "owner": "strictly-lang",
         "repo": "vscode-plugin",
-        "rev": "356198232f2b4c13d06b10ef91524677bcbf93b2",
+        "rev": "95cd4b4a025767b1acc4e59a4d026ff75143c33e",
         "type": "github"
       },
       "original": {
