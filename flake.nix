@@ -152,6 +152,7 @@
             bbenoist.nix
             rust-lang.rust-analyzer
             WakaTime.vscode-wakatime
+            dbaeumer.vscode-eslint
             strictly-vscode-extension.packages.${system}.strictly
           ];
         })
