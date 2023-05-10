@@ -16,6 +16,12 @@
         "editor.insertSpaces": false,
         "editor.tabSize": 4
     },
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
     "javascript.updateImportsOnFileMove.enabled": "never",
     "typescript.preferences.jsxAttributeCompletionStyle": "none",
     "javascript.preferences.jsxAttributeCompletionStyle": "none",
