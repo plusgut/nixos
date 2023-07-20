@@ -29,7 +29,7 @@
 
       # Use the systemd-boot EFI boot loader.
       boot.loader.systemd-boot.enable = true;
-      boot.loader.systemd-boot.configurationLimit = 10;
+      boot.loader.systemd-boot.configurationLimit = 3;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -39,6 +39,7 @@
 
       networking.wireless.networks.BlackRain.psk = "heileris23";
       networking.wireless.networks.BlackRain.extraConfig = "freq_list=2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484";
+      networking.wireless.networks.Vanitha.psk = "vanitha1963";
       # Set your time zone.
       time.timeZone = "Europe/Amsterdam";
 
@@ -132,6 +133,7 @@
 
       # List packages installed in system profile. To search, run:
       # $ nix search wget
+      #
       environment.systemPackages = with pkgs ; [
         pciutils
         usbutils
@@ -196,6 +198,7 @@
         zoxide
         direnv
         bat
+        obsidian
       ];
 
 
