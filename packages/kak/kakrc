@@ -3,7 +3,7 @@ evaluate-commands %sh{
 }
 
 source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
-source "/home/plusgut/nixos/packages/kak/plugins/lint.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
 require-module kitty
 
