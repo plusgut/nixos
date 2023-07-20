@@ -1,4 +1,5 @@
 /packages/VSCodium/*
+/packages/obsidian/*
 /packages/btop
 /packages/dconf
 /packages/mimeapps.list
