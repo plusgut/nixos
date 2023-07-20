@@ -198,7 +198,7 @@
         zoxide
         direnv
         bat
-        obsidian
+        marksman
       ];
 
 
