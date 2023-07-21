@@ -128,7 +128,6 @@
         "xdg/waybar".source = ./packages/waybar;
         "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
         "xdg/gtk-3.0/settings.ini".source = ./packages/gtk-3.0/settings.ini;
-        zshrc.text = (builtins.readFile ./packages/zsh/zshrc); 
       };
 
       # List packages installed in system profile. To search, run:
@@ -242,6 +241,15 @@
 
       programs.zsh = {
         enable = true;
+        interactiveShellInit = ''
+          source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+
+          setopt nobanghist
+          eval "$(zoxide init zsh)"
+          eval "$(direnv hook zsh)"
+          alias cd="_ZO_ECHO=1 z"
+        '';
+        promptInit = "";
       };
 
       programs.neovim = {
