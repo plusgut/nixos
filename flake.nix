@@ -196,6 +196,7 @@
         nb
         zoxide
         direnv
+        starship
         bat
         marksman
       ];
@@ -228,6 +229,7 @@
 
       fonts.fonts = with pkgs;  [
         font-awesome
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
       ];
 
       programs.git = {
@@ -242,11 +244,13 @@
       programs.zsh = {
         enable = true;
         interactiveShellInit = ''
-          source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-
           setopt nobanghist
+
+          export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/config.toml
+
           eval "$(zoxide init zsh)"
           eval "$(direnv hook zsh)"
+          eval "$(starship init zsh)"
           alias cd="_ZO_ECHO=1 z"
         '';
         promptInit = "";

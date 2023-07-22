@@ -1,0 +1,58 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$fill\
+$package\
+$haskell\
+$nodejs\
+$rust\
+$nix_shell\
+$env_var\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$status\
+$shell\
+$character"""
+
+[username]
+format = '[$user]($style)@'
+
+[cmd_duration]
+format = '\[[⏱ $duration]($style)\]'
+
+[git_branch]
+format = '\[[$symbol$branch]($style)\]'
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
+
+[haskell]
+format = '[$symbol]($style)'
+
+[nix_shell]
+format = '[$symbol]($style)'
+
+[nodejs]
+format = '[$symbol]($style)'
+
+[package]
+format = '[$symbol$version]($style) '
+
+[rust]
+format = '[$symbol]($style)'
+
+[sudo]
+format = '\[[as $symbol]($style)\]'
+
+[time]
+format = '\[[$time]($style)\]'
+
