@@ -106,7 +106,7 @@
           "wheel"
           "sudo"
         ]; # Enable ‘sudo’ for the user.
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
       };
 
       environment.loginShellInit = ''
@@ -300,19 +300,8 @@ done
         };
       };
 
-      programs.zsh = {
+      programs.fish = {
         enable = true;
-        interactiveShellInit = ''
-          setopt nobanghist
-
-          export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/config.toml
-
-          eval "$(zoxide init zsh)"
-          eval "$(direnv hook zsh)"
-          eval "$(starship init zsh)"
-          alias cd="_ZO_ECHO=1 z"
-        '';
-        promptInit = "";
       };
 
       programs.neovim = {
