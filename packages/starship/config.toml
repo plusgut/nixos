@@ -48,9 +48,6 @@ format = '[$symbol$version]($style) '
 [rust]
 format = '[$symbol]($style)'
 
-[time]
-format = '\[[$time]($style)\]'
-
 [custom.nix_flake]
 command = 'cat flake.lock | jq ".nodes.nixpkgs?.locked.lastModified" | duration'
 detect_files = ['flake.lock']
