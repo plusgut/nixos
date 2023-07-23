@@ -12,10 +12,8 @@ $package\
 $haskell\
 $nodejs\
 $rust\
-$nix_shell\
+${custom.nix_flake}\
 $env_var\
-$custom\
-$sudo\
 $cmd_duration\
 $line_break\
 $jobs\
@@ -27,13 +25,13 @@ $character"""
 format = '[$user]($style)@'
 
 [cmd_duration]
-format = '\[[⏱ $duration]($style)\]'
+format = '[⏱ $duration]($style)'
 
 [git_branch]
-format = '\[[$symbol$branch]($style)\]'
+format = '[$symbol$branch]($style)'
 
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style))'
+format = '([$all_status$ahead_behind]($style))'
 
 [haskell]
 format = '[$symbol]($style)'
@@ -50,9 +48,12 @@ format = '[$symbol$version]($style) '
 [rust]
 format = '[$symbol]($style)'
 
-[sudo]
-format = '\[[as $symbol]($style)\]'
-
 [time]
 format = '\[[$time]($style)\]'
 
+[custom.nix_flake]
+command = 'cat flake.lock | jq ".nodes.nixpkgs?.locked.lastModified" | duration'
+detect_files = ['flake.lock']
+format = '[$symbol$output]($style) '
+style = 'bold blue'
+symbol = '󱄅 '
