@@ -25,7 +25,7 @@ $status\
 format = '[$user]($style)@'
 
 [cmd_duration]
-format = '[⏱ $duration]($style)'
+format = '[⏱ $duration]($style) '
 
 [git_branch]
 format = '[$symbol$branch]($style)'
