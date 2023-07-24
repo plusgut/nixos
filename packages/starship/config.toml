@@ -7,7 +7,9 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$fill\
+$character"""
+
+right_format = """
 $package\
 $haskell\
 $nodejs\
@@ -15,11 +17,9 @@ $rust\
 ${custom.nix_flake}\
 $env_var\
 $cmd_duration\
-$line_break\
 $jobs\
 $status\
-$shell\
-$character"""
+"""
 
 [username]
 format = '[$user]($style)@'
@@ -31,12 +31,9 @@ format = '[⏱ $duration]($style)'
 format = '[$symbol$branch]($style)'
 
 [git_status]
-format = '([$all_status$ahead_behind]($style))'
+format = '([$all_status$ahead_behind]($style)) '
 
 [haskell]
-format = '[$symbol]($style)'
-
-[nix_shell]
 format = '[$symbol]($style)'
 
 [nodejs]
