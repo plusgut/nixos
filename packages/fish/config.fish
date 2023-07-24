@@ -12,3 +12,4 @@ starship init fish | source
 direnv hook fish | source
 
 alias cd="_ZO_ECHO=1 z"
+alias rm="rip"
