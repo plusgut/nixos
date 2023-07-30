@@ -134,6 +134,7 @@
       # $ nix search wget
       #
       environment.systemPackages = with pkgs ; [
+        exa
         pciutils
         usbutils
         brightnessctl

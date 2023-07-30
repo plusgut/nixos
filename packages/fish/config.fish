@@ -12,5 +12,8 @@ starship init fish | source
 direnv hook fish | source
 
 # alias cd="_ZO_ECHO=1 z"
+alias cd="z"
 alias codium="codium --ozone-platform-hint=auto"
 alias rm="rip"
+alias ls="exa --icons"
+alias ll="exa --icons --all --long --git"
