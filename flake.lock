@@ -37,11 +37,11 @@
     "kak-auto-pairs": {
       "flake": false,
       "locked": {
-        "lastModified": 1690703180,
-        "narHash": "sha256-3vi1f95oxTgISfEOiiwVuZmiTxddYzE7m2Kp6CxhupQ=",
+        "lastModified": 1690749471,
+        "narHash": "sha256-V8++6qZFsUOQsg0GCC+5PpPgAHsR9mCKB4YDnNBL/QQ=",
         "owner": "alexherbo2",
         "repo": "auto-pairs.kak",
-        "rev": "6ac53d6b793d25be33e0df27e3968969c79deaec",
+        "rev": "d4b33b783ea42a536c848296b5b6d434b4d1470f",
         "type": "github"
       },
       "original": {
