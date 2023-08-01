@@ -15,5 +15,5 @@ direnv hook fish | source
 alias cd="z"
 alias codium="codium --ozone-platform-hint=auto"
 alias rm="rip"
-alias ls="exa --icons"
-alias ll="exa --icons --all --long --git"
+alias ls="lsd --hyperlink auto"
+alias ll="lsd --long --almost-all --hyperlink auto"
