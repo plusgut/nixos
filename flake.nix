@@ -134,6 +134,7 @@
       # $ nix search wget
       #
       environment.systemPackages = with pkgs ; [
+        nodePackages_latest.mermaid-cli
         exa
         pciutils
         usbutils
@@ -258,10 +259,8 @@ do
 done
 
           ''
-
         )
       ];
-
 
       hardware.opengl.driSupport32Bit = true;
       # Some programs need SUID wrappers, can be configured further or are
