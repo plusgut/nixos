@@ -21,6 +21,8 @@ $jobs\
 $status\
 """
 
+add_newline = false
+
 [username]
 format = '[$user]($style)@'
 
