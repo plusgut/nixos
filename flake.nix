@@ -135,7 +135,7 @@
       #
       environment.systemPackages = with pkgs ; [
         nodePackages_latest.mermaid-cli
-        exa
+        lsd
         pciutils
         usbutils
         brightnessctl
