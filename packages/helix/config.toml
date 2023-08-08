@@ -3,6 +3,7 @@ theme = "nord"
 [editor]
 auto-save = true
 bufferline = "always"
+color-modes = true
 
 [editor.lsp]
 display-inlay-hints = true
