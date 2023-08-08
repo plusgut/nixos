@@ -2,6 +2,7 @@ theme = "nord"
 
 [editor]
 auto-save = true
+bufferline = "always"
 
 [editor.lsp]
 display-inlay-hints = true
@@ -9,8 +10,8 @@ display-inlay-hints = true
 [editor.soft-wrap]
 enable = true
 
-[editor.whitespace.render]
-tab = "all"
+[editor.indent-guides]
+render = true
 
 [keys.normal]
 right = "shrink_selection"
