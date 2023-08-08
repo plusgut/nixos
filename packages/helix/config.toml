@@ -1,0 +1,7 @@
+theme = "nord"
+
+[keys.normal]
+right = "shrink_selection"
+left = "expand_selection"
+down = "select_next_sibling"
+up = "select_prev_sibling"

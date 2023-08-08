@@ -134,6 +134,7 @@
       # $ nix search wget
       #
       environment.systemPackages = with pkgs ; [
+        helix
         nodePackages_latest.mermaid-cli
         lsd
         pciutils
