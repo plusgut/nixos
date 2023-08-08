@@ -1,5 +1,17 @@
 theme = "nord"
 
+[editor]
+auto-save = true
+
+[editor.lsp]
+display-inlay-hints = true
+
+[editor.soft-wrap]
+enable = true
+
+[editor.whitespace.render]
+tab = "all"
+
 [keys.normal]
 right = "shrink_selection"
 left = "expand_selection"
