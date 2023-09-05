@@ -86,6 +86,10 @@
         publish.userServices = true;
       };
 
+      services.tlp = {
+        enable = true;
+      };
+
       xdg = {
         portal = {
           enable = true;

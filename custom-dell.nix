@@ -29,6 +29,6 @@
     [ { device = "/dev/disk/by-uuid/82d96b65-acee-4ba0-9e2c-16ae4b3b49ca"; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableAllFirmware = true;
 }
