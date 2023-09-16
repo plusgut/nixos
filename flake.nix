@@ -15,9 +15,12 @@
       flake = false;
     };
     strictly-vscode-extension.url = "github:strictly-lang/vscode-plugin/streams";
+    helix = {
+      url = "github:helix-editor/helix";
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, strictly-vscode-extension, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, strictly-vscode-extension, helix, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nix.settings.auto-optimise-store = true;
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -124,7 +127,7 @@
         XDG_CURRENT_DESKTOP = "sway";
         XDG_CONFIG_HOME = "/home/plusgut/nixos/packages";
         CHROME_BIN="chromium";
-        EDITOR = "kak";
+        EDITOR = "hx";
         TERMINAL = "kitty";
       };
 
@@ -137,8 +140,7 @@
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       #
-      environment.systemPackages = with pkgs ; [
-        helix
+      environment.systemPackages = [ helix.packages.${pkgs.system}.default ] ++ (with pkgs ; [
         nodePackages_latest.mermaid-cli
         lsd
         pciutils
@@ -265,7 +267,7 @@ done
 
           ''
         )
-      ];
+      ]);
 
       hardware.opengl.driSupport32Bit = true;
       # Some programs need SUID wrappers, can be configured further or are
@@ -360,8 +362,8 @@ done
       specialArgs = attrs;
       modules = [
         common
-         nixos-hardware.nixosModules.dell-xps-13-9380
-         ./custom-lenovo.nix
+        nixos-hardware.nixosModules.dell-xps-13-9380
+        ./custom-lenovo.nix
       ];
     };
   };
