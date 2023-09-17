@@ -22,8 +22,14 @@
 
   outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, strictly-vscode-extension, helix, ... }@attrs:
     let common = ({ pkgs, ... }: {
-      nix.settings.auto-optimise-store = true;
-      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      nix = {
+        settings = {
+          auto-optimise-store = true;
+          experimental-features = [ "nix-command" "flakes" ];
+          substituters = ["https://helix.cachix.org"];
+          trusted-public-keys = ["helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="];
+        };
+      };
       nixpkgs.config.allowUnfree = true;
       nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
