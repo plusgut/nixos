@@ -90,19 +90,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1695886142,
-        "narHash": "sha256-5g5meWSsNT2lTRu6CJyOBFEzHe3GomjSDQyIwUm39AU=",
-        "owner": "helix-editor",
-        "repo": "helix",
-        "rev": "77fe8f214b15b8297a9f2f8ed929994559604d6c",
-=======
-        "lastModified": 1696295907,
+       "lastModified": 1696295907,
         "narHash": "sha256-GFeo5NpbFQjVeu2lv/B/pfZY/+SIt0KRHjh26s0bXAY=",
         "owner": "helix-editor",
         "repo": "helix",
         "rev": "75c0a5ceb32d8a503915a93ccc1b64c8ad1cba8b",
->>>>>>> 295f67f (flake.lock: Update)
         "type": "github"
       },
       "original": {
