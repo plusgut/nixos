@@ -14,13 +14,18 @@
       url = "github:greenfork/active-window.kak";
       flake = false;
     };
-    strictly-vscode-extension.url = "github:strictly-lang/vscode-plugin/streams";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+    };
+    strictly-vscode-extension = {
+      url = "github:strictly-lang/vscode-plugin/streams";
+    };
     helix = {
       url = "github:helix-editor/helix";
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, strictly-vscode-extension, helix, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, kak-auto-pairs, kak-wakatime, kak-active-window, nix-vscode-extensions, strictly-vscode-extension, helix, ... }@attrs:
     let common = ({ pkgs, ... }: {
       nix = {
         settings = {
@@ -161,14 +166,15 @@
         pulsemixer
         (vscode-with-extensions.override {
           vscode = vscodium;
-          vscodeExtensions = with vscode-extensions; [
+          vscodeExtensions = with nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
             mkhl.direnv
             haskell.haskell
             justusadam.language-haskell
             bbenoist.nix
             rust-lang.rust-analyzer
-            WakaTime.vscode-wakatime
+            wakatime.vscode-wakatime
             dbaeumer.vscode-eslint
+            orta.vscode-jest
             strictly-vscode-extension.packages.${system}.strictly
           ];
         })
