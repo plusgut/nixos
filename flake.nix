@@ -143,8 +143,6 @@
       };
 
       environment.etc = {
-        "xdg/waybar".source = ./packages/waybar;
-        "xdg/kitty/kitty.conf".source = ./packages/kitty/kitty.conf;
         "xdg/gtk-3.0/settings.ini".source = ./packages/gtk-3.0/settings.ini;
       };
 
