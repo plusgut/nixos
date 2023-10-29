@@ -31,4 +31,8 @@
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableAllFirmware = true;
+
+  environment.sessionVariables = {
+    PRIMARY_WORK_DIR = "/home/plusgut/projects/strictly";
+  };
 }

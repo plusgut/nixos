@@ -52,4 +52,8 @@
     /home/plusgut/nixos/private/pki/ca-chain-percha.pem
     /home/plusgut/nixos/private/pki/ca-chain-qsc-muc.pem
   ];
+
+  environment.sessionVariables = {
+    PRIMARY_WORK_DIR = "/home/plusgut/projects/gui/core";
+  };
 }
