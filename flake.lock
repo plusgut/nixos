@@ -124,11 +124,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1698329256,
-        "narHash": "sha256-P+0nZue0ZszLmzWWXw6eTgYLzoZm+1mr3DjS/jqi5+o=",
+        "lastModified": 1698363669,
+        "narHash": "sha256-b8dWxdCcwK3jU1eSFyDoKH9UKjgtbEV2f+pNCjzVl58=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "ef1f4f31b6e0d8338a9f5b8932de9b07ac7bb0a0",
+        "rev": "f992c3b5972dbe2432ceb55bc8d47fed912f88bf",
         "type": "github"
       },
       "original": {
@@ -192,11 +192,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1698283156,
-        "narHash": "sha256-VFM4IPR85hR1Ydd7ztmBjWm3CtleWG6cb6UouBFf1/U=",
+        "lastModified": 1698455861,
+        "narHash": "sha256-qCG2FqdCpJFTdwRzH4CfYUIwyXdLXH+mbkWTJv4wz5k=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "8574289fa0fc4ce88e29b797cbf523b97dc8cf9d",
+        "rev": "ccb2cfa4b140dd2a535c01488c42387d51b8c928",
         "type": "github"
       },
       "original": {
@@ -254,11 +254,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1698134075,
-        "narHash": "sha256-foCD+nuKzfh49bIoiCBur4+Fx1nozo+4C/6k8BYk4sg=",
+        "lastModified": 1698318101,
+        "narHash": "sha256-gUihHt3yPD7bVqg+k/UVHgngyaJ3DMEBchbymBMvK1E=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8efd5d1e283604f75a808a20e6cde0ef313d07d4",
+        "rev": "63678e9f3d3afecfeafa0acead6239cdb447574c",
         "type": "github"
       },
       "original": {
