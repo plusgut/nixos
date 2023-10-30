@@ -54,6 +54,6 @@
   ];
 
   environment.sessionVariables = {
-    PRIMARY_WORK_DIR = "/home/plusgut/projects/gui/core";
+    WORK_MODE = "professional";
   };
 }

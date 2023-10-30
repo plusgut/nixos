@@ -117,6 +117,9 @@ input type:keyboard {
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
 
+    bindsym $mod+Tab focus next
+    bindsym $mod+Shift+Tab focus prev
+
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
@@ -206,10 +209,13 @@ bindsym $mod+r mode "resize"
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
+
 bar {
     swaybar_command waybar
 }
 include /etc/sway/config.d/*
+
+workspace_layout tabbed
 
 bindsym XF86ScreenSaver exec "swaylock"
 
@@ -222,7 +228,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5
 bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute
 
 exec_always mako
-
-exec swaymsg "workspace 1; exec $term --session=~/nixos/packages/kitty/home.conf;"
-exec swaymsg "workspace 3; exec $term --session=~/nixos/packages/kitty/work.conf;"
+exec swaymsg "workspace 1; exec $term --directory=~/nixos;"
+exec swaymsg "workspace 1; exec $term --directory=~/brain;"
+exec swaymsg "workspace 3; exec $term --session=~/nixos/packages/kitty/${WORK_MODE}.session;"
 exec swaymsg "workspace 2; exec $browser"
