@@ -33,6 +33,6 @@
   hardware.enableAllFirmware = true;
 
   environment.sessionVariables = {
-    PRIMARY_WORK_DIR = "/home/plusgut/projects/strictly";
+    WORK_MODE = "personal";
   };
 }

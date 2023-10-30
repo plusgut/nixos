@@ -1,6 +1,0 @@
-cd $HOME/nixos
-launch fish
-
-new_tab
-cd $HOME/brain
-launch fish
