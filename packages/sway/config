@@ -71,8 +71,15 @@ exec swayidle -w \
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+workspace_layout tabbed
+
 hide_edge_borders smart
 default_border pixel 1
+
+for_window [title=".*"] title_window_icon on
+
+font pango:monospace 18
+
 input type:touchpad {
   tap enabled
 }
@@ -116,9 +123,6 @@ input type:keyboard {
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-
-    bindsym $mod+Tab focus next
-    bindsym $mod+Shift+Tab focus prev
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
@@ -214,8 +218,6 @@ bar {
     swaybar_command waybar
 }
 include /etc/sway/config.d/*
-
-workspace_layout tabbed
 
 bindsym XF86ScreenSaver exec "swaylock"
 
