@@ -2,11 +2,11 @@ evaluate-commands %sh{
   kcr init kakoune
 }
 
-source "packages/kak/plugins/git.kak"
-source "packages/kak/plugins/javascript.kak"
-source "packages/kak/plugins/rust.kak"
-source "packages/kak/plugins/broot.kak"
-source "packages/kak/plugins/notes.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/notes.kak"
 
 require-module kitty
 
