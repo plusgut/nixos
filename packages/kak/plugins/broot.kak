@@ -1,5 +1,5 @@
-map global user p -docstring "file explorer cwd" ": broot-cwd<ret>"
-map global user P -docstring "file explorer current" ": broot-local<ret>"
+map global user f -docstring "file explorer cwd" ": broot-cwd<ret>"
+map global user F -docstring "file explorer current" ": broot-local<ret>"
 
 define-command -override broot-cwd %{
   connect kitty-terminal-overlay sh -c %{
