@@ -2,10 +2,12 @@ evaluate-commands %sh{
   kcr init kakoune
 }
 
-source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
-source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
-source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
-source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
+source "packages/kak/plugins/git.kak"
+source "packages/kak/plugins/javascript.kak"
+source "packages/kak/plugins/rust.kak"
+source "packages/kak/plugins/broot.kak"
+source "packages/kak/plugins/notes.kak"
+
 require-module kitty
 
 enable-auto-pairs
@@ -16,16 +18,24 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
-map global user n -docstring "new window" ": connect terminal kcr attach<ret>"
-map global user t -docstring "new tab" ": connect kitty-terminal-tab kcr attach<ret>"
-map global user b -docstring "fuzzy buffers" ": fzf-buffers<ret>"
-map global user c -docstring "new terminal" ": connect terminal<ret>"
-map global user w -docstring "close buffer" ": delete-buffer!<ret>"
+map global user n -docstring "new window" ":connect terminal kcr attach<ret>"
+map global user t -docstring "new tab" ":connect kitty-terminal-tab kcr attach<ret>"
+map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
+map global user c -docstring "new terminal" ":connect terminal<ret>"
+map global user w -docstring "close buffer" ":delete-buffer!<ret>"
 
-map global user g -docstring "git" ": enter-user-mode git<ret>" 
-map global user l -docstring "languageserver" ": enter-user-mode lsp<ret>"
+map global user g -docstring "git" ":enter-user-mode git<ret>" 
+map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
+map global user n -docstring 'notes' ':enter-user-mode kak-notes<ret>'
 
 set-option global kitty_window_type "os-window"
+
+# notes
+set-option global kak_notes_root_dir %sh{ echo $HOME/brain }
+set-option global kak_notes_dir %sh{ echo $HOME/brain/notes }
+set-option global kak_notes_archives_dir %sh{ echo $HOME/brain/archives }
+set-option global kak_notes_journal_dir %sh{ echo $HOME/brain/daily }
+set-option global kak_notes_capture_file %sh{ echo $HOME/brain/capture.md }
 
 hook global InsertCompletionShow .* %{
   map window insert <tab> <c-n>
