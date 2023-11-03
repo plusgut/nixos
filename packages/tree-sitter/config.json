@@ -1,0 +1,54 @@
+{
+  "parser-directories": [
+    "/home/plusgut/projects/strictly/packages"
+  ],
+  "theme": {
+    "embedded": null,
+    "variable.parameter": {
+      "underline": true
+    },
+    "function": 26,
+    "tag": 18,
+    "function.builtin": {
+      "bold": true,
+      "color": 26
+    },
+    "punctuation.bracket": 239,
+    "operator": {
+      "color": 239,
+      "bold": true
+    },
+    "property": 124,
+    "punctuation.delimiter": 239,
+    "type": 23,
+    "type.builtin": {
+      "color": 23,
+      "bold": true
+    },
+    "string": 28,
+    "attribute": {
+      "italic": true,
+      "color": 124
+    },
+    "constant": 94,
+    "constructor": 136,
+    "keyword": 56,
+    "variable.builtin": {
+      "bold": true
+    },
+    "constant.builtin": {
+      "bold": true,
+      "color": 94
+    },
+    "comment": {
+      "color": 245,
+      "italic": true
+    },
+    "number": {
+      "bold": true,
+      "color": 94
+    },
+    "module": 136,
+    "string.special": 30
+  }
+}

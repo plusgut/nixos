@@ -138,7 +138,7 @@
         XDG_CURRENT_DESKTOP = "sway";
         XDG_CONFIG_HOME = "/home/plusgut/nixos/packages";
         CHROME_BIN="chromium";
-        EDITOR = "hx";
+        EDITOR = "kak";
         TERMINAL = "kitty";
       };
 
