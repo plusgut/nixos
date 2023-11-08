@@ -19,7 +19,7 @@ add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
 map global user n -docstring "new window" ":connect terminal kcr attach<ret>"
-map global user t -docstring "new tab" ":connect kitty-terminal-tab kcr attach<ret>"
+map global user t -docstring "new tab" ":connect kitty-terminal kcr attach<ret>"
 map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
 map global user c -docstring "new terminal" ":connect terminal<ret>"
 map global user w -docstring "close buffer" ":delete-buffer!<ret>"
