@@ -87,7 +87,7 @@
     },
     "custom/power": {
         "format": "",
-        "on-click": "systemctl poweroff",
+        "on-click-release": "systemctl poweroff",
         "tooltip": false
     }
 }
