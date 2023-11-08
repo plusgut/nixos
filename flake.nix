@@ -151,7 +151,6 @@
       #
       environment.systemPackages = [ helix.packages.${pkgs.system}.default ] ++ (with pkgs ; [
         gh
-        nodePackages_latest.mermaid-cli
         lsd
         pciutils
         usbutils
@@ -209,11 +208,7 @@
         kak-lsp
         wakatime
         fzf
-        lf
-        fd
-        tig
         wl-clipboard
-        nb
         zoxide
         direnv
         starship
@@ -293,7 +288,7 @@ done
         enable = true;
         wrapperFeatures.gtk = true;
         extraPackages = with pkgs; [
-          dmenu
+          rofi
           waybar
           kitty
           mako
