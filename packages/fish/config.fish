@@ -25,7 +25,6 @@ function fish_title
 end
 
 set -g fish_prompt_pwd_dir_length 0
-set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
 
 zoxide init fish | source
 starship init fish | source
