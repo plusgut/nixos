@@ -215,6 +215,7 @@
         bat
         marksman
         rm-improved
+        mpv
         (pkgs.writeShellScriptBin "duration" ''
 ONE_SECOND=1
 ONE_MINUTE=$((ONE_SECOND * 60))
