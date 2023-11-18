@@ -51,7 +51,6 @@ format = '[$symbol$version]($style) '
 format = '[$symbol]($style)'
 
 [custom.nix_flake]
-command = 'cat flake.lock | jq ".nodes.nixpkgs?.locked.lastModified" | duration'
 detect_files = ['flake.lock']
 format = '[$symbol$output]($style) '
 style = 'bold blue'
