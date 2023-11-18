@@ -9,6 +9,6 @@ define-command -override broot-cwd %{
 
 define-command -override broot-local %{
   connect kitty-terminal-overlay sh -c %{
-    kcr get --raw --value bufname | EDITOR="kcr edit --" xargs -o broot
+    kcr get --raw --value bufname | EDITOR="kcr edit --" xargs -o broot -c ':toggle_preview'
   }
 }
