@@ -7,6 +7,20 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        config = pkgs.stdenv.mkDerivation {
+          name = "starship-config";
+          src = ./.;
+          installPhase = ''
+            runHook preInstall
+
+            mkdir $out
+            cp config.toml $out/
+            echo "command = 'cat flake.lock | ${pkgs.jq}/bin/jq \".nodes.nixpkgs?.locked.lastModified\" | ${duration}/bin/duration'" >> $out/config.toml
+
+            runHook postInstall
+          '';
+
+        };
         duration = (pkgs.writeShellScriptBin "duration" ''
           ONE_SECOND=1
           ONE_MINUTE=$((ONE_SECOND * 60))
@@ -66,6 +80,6 @@
         '');
 
       in { packages = { default = pkgs.writeShellScriptBin "starship" ''
-           STARSHIP_CONFIG=/home/plusgut/nixos/packages/starship/config.toml ${pkgs.starship}/bin/starship $@
+           STARSHIP_CONFIG=${config}/config.toml ${pkgs.starship}/bin/starship $@
         ''; }; });
 }

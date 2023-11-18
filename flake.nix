@@ -222,7 +222,6 @@
             marksman
             rm-improved
             mpv
-            
           ]);
 
         hardware.opengl.driSupport32Bit = true;
