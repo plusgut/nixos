@@ -55,3 +55,4 @@ detect_files = ['flake.lock']
 format = '[$symbol$output]($style) '
 style = 'bold blue'
 symbol = '󱄅 '
+command = 'cat flake.lock | jq ".nodes.nixpkgs?.locked.lastModified" | duration'
