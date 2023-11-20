@@ -108,7 +108,7 @@ input type:keyboard {
     bindsym $mod+b exec $browser 
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+w kill
 
     # Start your launcher
     bindsym $mod+e exec $menu
@@ -175,7 +175,7 @@ input type:keyboard {
 # Layout stuff:
 #
     # Make the current focus fullscreen
-    bindsym $mod+w fullscreen
+#    bindsym $mod+w fullscreen
 
 #
 # Resizing containers:
