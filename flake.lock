@@ -137,54 +137,6 @@
         "type": "github"
       }
     },
-    "kak-active-window": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1668444692,
-        "narHash": "sha256-6GLt9g20ddbXb29Vdl0YXFDWC73qip9cVU8EgdNlYbs=",
-        "owner": "greenfork",
-        "repo": "active-window.kak",
-        "rev": "36bf0364eed856a52cddf274072e9f255902c0ee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "greenfork",
-        "repo": "active-window.kak",
-        "type": "github"
-      }
-    },
-    "kak-auto-pairs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1690749471,
-        "narHash": "sha256-V8++6qZFsUOQsg0GCC+5PpPgAHsR9mCKB4YDnNBL/QQ=",
-        "owner": "alexherbo2",
-        "repo": "auto-pairs.kak",
-        "rev": "d4b33b783ea42a536c848296b5b6d434b4d1470f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "alexherbo2",
-        "repo": "auto-pairs.kak",
-        "type": "github"
-      }
-    },
-    "kak-wakatime": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1648487078,
-        "narHash": "sha256-juDRQ+ICJUOKa2HPk7JiMd/h+V2tKa9rfTquvaZHHcw=",
-        "owner": "WhatNodyn",
-        "repo": "kakoune-wakatime",
-        "rev": "d3529c13c9227b2de89e4cd53ada43a5b83d7844",
-        "type": "github"
-      },
-      "original": {
-        "owner": "WhatNodyn",
-        "repo": "kakoune-wakatime",
-        "type": "github"
-      }
-    },
     "nix-vscode-extensions": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -287,9 +239,6 @@
     "root": {
       "inputs": {
         "helix": "helix",
-        "kak-active-window": "kak-active-window",
-        "kak-auto-pairs": "kak-auto-pairs",
-        "kak-wakatime": "kak-wakatime",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
