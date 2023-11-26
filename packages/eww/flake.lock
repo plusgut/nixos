@@ -108,11 +108,28 @@
         "type": "github"
       }
     },
+    "ristate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690116859,
+        "narHash": "sha256-6slH7R6kbSXQBd7q38oBEbngaCbFv0Tyq34VB1PAfhM=",
+        "ref": "refs/heads/master",
+        "rev": "92e989f26cadac69af1208163733e73b4cf447da",
+        "revCount": 42,
+        "type": "git",
+        "url": "https://gitlab.com/snakedye/ristate.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.com/snakedye/ristate.git"
+      }
+    },
     "root": {
       "inputs": {
         "eww": "eww",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
+        "ristate": "ristate",
         "rust-overlay": "rust-overlay"
       }
     },
