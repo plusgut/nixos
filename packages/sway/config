@@ -72,6 +72,7 @@ exec swayidle -w \
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 workspace_layout tabbed
+focus_on_window_activation focus
 
 hide_edge_borders smart
 default_border pixel 1
