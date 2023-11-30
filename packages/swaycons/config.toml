@@ -1,0 +1,13 @@
+[global]
+color = "#FFFFFF"
+focused_color = "#FFFFFF"
+icon = "󰖯"
+size = "16pt"
+separator = " "
+
+[app_id]
+firefox = { icon = "", color = "#ff8817" }
+kitty = { icon = "" }
+
+[title]
+"- Kakoune$" = { app_id = ["kitty"], icon = "󰏪" }

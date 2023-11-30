@@ -77,9 +77,7 @@ focus_on_window_activation focus
 hide_edge_borders smart
 default_border pixel 1
 
-for_window [title=".*"] title_window_icon on
-
-font pango:monospace 18
+font pango:FuraCode Nerd Font 18
 
 input type:touchpad {
   tap enabled
@@ -231,6 +229,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5
 bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute
 
 exec_always mako
+exec_always swaycons
 exec swaymsg "workspace 1; exec $term --directory=~/nixos; exec $term --directory=~/brain;"
 exec swaymsg "workspace 3; exec $term --session=~/nixos/packages/kitty/${WORK_MODE}.session;"
 exec swaymsg "workspace 2; exec $browser"
