@@ -6,6 +6,7 @@
     // Choose the order of the modules
     "modules-left": [
         "sway/workspaces",
+        "river/tags"
     ],
     "modules-center": [],
     "modules-right": [
@@ -25,6 +26,9 @@
             "4": "",
             "5": "",
         }
+    },
+    "river/tags": {
+        "num-tags": 5
     },
     "clock": {
         // "timezone": "America/New_York",
