@@ -15,7 +15,6 @@
 
       in {
         packages = {
-            default = pkgs.river;
             ristate = pkgs.rustPlatform.buildRustPackage rec {
               pname = "ristate";
               version = "0.1.0";
