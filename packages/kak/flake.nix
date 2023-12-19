@@ -3,6 +3,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    kakoune = {
+      url = "github:mawww/kakoune";
+      flake = false;
+    };
     kak-auto-pairs = {
       url = "github:alexherbo2/auto-pairs.kak";
       flake = false;
@@ -16,7 +20,7 @@
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, flake-utils, kak-auto-pairs, kak-wakatime, kak-active-window }:
+  outputs = { self, nixpkgs, flake-utils, kakoune, kak-auto-pairs, kak-wakatime, kak-active-window }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -24,7 +28,7 @@
       in {
         packages = {
             default =
-                (pkgs.kakoune.override {
+                (pkgs.wrapKakoune (pkgs.kakoune-unwrapped.overrideAttrs (oldAttrs: { src = kakoune; patches = []; })) {
                   plugins = with pkgs.kakounePlugins; [
                     (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
                       pname = "auto-pairs";
