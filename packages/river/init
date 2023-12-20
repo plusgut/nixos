@@ -39,12 +39,26 @@ riverctl map normal $altmod K swap previous
 #riverctl map normal $mod H send-layout-cmd rivertile "main-ratio -0.05"
 #riverctl map normal $mod L send-layout-cmd rivertile "main-ratio +0.05"
 
+tagChars=("a" "s" "d" "f" "g")
 
-riverctl map normal $mod a set-focused-tags 1
-riverctl map normal $mod s set-focused-tags 2
-riverctl map normal $mod d set-focused-tags 3
-riverctl map normal $mod f set-focused-tags 4
-riverctl map normal $mod g set-focused-tags 5
+for i in $(seq 1 5)
+do
+    tags=$((1 << ($i - 1)))
+    tagChar=${tagChars[$i - 1]}
+    echo $tagChar
+
+    # Super+[1-9] to focus tag [0-8]
+    riverctl map normal Super $tagChar set-focused-tags $tags
+
+    # Super+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal Super+Shift $tagChar set-view-tags $tags
+
+    # Super+Control+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal Super+Control $tagChar toggle-focused-tags $tags
+
+    # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal Super+Shift+Control $tagChar toggle-view-tags $tags
+done
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
