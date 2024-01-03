@@ -11,8 +11,12 @@
 
       in {
         packages = {
-            default = pkgs.qtile;
+            default = pkgs.python3.withPackages (_p: [
+              pkgs.python3.pkgs.qtile
+              pkgs.python3.pkgs.catppuccin
+            ]);
         };
+
     }
   );
 }

@@ -28,6 +28,10 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.backend.wayland import InputConfig
+from libqtile.widget import Wallpaper
+from catppuccin import Flavour
+
+catpuccin = Flavour.mocha()
 
 mod = "Control"
 
@@ -114,6 +118,7 @@ screens = [
                 widget.QuickExit(),
             ],
             24,
+            background = f"#{catpuccin.crust.hex}"
         ),
    ),
 ]
