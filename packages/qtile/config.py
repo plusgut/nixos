@@ -28,7 +28,9 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.backend.wayland import InputConfig
-from libqtile.widget import Wallpaper
+
+from tabs import Tabbed
+
 from catppuccin import Flavour
 
 catpuccin = Flavour.mocha()
@@ -54,13 +56,6 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "r", lazy.reload_config(), desc="Reload the config"),
@@ -98,7 +93,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    Tabbed(),
 ]
 
 widget_defaults = dict(
