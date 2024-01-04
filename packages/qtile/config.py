@@ -102,6 +102,7 @@ widget_defaults = dict(
     font="sans",
     fontsize=24,
     padding=3,
+    foreground= catpuccin.text.hex
 )
 extension_defaults = widget_defaults.copy()
 
@@ -109,13 +110,13 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
+                widget.GroupBox(highlight_method = "block", inactive = catpuccin.overlay1.hex, active = catpuccin.blue.hex),
                 widget.WindowName(),
                 widget.Clock(format="%H:%M"),
                 widget.QuickExit(),
             ],
             24,
-            background = f"#{catpuccin.crust.hex}"
+            background = f"{catpuccin.crust.hex}"
         ),
    ),
 ]
