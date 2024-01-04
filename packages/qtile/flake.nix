@@ -15,6 +15,7 @@
               pkgs.python3.pkgs.qtile
               pkgs.python3.pkgs.catppuccin
             ]);
+            swaybg = pkgs.swaybg;
         };
 
     }

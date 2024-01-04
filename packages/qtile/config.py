@@ -24,14 +24,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.backend.wayland import InputConfig
 
-from tabs import Tabbed
-
+import subprocess
+import os
 from catppuccin import Flavour
+
+from tabs import Tabbed
 
 catpuccin = Flavour.mocha()
 
@@ -156,6 +158,16 @@ wl_input_rules = {
     "type:touchpad": InputConfig(tap=True),
     "type:keyboard": InputConfig(kb_layout="de"),
 }
+
+@hook.subscribe.startup_once
+def autostart():
+    processes = [
+      ["swaybg", "-m", "center", "-c", f"#{catpuccin.base.hex}", "-i", os.path.expandvars("$XDG_CONFIG_HOME/qtile/assets/catpuccin.png")]
+    ]
+
+    for process in processes:
+         subprocess.Popen(process)
+
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
 # mailing lists, GitHub issues, and other WM documentation that suggest setting
