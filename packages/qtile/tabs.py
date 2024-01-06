@@ -7,25 +7,22 @@ from libqtile.backend.base import Window
 from libqtile.config import ScreenRect
 
 class Cell(_ClientList):
-    index: int
     weight: int
-    def __init__(self, index):
+    def __init__(self):
         _ClientList.__init__(self)
-        self.index = index
 
 class Row:
-    index: int
-    weight: int
+    weight: int | None
 
     current_cell_index = 0
     cells = [];
 
-    def __init__(self, index):
-        self.index = index
+    def __init__(self):
+        pass
 
     def add_client(self, client: Window) -> None:
         if self.current_cell is None:
-            self.cells.append(Cell(self.current_cell))
+            self.cells.append(Cell())
 
         self.current_cell.add_client(client)
 
@@ -55,7 +52,7 @@ class Tabs(Layout):
         configuring.
         """
         if self.current_row is None:
-            self.rows.append(Row(self.current_row_index))
+            self.rows.append(Row())
 
         self.current_row.add_client(client)
 
@@ -79,6 +76,8 @@ class Tabs(Layout):
               `.place()` method.
             - Call either `.hide()` or `.unhide()` on the window.
         """
+
+        screen_rects = self.calculate_rects(screen_rect)
         if self.current_row is not None and self.current_row.current_cell is not None and client is self.current_row.current_cell.current_client:
             client.place(
                 screen_rect.x, screen_rect.y, screen_rect.width, screen_rect.height, 0, None
@@ -148,6 +147,29 @@ class Tabs(Layout):
 
     def previous(self) -> None:
         pass
+
+    def calculate_rects(self, screen_rect: ScreenRect):
+        row_amount = len(self.rows)
+
+        rects = []
+        y = screen_rect.y
+
+        for row in self.rows:
+            cells = []
+            row_height = (screen_rect.height - screen_rect.y) / row_amount
+            x = screen_rect.x
+            cell_amount = len(row.cells)
+
+            for cell in row.cells:
+                cell_width = (screen_rect.width - screen_rect.x) / cell_amount
+                cells.append(ScreenRect(x, y, row_height, cell_width))
+                x = x + cell_width
+
+            rects.append(cells)
+
+            y = y + row_height
+
+        return rects
 
     @property
     def current_row(self) -> Window | None:
