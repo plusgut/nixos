@@ -33,7 +33,7 @@ import subprocess
 import os
 from catppuccin import Flavour
 
-from tabs import Tabbed
+from tabs import Tabs
 
 catpuccin = Flavour.mocha()
 
@@ -95,7 +95,7 @@ for i in groups:
     )
 
 layouts = [
-    Tabbed(),
+    Tabs(),
 ]
 
 widget_defaults = dict(
