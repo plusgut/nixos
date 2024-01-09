@@ -7,21 +7,16 @@ from libqtile.config import ScreenRect
 from libqtile.log_utils import logger
 from libqtile.group import _Group
 
-tab_bar_height = 24
-tab_bar_background = "ff0000"
-
 class Tab:
-    def draw(self, cell, client, left):
-        if not cell._root.group.screen:
-            return
+    left = 0
+    right = 0
+    def draw(self, layout, client, left):
 
-        cell.layout.text = client.name
-        cell.layout.colour = "0000ff"
+        layout.text = client.name
 
-        cell.layout.width = 100
-        framed = cell.layout.framed(
+        framed = layout.framed(
             border_width = 1,
-            border_color = "ffffff",
+            border_color = "000000", # this is the background color
             pad_x = 0,
             pad_y = 0,
         )
@@ -51,7 +46,7 @@ class Cell(_ClientList):
         _ClientList.add_client(self, client)
 
     def configure(self, client: Window, screen_rect: ScreenRect):
-        tab_screen_rect, client_screen_rect = screen_rect.vsplit(tab_bar_height)
+        tab_screen_rect, client_screen_rect = screen_rect.vsplit(self._root.tab_bar_height)
 
         if self._tab_bar is None:
             self._create_tab_bar(tab_screen_rect)
@@ -95,18 +90,21 @@ class Cell(_ClientList):
             screen_rect.width,
             screen_rect.height,
         )
-        self._drawer.clear(tab_bar_background)
-        self.layout = self._drawer.textlayout(
-            "", "#ff00ff", "sans", "14", None,
-            wrap=False
-        )
+        self._drawer.clear(self._root.tab_bar_background_color)
 
     def draw(self, *args):
-        self._drawer.clear(tab_bar_background)
+        self._drawer.clear(self._root.tab_bar_background_color)
 
         left = 0
-        for client in self.clients:
-            left = self._tabs[client].draw(self, client, left)
+        for client_index in range(len(self.clients)):
+            client = self.clients[client_index]
+            layout = self._drawer.textlayout(
+                "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
+                wrap=False
+            )
+            layout.colour = self._root.tab_active_font_color if self._current_idx is client_index else self._root.tab_inactive_font_color 
+
+            left = self._tabs[client].draw(layout, client, left)
 
         self._drawer.draw(offsetx=0, offsety=0,width = left)
 
@@ -145,6 +143,17 @@ class Row:
 
 class Tabs(Layout):
     defaults = [
+        ("window_gap", 0, "Background between windows"),
+        ("tab_bar_height", 24, "Height of the tab bar"),
+        ("tab_bar_background_color", "000000", "Background of the tab bar"),
+        ("tab_font", "sans", "Font size of tab"),
+        ("tab_fontsize", 14, "Font size of tab"),
+        ("tab_active_font_color", "ff0000", "Background color of an inactive tab"),
+        ("tab_active_border_color", "ff0000", "Background color of an inactive tab"),
+        ("tab_active_background_color", "000000", "Background color of an inactive tab"),
+        ("tab_inactive_font_color", "ffffff", "Background color of an inactive tab"),
+        ("tab_inactive_border_color", "ffffff", "Background color of an inactive tab"),
+        ("tab_inactive_background_color", "000000", "Background color of an inactive tab"),
     ]
     rows  = []
 
