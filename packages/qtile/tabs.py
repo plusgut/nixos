@@ -121,6 +121,7 @@ class Cell(_ClientList):
 class Row:
     weight: int | None
     _root = None
+    _clients = {}
 
     current_cell_index = 0
     cells = [];
@@ -136,6 +137,7 @@ class Row:
         if len(self.cells) <= self.current_cell_index:
             self.cells.append(Cell(self._root))
 
+        self._clients[client.wid] = self.current_cell_index
         self.cells[self.current_cell_index].add_client(client)
 
     def configure(self, client: Window, screen_rect):
@@ -165,6 +167,7 @@ class Tabs(Layout):
         ("tab_inactive_border_color", "ffffff", "Background color of an inactive tab"),
         ("tab_inactive_background_color", "000000", "Background color of an inactive tab"),
     ]
+    _clients = {}
     rows  = []
 
     current_row_index = 0
@@ -188,6 +191,7 @@ class Tabs(Layout):
         if len(self.rows) <= self.current_row_index:
             self.rows.append(Row(self))
 
+        self._clients[client.wid] = self.current_row_index
         self.rows[self.current_row_index].add_client(client)
 
     def remove(self, client: Window) -> Window | None:
