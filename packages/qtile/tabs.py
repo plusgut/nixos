@@ -12,16 +12,6 @@ class Tab:
     right = 0
     def draw(self, layout, client, left):
 
-        layout.text = client.name
-
-        framed = layout.framed(
-            border_width = 1,
-            border_color = "000000", # background color
-            pad_x = 0,
-            pad_y = 0,
-        )
-
-        framed.draw_fill(left, 0, rounded=True)
 
         return left + framed.width
 
@@ -42,7 +32,7 @@ class Cell(_ClientList):
             self._drawer.finalize()
 
     def add_client(self, client: Window):
-        self._tabs[client] = Tab()
+        self._tabs[client.wid] = Tab()
         _ClientList.add_client(self, client, 1)
 
     def configure(self, client: Window, screen_rect: ScreenRect):
@@ -53,6 +43,7 @@ class Cell(_ClientList):
 
         for loopedClient in self.clients:
             if loopedClient is client:
+                self._tab_bar.process_button_click = self.process_button_click
                 hook.subscribe.client_name_updated(self.draw)
                 hook.subscribe.focus_change(self.draw)
 
@@ -70,12 +61,12 @@ class Cell(_ClientList):
                   client.hide()
         self.draw()
         self._tab_bar.place(
-                        tab_screen_rect.x,
-                        tab_screen_rect.y,
-                        tab_screen_rect.width,
-                        tab_screen_rect.height,
-                        0,
-                        None
+            tab_screen_rect.x,
+            tab_screen_rect.y,
+            tab_screen_rect.width,
+            tab_screen_rect.height,
+            0,
+            None
         )
         self._tab_bar.unhide()
 
@@ -104,10 +95,28 @@ class Cell(_ClientList):
             )
             layout.colour = self._root.tab_active_font_color if self._current_idx is client_index else self._root.tab_inactive_font_color 
 
-            left = self._tabs[client].draw(layout, client, left)
+            layout.text = client.name
+
+            framed = layout.framed(
+                border_width = 1,
+                border_color = "000000", # background color
+                pad_x = 0,
+                pad_y = 0,
+            )
+
+            framed.draw_fill(left, 0, rounded=True)
+
+
+            self._tabs[client.wid].left = left
+            self._tabs[client.wid].right = left + framed.width
+
+            left = self._tabs[client.wid].right + self._root.tab_gap
 
         self._drawer.draw(offsetx=0, offsety=0,width = left)
 
+
+    def process_button_click(self, x, y, _button):
+        pass
 
 class Row:
     weight: int | None
@@ -146,6 +155,7 @@ class Tabs(Layout):
         ("window_gap", 0, "Background between windows"),
         ("tab_bar_height", 24, "Height of the tab bar"),
         ("tab_bar_background_color", "000000", "Background of the tab bar"),
+        ("tab_gap", 10, "Gaps between tabs"),
         ("tab_font", "sans", "Font size of tab"),
         ("tab_fontsize", 14, "Font size of tab"),
         ("tab_active_font_color", "ff0000", "Background color of an inactive tab"),
@@ -174,6 +184,7 @@ class Tabs(Layout):
         the window to its internal datastructures, without mapping or
         configuring.
         """
+
         if len(self.rows) <= self.current_row_index:
             self.rows.append(Row(self))
 
