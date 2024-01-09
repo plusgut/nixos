@@ -138,9 +138,17 @@ class Row:
 
         return self.cells[self.current_cell_index]
 
-    def configure(self, client: Window, screen_rects):
-        for (cell, screen_rect) in zip(self.cells, screen_rects):
-            cell.configure(client, screen_rect)
+    def configure(self, client: Window, screen_rect):
+        cell_length = len(self.cells)
+        cell_amount = cell_length # @TODO add weight of each cell
+
+        for cell_index in range(len(self.cells)):
+            if cell_index + 1 is cell_length:
+                cell_rect = screen_rect
+            else:
+                (cell_rect, screen_rect) = screen_rect.vsplit(1 / cell_length)
+
+            self.cells[cell_index].configure(client, cell_rect)
 
 class Tabs(Layout):
     defaults = [
@@ -190,10 +198,16 @@ class Tabs(Layout):
             - Call either `.hide()` or `.unhide()` on the window.
         """
 
-        cell_rects = self.calculate_rects(screen_rect)
+        row_length = len(self.rows)
+        row_amount = row_length # @TODO add weight of each row
 
         for row_index in range(len(self.rows)):
-            self.rows[row_index].configure(client, cell_rects[row_index])
+            if row_index + 1 is row_length:
+                row_rect = screen_rect
+            else:
+                (row_rect, screen_rect) = screen_rect.vsplit(1 / row_length)
+
+            self.rows[row_index].configure(client, row_rect)
 
     def focus_first(self) -> Window | None:
         """Called when the first client in Layout shall be focused.
@@ -256,30 +270,6 @@ class Tabs(Layout):
 
     def previous(self) -> None:
         pass
-
-    def calculate_rects(self, screen_rect: ScreenRect):
-        row_amount = len(self.rows)
-
-        rects = []
-        y = screen_rect.y
-
-        for row in self.rows:
-            cells = []
-            row_height = int(screen_rect.height / row_amount)
-            x = screen_rect.x
-            cell_amount = len(row.cells)
-
-            for cell in row.cells:
-                cell_width = int(screen_rect.width / cell_amount)
-                cells.append(ScreenRect(x, y, cell_width, row_height))
-                x = x + cell_width
-
-            rects.append(cells)
-
-            y = y + row_height
-
-
-        return rects
 
     @property
     def current_row(self) -> Window | None:
