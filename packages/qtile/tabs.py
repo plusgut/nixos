@@ -16,7 +16,7 @@ class Tab:
 
         framed = layout.framed(
             border_width = 1,
-            border_color = "000000", # this is the background color
+            border_color = "000000", # background color
             pad_x = 0,
             pad_y = 0,
         )
@@ -43,7 +43,7 @@ class Cell(_ClientList):
 
     def add_client(self, client: Window):
         self._tabs[client] = Tab()
-        _ClientList.add_client(self, client)
+        _ClientList.add_client(self, client, 1)
 
     def configure(self, client: Window, screen_rect: ScreenRect):
         tab_screen_rect, client_screen_rect = screen_rect.vsplit(self._root.tab_bar_height)
