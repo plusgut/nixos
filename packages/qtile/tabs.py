@@ -126,17 +126,10 @@ class Row:
           cell.finalize()
 
     def add_client(self, client: Window) -> None:
-        if self.current_cell is None:
+        if len(self.cells) <= self.current_cell_index:
             self.cells.append(Cell(self._root))
 
-        self.current_cell.add_client(client)
-
-    @property
-    def current_cell(self) -> Window | None:
-        if len(self.cells) <= self.current_cell_index:
-            return None
-
-        return self.cells[self.current_cell_index]
+        self.cells[self.current_cell_index].add_client(client)
 
     def configure(self, client: Window, screen_rect):
         cell_length = len(self.cells)
@@ -172,10 +165,10 @@ class Tabs(Layout):
         the window to its internal datastructures, without mapping or
         configuring.
         """
-        if self.current_row is None:
+        if len(self.rows) <= self.current_row_index:
             self.rows.append(Row(self))
 
-        self.current_row.add_client(client)
+        self.rows[self.current_row_index].add_client(client)
 
     def remove(self, client: Window) -> Window | None:
         """Called whenever a window is removed from the group
@@ -270,10 +263,3 @@ class Tabs(Layout):
 
     def previous(self) -> None:
         pass
-
-    @property
-    def current_row(self) -> Window | None:
-        if len(self.rows) <= self.current_row_index:
-            return None
-
-        return self.rows[self.current_row_index]
