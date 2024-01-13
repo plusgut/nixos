@@ -33,6 +33,7 @@ class Cell(_ClientList):
 
     def add_client(self, client: Window):
         self._tabs[client.wid] = Tab()
+        hook.subscribe.client_name_updated(self.draw)
         _ClientList.add_client(self, client, 1)
 
     def configure(self, client: Window, screen_rect: ScreenRect):
@@ -41,24 +42,23 @@ class Cell(_ClientList):
         if self._tab_bar is None:
             self._create_tab_bar(tab_screen_rect)
 
-        for loopedClient in self.clients:
-            if loopedClient is client:
-                self._tab_bar.process_button_click = self.process_button_click
-                hook.subscribe.client_name_updated(self.draw)
-                hook.subscribe.focus_change(self.draw)
+        logger.exception("configure!")
 
-                if client is self.clients[self.current_index]:
-                    client.place(
-                        client_screen_rect.x,
-                        client_screen_rect.y,
-                        client_screen_rect.width,
-                        client_screen_rect.height,
-                        0,
-                        None
-                    )
-                    client.unhide()
-                else:
-                  client.hide()
+        if client.has_focus:
+            client.place(
+                client_screen_rect.x,
+                client_screen_rect.y,
+                client_screen_rect.width,
+                client_screen_rect.height,
+                0,
+                None
+            )
+
+            client.unhide()
+            self.current_client = client
+        else:
+            client.hide()
+
         self.draw()
         self._tab_bar.place(
             tab_screen_rect.x,
@@ -74,6 +74,7 @@ class Cell(_ClientList):
         self._tab_bar = self._root.group.qtile.core.create_internal(
             screen_rect.x, screen_rect.y, screen_rect.width, screen_rect.height,
         )
+        self._tab_bar.process_button_click = self.process_button_click
         self._create_drawer(screen_rect)
 
     def _create_drawer(self, screen_rect):
@@ -134,11 +135,17 @@ class Row:
           cell.finalize()
 
     def add_client(self, client: Window) -> None:
-        if len(self.cells) <= self.current_cell_index:
+        target_cell = 0 if self.current_cell_index is None else self.current_cell_index
+
+        if client.has_focus:
+            self.current_cell_index = target_cell
+
+        if len(self.cells) <= target_cell:
             self.cells.append(Cell(self._root))
 
-        self._clients[client.wid] = self.current_cell_index
-        self.cells[self.current_cell_index].add_client(client)
+        self._clients[client.wid] = target_cell
+        self.cells[target_cell].add_client(client)
+
 
     def configure(self, client: Window, screen_rect):
         cell_length = len(self.cells)
@@ -150,7 +157,18 @@ class Row:
             else:
                 (cell_rect, screen_rect) = screen_rect.vsplit(1 / cell_length)
 
-            self.cells[cell_index].configure(client, cell_rect)
+            if cell_index is self._clients[client.wid]:
+                self.cells[cell_index].configure(client, cell_rect)
+
+    def focus_previous(self, client: Window) -> Window | None:
+        result = self.cells[self._clients[client.wid]].focus_previous(client)
+
+        return result
+
+    def focus_next(self, client: Window) -> Window | None:
+        result = self.cells[self._clients[client.wid]].focus_next(client)
+
+        return result
 
 class Tabs(Layout):
     defaults = [
@@ -170,7 +188,7 @@ class Tabs(Layout):
     _clients = {}
     rows  = []
 
-    current_row_index = 0
+    current_row_index = None
 
     def __init__(self, **config):
         Layout.__init__(self, **config)
@@ -187,12 +205,20 @@ class Tabs(Layout):
         the window to its internal datastructures, without mapping or
         configuring.
         """
+        target_row = 0 if self.current_row_index is None else self.current_row_index
 
-        if len(self.rows) <= self.current_row_index:
+        self.current_row_index = target_row
+
+        if len(self.rows) <= target_row:
             self.rows.append(Row(self))
 
-        self._clients[client.wid] = self.current_row_index
-        self.rows[self.current_row_index].add_client(client)
+        self._clients[client.wid] = target_row
+        self.rows[target_row].add_client(client)
+        hook.subscribe.focus_change(self.focus_change)
+
+
+    def focus_change(self):
+        pass
 
     def remove(self, client: Window) -> Window | None:
         """Called whenever a window is removed from the group
@@ -214,7 +240,6 @@ class Tabs(Layout):
               `.place()` method.
             - Call either `.hide()` or `.unhide()` on the window.
         """
-
         row_length = len(self.rows)
         row_amount = row_length # @TODO add weight of each row
 
@@ -224,7 +249,8 @@ class Tabs(Layout):
             else:
                 (row_rect, screen_rect) = screen_rect.vsplit(1 / row_length)
 
-            self.rows[row_index].configure(client, row_rect)
+            if self._clients[client.wid] is row_index:
+                self.rows[row_index].configure(client, row_rect)
 
     def focus_first(self) -> Window | None:
         """Called when the first client in Layout shall be focused.
@@ -244,7 +270,7 @@ class Tabs(Layout):
         """
         pass
 
-    def focus_next(self, win: Window) -> Window | None:
+    def focus_next(self, client: Window) -> Window | None:
         """Called when the next client in Layout shall be focused.
 
         This method should:
@@ -258,12 +284,12 @@ class Tabs(Layout):
 
         Parameters
         ==========
-        win:
+        client:
             The currently focused client.
         """
-        pass
+        return self.rows[self._clients[client.wid]].focus_next(client)
 
-    def focus_previous(self, win: Window) -> Window | None:
+    def focus_previous(self, client: Window) -> Window | None:
         """Called when the previous client in Layout shall be focused.
 
         This method should:
@@ -277,10 +303,26 @@ class Tabs(Layout):
 
         Parameters
         ==========
-        win:
+        client:
             The currently focused client.
         """
-        pass
+        return self.rows[self._clients[client.wid]].focus_previous(client)
+
+    @expose_command()
+    def right(self) -> None:
+        current_window = self.group.current_window
+        if current_window is not None:
+            result = self.focus_next(current_window)
+            if result is not None:
+                self.group.focus(result, True)
+
+    @expose_command()
+    def left(self) -> None:
+        current_window = self.group.current_window
+        if current_window is not None:
+            result = self.focus_previous(current_window)
+            if result is not None:
+                self.group.focus(result, True)
 
     def next(self) -> None:
         pass
