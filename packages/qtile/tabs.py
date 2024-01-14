@@ -42,9 +42,7 @@ class Cell(_ClientList):
         if self._tab_bar is None:
             self._create_tab_bar(tab_screen_rect)
 
-        logger.exception("configure!")
-
-        if client.has_focus:
+        if client is self.current_client:
             client.place(
                 client_screen_rect.x,
                 client_screen_rect.y,
@@ -70,6 +68,10 @@ class Cell(_ClientList):
         )
         self._tab_bar.unhide()
 
+    def focus_change(self):
+        if self._root.group.current_window in self.clients:
+            self.current_client = self._root.group.current_window
+
     def _create_tab_bar(self, screen_rect: ScreenRect):
         self._tab_bar = self._root.group.qtile.core.create_internal(
             screen_rect.x, screen_rect.y, screen_rect.width, screen_rect.height,
@@ -94,7 +96,7 @@ class Cell(_ClientList):
                 "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
                 wrap=False
             )
-            layout.colour = self._root.tab_active_font_color if self._current_idx is client_index else self._root.tab_inactive_font_color 
+            layout.colour = self._root.tab_active_font_color if self.current_index is client_index else self._root.tab_inactive_font_color 
 
             layout.text = client.name
 
@@ -118,6 +120,22 @@ class Cell(_ClientList):
 
     def process_button_click(self, x, y, _button):
         pass
+
+    def shuffle_left(self) -> bool:
+        if len(self.clients) > 1 and self.current_index > 0:
+            self.shuffle_up()
+            self.draw()
+
+            return True
+        return False
+
+    def shuffle_right(self) -> bool:
+        if len(self.clients) > 1 and self.current_index + 1 < len(self.clients):
+            self.shuffle_down()
+            self.draw()
+
+            return True
+        return False
 
 class Row:
     weight: int | None
@@ -159,6 +177,9 @@ class Row:
 
             if cell_index is self._clients[client.wid]:
                 self.cells[cell_index].configure(client, cell_rect)
+    def focus_change(self):
+        for cell in self.cells:
+            cell.focus_change()
 
     def focus_previous(self, client: Window) -> Window | None:
         result = self.cells[self._clients[client.wid]].focus_previous(client)
@@ -169,6 +190,12 @@ class Row:
         result = self.cells[self._clients[client.wid]].focus_next(client)
 
         return result
+
+    def shuffle_right(self) -> None:
+        self.cells[self.current_cell_index].shuffle_right()
+
+    def shuffle_left(self) -> None:
+        self.cells[self.current_cell_index].shuffle_left()
 
 class Tabs(Layout):
     defaults = [
@@ -194,6 +221,8 @@ class Tabs(Layout):
         Layout.__init__(self, **config)
         self.add_defaults(Tabs.defaults)
 
+        hook.subscribe.focus_change(self.focus_change)
+
     def finalize(self):
         for row in self.rows:
             row.finalize()
@@ -214,11 +243,11 @@ class Tabs(Layout):
 
         self._clients[client.wid] = target_row
         self.rows[target_row].add_client(client)
-        hook.subscribe.focus_change(self.focus_change)
 
 
     def focus_change(self):
-        pass
+        for row in self.rows:
+            row.focus_change()
 
     def remove(self, client: Window) -> Window | None:
         """Called whenever a window is removed from the group
@@ -325,7 +354,17 @@ class Tabs(Layout):
                 self.group.focus(result, True)
 
     def next(self) -> None:
-        pass
+        self.right()
 
     def previous(self) -> None:
         pass
+
+    @expose_command()
+    def shuffle_right(self) -> None:
+        if self.current_row_index is not None:
+            self.rows[self.current_row_index].shuffle_right()
+
+    @expose_command()
+    def shuffle_left(self) -> None:
+        if self.current_row_index is not None:
+            self.rows[self.current_row_index].shuffle_left()
