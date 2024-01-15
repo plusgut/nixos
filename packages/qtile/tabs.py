@@ -11,21 +11,15 @@ class Tab:
     left = 0
     right = 0
     def draw(self, layout, client, left):
-
-
         return left + framed.width
 
 class Cell(_ClientList):
-    _root = None
-    weight: int
-    _tab_bar = None
-    _drawer = None
-    _tabs = {}
-    layout = None
-
     def __init__(self, root):
         _ClientList.__init__(self)
         self._root = root
+        self._tab_bar = None
+        self._drawer = None
+        self._tabs = {}
 
     def finalize(self):
         if self._drawer is not None:
@@ -67,6 +61,11 @@ class Cell(_ClientList):
             None
         )
         self._tab_bar.unhide()
+
+
+    def remove(self, client):
+        self._tabs.pop(client.wid)
+        _ClientList.remove(self, client)
 
     def focus_change(self):
         if self._root.group.current_window in self.clients:
@@ -138,25 +137,20 @@ class Cell(_ClientList):
         return False
 
 class Row:
-    weight: int | None
-    _root = None
-    _clients = {}
-
-    current_cell_index = 0
-    cells = [];
-
     def __init__(self, root):
         self._root = root
+        self._clients = {}
+        self.current_cell_index = None
+        self.cells = []
 
     def finalize(self):
         for cell in self.cells:
-          cell.finalize()
+            cell.finalize()
 
     def add_client(self, client: Window) -> None:
         target_cell = 0 if self.current_cell_index is None else self.current_cell_index
+        self.current_cell_index = target_cell
 
-        if client.has_focus:
-            self.current_cell_index = target_cell
 
         if len(self.cells) <= target_cell:
             self.cells.append(Cell(self._root))
@@ -164,8 +158,8 @@ class Row:
         self._clients[client.wid] = target_cell
         self.cells[target_cell].add_client(client)
 
-
     def configure(self, client: Window, screen_rect):
+        self._screen_rect = screen_rect
         cell_length = len(self.cells)
         cell_amount = cell_length # @TODO add weight of each cell
 
@@ -173,11 +167,37 @@ class Row:
             if cell_index + 1 is cell_length:
                 cell_rect = screen_rect
             else:
-                (cell_rect, screen_rect) = screen_rect.vsplit(1 / cell_length)
+                (cell_rect, screen_rect) = screen_rect.hsplit(int((1 / cell_length) * screen_rect.width))
 
             if cell_index is self._clients[client.wid]:
                 self.cells[cell_index].configure(client, cell_rect)
+
+    def configure_all(self):
+        for cell in self.cells:
+            self.configure(cell.current_client, self._screen_rect)
+
+
+    def remove(self, client):
+        cell_index = self._clients[client.wid]
+        cell = self.cells[cell_index]
+
+        cell.remove(client)
+        self._clients.pop(client.wid)
+
+        if len(cell.clients) == 0:
+            cell.finalize()
+            self.cells.pop(cell_index)
+            if self.current_cell_index >= cell_index:
+                self.current_cell_index -= 1
+
+            for client in self._clients:
+                if client >= cell_index:
+                    client -= 1
+
     def focus_change(self):
+        if self._root.group.current_window in self._clients:
+            self.current_cell_index = self._clients[self._root.group.current_window]
+
         for cell in self.cells:
             cell.focus_change()
 
@@ -191,14 +211,30 @@ class Row:
 
         return result
 
-    def shuffle_right(self) -> None:
-        self.cells[self.current_cell_index].shuffle_right()
+    def shuffle_right(self) -> bool:
+        result = self.cells[self.current_cell_index].shuffle_right()
+
+        if result is False and self._root.is_horizontal:
+            previous_cell = self.cells[self.current_cell_index]
+            client = previous_cell.current_client
+
+            self.current_cell_index = self.current_cell_index + 1
+
+            self.add_client(client)
+            previous_cell.remove(client)
+
+            return True
+
+        return result
+
 
     def shuffle_left(self) -> None:
         self.cells[self.current_cell_index].shuffle_left()
 
 class Tabs(Layout):
     defaults = [
+        ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
+        ("primary_weight", 1.5, "Percentage of how the primary containers should be weighted"),
         ("window_gap", 0, "Background between windows"),
         ("tab_bar_height", 24, "Height of the tab bar"),
         ("tab_bar_background_color", "000000", "Background of the tab bar"),
@@ -212,16 +248,21 @@ class Tabs(Layout):
         ("tab_inactive_border_color", "ffffff", "Background color of an inactive tab"),
         ("tab_inactive_background_color", "000000", "Background color of an inactive tab"),
     ]
-    _clients = {}
-    rows  = []
-
-    current_row_index = None
 
     def __init__(self, **config):
         Layout.__init__(self, **config)
         self.add_defaults(Tabs.defaults)
 
+    def setup(self):
+        self._clients = {}
+        self.rows = []
+        self.current_row_index = None
+
+    def show(self, screen_rect):
         hook.subscribe.focus_change(self.focus_change)
+
+    def is_horizontal(self):
+        return self.primary_position is "top" or self.primary_position is "bottom"
 
     def finalize(self):
         for row in self.rows:
@@ -235,7 +276,6 @@ class Tabs(Layout):
         configuring.
         """
         target_row = 0 if self.current_row_index is None else self.current_row_index
-
         self.current_row_index = target_row
 
         if len(self.rows) <= target_row:
@@ -244,8 +284,9 @@ class Tabs(Layout):
         self._clients[client.wid] = target_row
         self.rows[target_row].add_client(client)
 
-
     def focus_change(self):
+        if self.group.current_window in self._clients:
+            self.current_row_index = self._clients[self.group.current_window]
         for row in self.rows:
             row.focus_change()
 
@@ -336,6 +377,10 @@ class Tabs(Layout):
             The currently focused client.
         """
         return self.rows[self._clients[client.wid]].focus_previous(client)
+    def clone(self, group):
+        clone = Layout.clone(self, group)
+        Tabs.setup(clone)
+        return clone
 
     @expose_command()
     def right(self) -> None:
@@ -363,8 +408,10 @@ class Tabs(Layout):
     def shuffle_right(self) -> None:
         if self.current_row_index is not None:
             self.rows[self.current_row_index].shuffle_right()
+            self.group.layout_all()
 
     @expose_command()
     def shuffle_left(self) -> None:
         if self.current_row_index is not None:
             self.rows[self.current_row_index].shuffle_left()
+
