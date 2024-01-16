@@ -33,8 +33,17 @@ class Cell(_ClientList):
     def configure(self, client: Window, screen_rect: ScreenRect):
         tab_screen_rect, client_screen_rect = screen_rect.vsplit(self._root.tab_bar_height)
 
-        if self._tab_bar is None:
-            self._create_tab_bar(tab_screen_rect)
+        self._create_tab_bar(tab_screen_rect)
+        self._tab_bar.place(
+            tab_screen_rect.x,
+            tab_screen_rect.y,
+            tab_screen_rect.width,
+            tab_screen_rect.height,
+            0,
+            None
+        )
+        self.draw()
+        self._tab_bar.unhide()
 
         if client is self.current_client:
             client.place(
@@ -51,16 +60,6 @@ class Cell(_ClientList):
         else:
             client.hide()
 
-        self.draw()
-        self._tab_bar.place(
-            tab_screen_rect.x,
-            tab_screen_rect.y,
-            tab_screen_rect.width,
-            tab_screen_rect.height,
-            0,
-            None
-        )
-        self._tab_bar.unhide()
 
 
     def remove(self, client):
@@ -72,13 +71,18 @@ class Cell(_ClientList):
             self.current_client = self._root.group.current_window
 
     def _create_tab_bar(self, screen_rect: ScreenRect):
-        self._tab_bar = self._root.group.qtile.core.create_internal(
-            screen_rect.x, screen_rect.y, screen_rect.width, screen_rect.height,
+        if self._tab_bar is None:
+            self._tab_bar = self._root.group.qtile.core.create_internal(
+                screen_rect.x, screen_rect.y, screen_rect.width, screen_rect.height,
         )
-        self._tab_bar.process_button_click = self.process_button_click
+            self._tab_bar.process_button_click = self.process_button_click
         self._create_drawer(screen_rect)
 
     def _create_drawer(self, screen_rect):
+        if self._drawer is not None and (self._drawer.height != screen_rect.height or self._drawer.width != screen_rect.width):
+            self._drawer.finalize()
+            self._drawer = None
+
         self._drawer = self._tab_bar.create_drawer(
             screen_rect.width,
             screen_rect.height,
@@ -131,7 +135,6 @@ class Cell(_ClientList):
     def shuffle_right(self) -> bool:
         if len(self.clients) > 1 and self.current_index + 1 < len(self.clients):
             self.shuffle_down()
-            self.draw()
 
             return True
         return False
