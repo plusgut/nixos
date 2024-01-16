@@ -22,6 +22,8 @@ class Cell(_ClientList):
         self._tabs = {}
 
     def finalize(self):
+        if self._tab_bar is not None:
+            self._tab_bar.kill()
         if self._drawer is not None:
             self._drawer.finalize()
 
@@ -150,16 +152,31 @@ class Row:
         for cell in self.cells:
             cell.finalize()
 
-    def add_client(self, client: Window) -> None:
-        target_cell = 0 if self.current_cell_index is None else self.current_cell_index
-        self.current_cell_index = target_cell
+    def add_client(self, client: Window, mode = "current") -> None:
+        target_cell_index = 0 if self.current_cell_index is None else self.current_cell_index
+        create = False
+        if self.current_cell_index is None:
+            create = True
+        elif mode is "previous_cell":
+            if target_cell_index is 0:
+                create = True
+            else:
+                target_cell_index -= 1
+        elif mode is "next_cell":
+            target_cell_index += 1
+            if len(self.cells) <= target_cell_index:
+                create = True
 
+        if create:
+            self.cells.insert(target_cell_index, Cell(self._root))
 
-        if len(self.cells) <= target_cell:
-            self.cells.append(Cell(self._root))
+        self.current_cell_index = target_cell_index
 
-        self._clients[client.wid] = target_cell
-        self.cells[target_cell].add_client(client)
+        if client.wid in self._clients:
+            self.remove(client)
+
+        self._clients[client.wid] = self.cells[self.current_cell_index]
+        self.cells[self.current_cell_index].add_client(client)
 
     def configure(self, client: Window, screen_rect):
         self._screen_rect = screen_rect
@@ -172,8 +189,9 @@ class Row:
             else:
                 (cell_rect, screen_rect) = screen_rect.hsplit(int((1 / cell_length) * screen_rect.width))
 
-            if cell_index is self._clients[client.wid]:
-                self.cells[cell_index].configure(client, cell_rect)
+            cell = self.cells[cell_index]
+            if cell is self._clients[client.wid]:
+                cell.configure(client, cell_rect)
 
     def configure_all(self):
         for cell in self.cells:
@@ -181,58 +199,57 @@ class Row:
 
 
     def remove(self, client):
-        cell_index = self._clients[client.wid]
-        cell = self.cells[cell_index]
+        cell = self._clients[client.wid]
 
         cell.remove(client)
         self._clients.pop(client.wid)
 
         if len(cell.clients) == 0:
             cell.finalize()
+            cell_index = self.cells.index(cell)
+
             self.cells.pop(cell_index)
             if self.current_cell_index >= cell_index:
                 self.current_cell_index -= 1
 
-            for client in self._clients:
-                if client >= cell_index:
-                    client -= 1
-
     def focus_change(self):
         if self._root.group.current_window in self._clients:
-            self.current_cell_index = self._clients[self._root.group.current_window]
+            self.current_cell_index = self.cells.index(self._clients[self._root.group.current_window])
 
         for cell in self.cells:
             cell.focus_change()
 
     def focus_previous(self, client: Window) -> Window | None:
-        result = self.cells[self._clients[client.wid]].focus_previous(client)
+        result = self._clients[client.wid].focus_previous(client)
 
         return result
 
     def focus_next(self, client: Window) -> Window | None:
-        result = self.cells[self._clients[client.wid]].focus_next(client)
+        result = self._clients[client.wid].focus_next(client)
 
         return result
 
     def shuffle_right(self) -> bool:
-        result = self.cells[self.current_cell_index].shuffle_right()
+        cell = self.cells[self.current_cell_index]
+        result = cell.shuffle_right()
 
         if result is False and self._root.is_horizontal:
-            previous_cell = self.cells[self.current_cell_index]
-            client = previous_cell.current_client
-
-            self.current_cell_index = self.current_cell_index + 1
-
-            self.add_client(client)
-            previous_cell.remove(client)
+            self.add_client(cell.current_client, "next_cell")
 
             return True
 
         return result
 
 
-    def shuffle_left(self) -> None:
-        self.cells[self.current_cell_index].shuffle_left()
+    def shuffle_left(self) -> bool:
+        cell = self.cells[self.current_cell_index]
+        result = cell.shuffle_left()
+
+        if result is False and self._root.is_horizontal:
+            self.add_client(cell.current_client, "previous_cell")
+
+            return True
+        return result
 
 class Tabs(Layout):
     defaults = [
@@ -429,4 +446,5 @@ class Tabs(Layout):
     def shuffle_left(self) -> None:
         if self.current_row_index is not None:
             self.rows[self.current_row_index].shuffle_left()
+            self.group.layout_all()
 
