@@ -263,6 +263,18 @@ class Tabs(Layout):
 
     def show(self, screen_rect):
         hook.subscribe.focus_change(self.focus_change)
+        for row in self.rows:
+            for cell in row.cells:
+                if cell._tab_bar is not None:
+                    cell._tab_bar.unhide()
+
+
+
+    def hide(self):
+        for row in self.rows:
+            for cell in row.cells:
+                if cell._tab_bar is not None:
+                    cell._tab_bar.hide()
 
     def is_horizontal(self):
         return self.primary_position is "top" or self.primary_position is "bottom"
