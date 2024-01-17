@@ -68,7 +68,7 @@ keys = [
     Key([mod], "b", lazy.spawn(browser), desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "12345"]
+groups = [Group(name, label = label) for (name, label) in [("a", "\ue7a2"), ("s", "\ue745"), ("d", "\ueac4"), ("f", "foobar"), ("g", "mep")]]
 
 for i in groups:
     keys.extend(
@@ -110,7 +110,12 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(highlight_method = "block", inactive = catpuccin.overlay1.hex, active = catpuccin.blue.hex),
+                widget.GroupBox(
+                    highlight_method = "block",
+                    inactive = catpuccin.overlay1.hex,
+                    active = catpuccin.blue.hex,
+                    font = "FiraCode Nerd Font"
+                ),
                 widget.WindowName(),
                 widget.Clock(format="%H:%M"),
                 widget.QuickExit(),
