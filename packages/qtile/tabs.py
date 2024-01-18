@@ -213,19 +213,47 @@ class Row:
                 self.current_cell_index -= 1
 
     def focus_change(self):
-        if self._root.group.current_window in self._clients:
-            self.current_cell_index = self.cells.index(self._clients[self._root.group.current_window])
+        if self._root.group.current_window.wid in self._clients:
+            self.current_cell_index = self.cells.index(self._clients[self._root.group.current_window.wid])
 
         for cell in self.cells:
             cell.focus_change()
 
-    def focus_previous(self, client: Window) -> Window | None:
-        result = self._clients[client.wid].focus_previous(client)
+    def focus_next(self, client: Window) -> Window | None:
+        cell = self._clients[client.wid]
+        result = cell.focus_next(client)
+
+        if result is None:
+            cell_index = self.cells.index(cell)
+            if cell_index + 1 < len(self.cells):
+                return self.cells[cell_index + 1].focus_first()
 
         return result
 
-    def focus_next(self, client: Window) -> Window | None:
-        result = self._clients[client.wid].focus_next(client)
+    def focus_previous(self, client: Window) -> Window | None:
+        cell = self._clients[client.wid]
+        result = cell.focus_previous(client)
+
+        if result is None:
+            cell_index = self.cells.index(cell)
+            if cell_index  > 0:
+                return self.cells[cell_index - 1].focus_last()
+
+        return result
+
+    def focus_right(self, client: Window) -> Window | None:
+        if self._root.is_horizontal():
+            return self.focus_next(client)
+        else:
+            return self._clients[client.wid].focus_next(client)
+
+        return result
+
+    def focus_left(self, client: Window) -> Window | None:
+        if self._root.is_horizontal():
+            return self.focus_previous(client)
+        else:
+            return self._clients[client.wid].focus_previous(client)
 
         return result
 
@@ -319,11 +347,12 @@ class Tabs(Layout):
         row.add_client(client)
 
     def focus_change(self):
-        if self.group.current_window in self._clients:
-            self.current_row_index = self.rows.index(self._clients[self.group.current_window])
+        if self.group.current_window is not None:
+            if self.group.current_window.wid in self._clients:
+                self.current_row_index = self.rows.index(self._clients[self.group.current_window.wid])
 
-        for row in self.rows:
-            row.focus_change()
+            for row in self.rows:
+                row.focus_change()
 
     def remove(self, client: Window) -> Window | None:
         """Called whenever a window is removed from the group
@@ -393,7 +422,8 @@ class Tabs(Layout):
         client:
             The currently focused client.
         """
-        result = self._clients[client.wid].focus_next(client)
+        row = self._clients[client.wid]
+        result = row.focus_next(client)
 
         return result
 
@@ -425,19 +455,17 @@ class Tabs(Layout):
 
     @expose_command()
     def right(self) -> None:
-        current_window = self.group.current_window
-        if current_window is not None:
-            result = self.focus_next(current_window)
-            if result is not None:
-                self.group.focus(result, True)
+        row = self.rows[self.current_row_index]
+        result = row.focus_right(row.cells[row.current_cell_index].current_client)
+        if result is not None:
+            self.group.focus(result, True)
 
     @expose_command()
     def left(self) -> None:
-        current_window = self.group.current_window
-        if current_window is not None:
-            result = self.focus_previous(current_window)
-            if result is not None:
-                self.group.focus(result, True)
+        row = self.rows[self.current_row_index]
+        result = row.focus_left(row.cells[row.current_cell_index].current_client)
+        if result is not None:
+            self.group.focus(result, True)
 
     def next(self) -> None:
         self.right()
