@@ -47,16 +47,16 @@ class Cell(_ClientList):
         self.draw()
         self._tab_bar.unhide()
 
-        if client is self.current_client:
-            client.place(
-                client_screen_rect.x,
-                client_screen_rect.y,
-                client_screen_rect.width,
-                client_screen_rect.height,
-                0,
-                None
-            )
+        client.place(
+            client_screen_rect.x,
+            client_screen_rect.y,
+            client_screen_rect.width,
+            client_screen_rect.height,
+            0,
+            None
+        )
 
+        if client is self.current_client:
             client.unhide()
             self.current_client = client
         else:
@@ -307,18 +307,21 @@ class Tabs(Layout):
         the window to its internal datastructures, without mapping or
         configuring.
         """
-        target_row = 0 if self.current_row_index is None else self.current_row_index
-        self.current_row_index = target_row
+        target_row_index = 0 if self.current_row_index is None else self.current_row_index
+        self.current_row_index = target_row_index
 
-        if len(self.rows) <= target_row:
+        if len(self.rows) <= target_row_index:
             self.rows.append(Row(self))
 
-        self._clients[client.wid] = target_row
-        self.rows[target_row].add_client(client)
+        row = self.rows[target_row_index]
+        self._clients[client.wid] = row
+
+        row.add_client(client)
 
     def focus_change(self):
         if self.group.current_window in self._clients:
-            self.current_row_index = self._clients[self.group.current_window]
+            self.current_row_index = self.rows.index(self._clients[self.group.current_window])
+
         for row in self.rows:
             row.focus_change()
 
@@ -351,8 +354,9 @@ class Tabs(Layout):
             else:
                 (row_rect, screen_rect) = screen_rect.vsplit(1 / row_length)
 
-            if self._clients[client.wid] is row_index:
-                self.rows[row_index].configure(client, row_rect)
+            row = self.rows[row_index]
+            if self._clients[client.wid] is row:
+                row.configure(client, row_rect)
 
     def focus_first(self) -> Window | None:
         """Called when the first client in Layout shall be focused.
@@ -389,7 +393,9 @@ class Tabs(Layout):
         client:
             The currently focused client.
         """
-        return self.rows[self._clients[client.wid]].focus_next(client)
+        result = self._clients[client.wid].focus_next(client)
+
+        return result
 
     def focus_previous(self, client: Window) -> Window | None:
         """Called when the previous client in Layout shall be focused.
@@ -408,7 +414,10 @@ class Tabs(Layout):
         client:
             The currently focused client.
         """
-        return self.rows[self._clients[client.wid]].focus_previous(client)
+        result = self._clients[client.wid].focus_previous(client)
+
+        return result
+
     def clone(self, group):
         clone = Layout.clone(self, group)
         Tabs.setup(clone)
