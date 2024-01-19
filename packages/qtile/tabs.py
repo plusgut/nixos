@@ -155,12 +155,14 @@ class Row:
     def add_client(self, client: Window, mode = "current") -> None:
         target_cell_index = 0 if self.current_cell_index is None else self.current_cell_index
         create = False
+
         if self.current_cell_index is None:
             create = True
         elif mode is "previous_cell":
             if target_cell_index is 0:
                 create = True
-            else:
+
+            if create is False:
                 target_cell_index -= 1
         elif mode is "next_cell":
             target_cell_index += 1
@@ -279,6 +281,23 @@ class Row:
             return True
         return result
 
+    def shuffle_down(self) -> bool:
+        if self._root.is_horizontal is False:
+            cell = self.cells[self.current_cell_index]
+            self.add_client(cell.current_client, "next_cell")
+
+            return True
+
+        return False
+
+
+    def shuffle_up(self) -> bool:
+        if self._root.is_horizontal is False:
+            cell = self.cells[self.current_cell_index]
+            self.add_client(cell.current_client, "previous_cell")
+
+            return True
+        return result
 class Tabs(Layout):
     defaults = [
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
@@ -328,7 +347,7 @@ class Tabs(Layout):
         for row in self.rows:
             row.finalize()
 
-    def add_client(self, client: Window) -> None:
+    def add_client(self, client: Window, mode = "current") -> None:
         """Called whenever a window is added to the group
 
         Called whether the layout is current or not. The layout should just add
@@ -336,15 +355,31 @@ class Tabs(Layout):
         configuring.
         """
         target_row_index = 0 if self.current_row_index is None else self.current_row_index
+        create = False
+
+        if self.current_row_index is None:
+            create = True
+        elif mode is "previous_row":
+            if target_row_index is 0:
+                create = True
+
+            if create is False:
+                target_row_index -= 1
+        elif mode is "next_row":
+            target_row_index += 1
+            if len(self.rows) <= target_row_index:
+                create = True
+
+        if create:
+            self.rows.insert(target_row_index, Row(self))
+
         self.current_row_index = target_row_index
 
-        if len(self.rows) <= target_row_index:
-            self.rows.append(Row(self))
+        if client.wid in self._clients:
+            self.remove(client)
 
-        row = self.rows[target_row_index]
-        self._clients[client.wid] = row
-
-        row.add_client(client)
+        self._clients[client.wid] = self.rows[self.current_row_index]
+        self.rows[self.current_row_index].add_client(client)
 
     def focus_change(self):
         if self.group.current_window is not None:
@@ -363,7 +398,18 @@ class Tabs(Layout):
 
         Returns the "next" window that should gain focus or None.
         """
-        pass
+        row = self._clients[client.wid]
+
+        row.remove(client)
+        self._clients.pop(client.wid)
+
+        if len(row.cells) == 0:
+            row.finalize()
+            row_index = self.rows.index(row)
+
+            self.rows.pop(row_index)
+            if self.current_row_index >= row_index:
+                self.current_row_index -= 1
 
     def configure(self, client: Window, screen_rect: ScreenRect) -> None:
         """Configure the layout
@@ -381,7 +427,7 @@ class Tabs(Layout):
             if row_index + 1 is row_length:
                 row_rect = screen_rect
             else:
-                (row_rect, screen_rect) = screen_rect.vsplit(1 / row_length)
+                (row_rect, screen_rect) = screen_rect.vsplit(int((1 / row_length) * screen_rect.height))
 
             row = self.rows[row_index]
             if self._clients[client.wid] is row:
@@ -468,20 +514,57 @@ class Tabs(Layout):
             self.group.focus(result, True)
 
     def next(self) -> None:
-        self.right()
+        pass
 
     def previous(self) -> None:
         pass
 
+
     @expose_command()
     def shuffle_right(self) -> None:
         if self.current_row_index is not None:
-            self.rows[self.current_row_index].shuffle_right()
+            result = self.rows[self.current_row_index].shuffle_right()
+            if result is False:
+                row = self.rows[self.current_row_index]
+                client = row.cells[row.current_cell_index].current_client
+
+                self.add_client(client, "next_row")
+
             self.group.layout_all()
 
     @expose_command()
     def shuffle_left(self) -> None:
         if self.current_row_index is not None:
-            self.rows[self.current_row_index].shuffle_left()
+            result = self.rows[self.current_row_index].shuffle_left()
+            if result is False:
+                row = self.rows[self.current_row_index]
+                client = row.cells[row.current_cell_index].current_client
+
+                self.add_client(client, "previous_row")
+
+            self.group.layout_all()
+
+    @expose_command()
+    def shuffle_down(self) -> None:
+        if self.current_row_index is not None:
+            result = self.rows[self.current_row_index].shuffle_down()
+            if result is False:
+                row = self.rows[self.current_row_index]
+                client = row.cells[row.current_cell_index].current_client
+
+                self.add_client(client, "next_row")
+
+            self.group.layout_all()
+
+    @expose_command()
+    def shuffle_up(self) -> None:
+        if self.current_row_index is not None:
+            result = self.rows[self.current_row_index].shuffle_up()
+            if result is False:
+                row = self.rows[self.current_row_index]
+                client = row.cells[row.current_cell_index].current_client
+
+                self.add_client(client, "previous_row")
+
             self.group.layout_all()
 
