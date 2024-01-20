@@ -259,6 +259,18 @@ class Row:
 
         return result
 
+    def focus_down(self, client) -> Window | None:
+        if self._root.is_horizontal() is False and self.current_cell_index + 1 < len(self.cells):
+            return self.cells[self.current_cell_index + 1].current_client
+        else:
+            return None
+
+    def focus_up(self, client) -> Window | None:
+        if self._root.is_horizontal() is False and self.current_cell_index > 0:
+            return self.cells[self.current_cell_index - 1].current_client
+        else:
+            return None
+
     def shuffle_right(self) -> bool:
         cell = self.cells[self.current_cell_index]
         result = cell.shuffle_right()
@@ -279,7 +291,7 @@ class Row:
             self.add_client(cell.current_client, "previous_cell")
 
             return True
-        return result
+        return False
 
     def shuffle_down(self) -> bool:
         if self._root.is_horizontal is False:
@@ -297,7 +309,17 @@ class Row:
             self.add_client(cell.current_client, "previous_cell")
 
             return True
-        return result
+        return False
+
+    def get_match(self, needle_client: Window) -> Window:
+        (needle_x, needle_y)= needle_client.get_position()
+        for cell_index in range(len(self.cells)):
+            (heystack_x, heystack_y) = self.cells[cell_index].current_client.get_position()
+            (heystack_width, heystack_height) = self.cells[cell_index].current_client.get_size()
+            (needle_value, heystack_value) = (needle_x, heystack_x + heystack_width) if self._root.is_horizontal() else (needle_y, heystack_y + heystack_height)
+            if needle_value < heystack_value:
+                return cell_index
+        raise Exception("Could not find matching window")
 class Tabs(Layout):
     defaults = [
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
@@ -501,17 +523,54 @@ class Tabs(Layout):
 
     @expose_command()
     def right(self) -> None:
-        row = self.rows[self.current_row_index]
-        result = row.focus_right(row.cells[row.current_cell_index].current_client)
-        if result is not None:
-            self.group.focus(result, True)
+        if self.current_row_index is not None:
+            row = self.rows[self.current_row_index]
+            client = row.cells[row.current_cell_index].current_client
+            result = row.focus_right(client)
+            if result is None and self.is_horizontal() and self.current_row_index +1 < len(self.rows):
+                next_row = self.rows[self.current_row_index + 1]
+                result = next_row.cells[next_row.get_match(client)].current_client
+
+            if result is not None:
+                self.group.focus(result, True)
 
     @expose_command()
     def left(self) -> None:
-        row = self.rows[self.current_row_index]
-        result = row.focus_left(row.cells[row.current_cell_index].current_client)
-        if result is not None:
-            self.group.focus(result, True)
+        if self.current_row_index is not None:
+            row = self.rows[self.current_row_index]
+            result = row.focus_left(row.cells[row.current_cell_index].current_client)
+
+            if result is None and self.is_horizontal() and self.current_row_index > 0:
+                previous_row = self.rows[self.current_row_index - 1]
+                result = previous_row.cells[previous_row.get_match(client)].current_client
+            if result is not None:
+                self.group.focus(result, True)
+
+    @expose_command()
+    def down(self) -> None:
+        if self.current_row_index is not None:
+            row = self.rows[self.current_row_index]
+            client = row.cells[row.current_cell_index].current_client
+            result = row.focus_down(client)
+            if result is None and self.is_horizontal() and self.current_row_index +1 < len(self.rows):
+                next_row = self.rows[self.current_row_index + 1]
+                result = next_row.cells[next_row.get_match(client)].current_client
+
+            if result is not None:
+                self.group.focus(result, True)
+
+    @expose_command()
+    def up(self) -> None:
+        if self.current_row_index is not None:
+            row = self.rows[self.current_row_index]
+            client = row.cells[row.current_cell_index].current_client
+            result = row.focus_up(client)
+
+            if result is None and self.is_horizontal() and self.current_row_index > 0:
+                previous_row = self.rows[self.current_row_index - 1]
+                result = previous_row.cells[previous_row.get_match(client)].current_client
+            if result is not None:
+                self.group.focus(result, True)
 
     def next(self) -> None:
         pass
