@@ -39,7 +39,7 @@ catpuccin = Flavour.mocha()
 
 mod = "Control"
 
-terminal = "kitty"
+terminal = "foot"
 browser = "firefox"
 applicationLauncher = "fuzzel"
 

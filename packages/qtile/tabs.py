@@ -527,7 +527,8 @@ class Tabs(Layout):
             row = self.rows[self.current_row_index]
             client = row.cells[row.current_cell_index].current_client
             result = row.focus_right(client)
-            if result is None and self.is_horizontal() and self.current_row_index +1 < len(self.rows):
+
+            if result is None and self.is_horizontal() is False and self.current_row_index +1 < len(self.rows):
                 next_row = self.rows[self.current_row_index + 1]
                 result = next_row.cells[next_row.get_match(client)].current_client
 
@@ -538,9 +539,10 @@ class Tabs(Layout):
     def left(self) -> None:
         if self.current_row_index is not None:
             row = self.rows[self.current_row_index]
-            result = row.focus_left(row.cells[row.current_cell_index].current_client)
+            client = row.cells[row.current_cell_index].current_client
+            result = row.focus_left(client)
 
-            if result is None and self.is_horizontal() and self.current_row_index > 0:
+            if result is None and self.is_horizontal() is False and self.current_row_index > 0:
                 previous_row = self.rows[self.current_row_index - 1]
                 result = previous_row.cells[previous_row.get_match(client)].current_client
             if result is not None:
@@ -552,6 +554,7 @@ class Tabs(Layout):
             row = self.rows[self.current_row_index]
             client = row.cells[row.current_cell_index].current_client
             result = row.focus_down(client)
+
             if result is None and self.is_horizontal() and self.current_row_index +1 < len(self.rows):
                 next_row = self.rows[self.current_row_index + 1]
                 result = next_row.cells[next_row.get_match(client)].current_client
