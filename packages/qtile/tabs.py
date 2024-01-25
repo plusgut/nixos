@@ -85,11 +85,11 @@ class Cell(_ClientList):
             self._drawer.finalize()
             self._drawer = None
 
-        self._drawer = self._tab_bar.create_drawer(
-            screen_rect.width,
-            screen_rect.height,
-        )
-        self._drawer.clear(self._root.tab_bar_background_color)
+        if self._drawer is None:
+            self._drawer = self._tab_bar.create_drawer(
+                screen_rect.width,
+                screen_rect.height,
+            )
 
     def draw(self, *args):
         self._drawer.clear(self._root.tab_bar_background_color)
@@ -120,7 +120,7 @@ class Cell(_ClientList):
 
             left = self._tabs[client.wid].right + self._root.tab_gap
 
-        self._drawer.draw(offsetx=0, offsety=0,width = left)
+        self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
 
 
     def process_button_click(self, x, y, _button):
@@ -394,6 +394,9 @@ class Tabs(Layout):
 
         if create:
             self.rows.insert(target_row_index, Row(self))
+        elif mode is "next_row" or mode is "previous_row":
+            self.rows[target_row_index].current_cell_index = self.rows[target_row_index].get_match(client)
+
 
         self.current_row_index = target_row_index
 
@@ -430,7 +433,10 @@ class Tabs(Layout):
             row_index = self.rows.index(row)
 
             self.rows.pop(row_index)
-            if self.current_row_index >= row_index:
+
+            if len(self.rows) is 0:
+                self.current_row_index = None
+            elif self.current_row_index >= row_index:
                 self.current_row_index -= 1
 
     def configure(self, client: Window, screen_rect: ScreenRect) -> None:

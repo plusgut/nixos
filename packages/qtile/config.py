@@ -95,7 +95,11 @@ for i in groups:
     )
 
 layouts = [
-    Tabs(),
+    Tabs(
+        tab_bar_height = 26,
+        tab_fontsize = 22
+
+    ),
 ]
 
 widget_defaults = dict(
