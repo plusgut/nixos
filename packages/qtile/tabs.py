@@ -221,9 +221,9 @@ class Row:
         for cell in self.cells:
             cell.focus_change()
 
-    def focus_next(self, client: Window) -> Window | None:
+    def focus_next(self, client: Window, skip_tabs) -> Window | None:
         cell = self._clients[client.wid]
-        result = cell.focus_next(client)
+        result = cell.focus_next(client) if skip_tabs is False else None
 
         if result is None:
             cell_index = self.cells.index(cell)
@@ -232,9 +232,9 @@ class Row:
 
         return result
 
-    def focus_previous(self, client: Window) -> Window | None:
+    def focus_previous(self, client: Window, skip_tabs) -> Window | None:
         cell = self._clients[client.wid]
-        result = cell.focus_previous(client)
+        result = cell.focus_previous(client) if skip_tabs is False else None
 
         if result is None:
             cell_index = self.cells.index(cell)
@@ -243,37 +243,37 @@ class Row:
 
         return result
 
-    def focus_right(self, client: Window) -> Window | None:
+    def focus_right(self, client: Window, skip_tabs) -> Window | None:
         if self._root.is_horizontal():
-            return self.focus_next(client)
+            return self.focus_next(client, skip_tabs)
+        elif skip_tabs:
+            return None
         else:
             return self._clients[client.wid].focus_next(client)
 
-        return result
-
-    def focus_left(self, client: Window) -> Window | None:
+    def focus_left(self, client: Window, skip_tabs) -> Window | None:
         if self._root.is_horizontal():
-            return self.focus_previous(client)
+            return self.focus_previous(client, skip_tabs)
+        elif skip_tabs:
+            return None
         else:
             return self._clients[client.wid].focus_previous(client)
 
-        return result
-
-    def focus_down(self, client) -> Window | None:
+    def focus_down(self, client: Window) -> Window | None:
         if self._root.is_horizontal() is False and self.current_cell_index + 1 < len(self.cells):
             return self.cells[self.current_cell_index + 1].current_client
         else:
             return None
 
-    def focus_up(self, client) -> Window | None:
+    def focus_up(self, client: Window) -> Window | None:
         if self._root.is_horizontal() is False and self.current_cell_index > 0:
             return self.cells[self.current_cell_index - 1].current_client
         else:
             return None
 
-    def shuffle_right(self) -> bool:
+    def shuffle_right(self, skip_tabs) -> bool:
         cell = self.cells[self.current_cell_index]
-        result = cell.shuffle_right()
+        result = cell.shuffle_right() if skip_tabs is False else False
 
         if result is False and self._root.is_horizontal:
             self.add_client(cell.current_client, "next_cell")
@@ -283,9 +283,9 @@ class Row:
         return result
 
 
-    def shuffle_left(self) -> bool:
+    def shuffle_left(self, skip_tabs) -> bool:
         cell = self.cells[self.current_cell_index]
-        result = cell.shuffle_left()
+        result = cell.shuffle_left() if skip_tabs is False else False
 
         if result is False and self._root.is_horizontal:
             self.add_client(cell.current_client, "previous_cell")
@@ -320,6 +320,7 @@ class Row:
             if needle_value < heystack_value:
                 return cell_index
         raise Exception("Could not find matching window")
+
 class Tabs(Layout):
     defaults = [
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
@@ -528,11 +529,11 @@ class Tabs(Layout):
         return clone
 
     @expose_command()
-    def right(self) -> None:
+    def right(self, skip_tabs = False) -> None:
         if self.current_row_index is not None:
             row = self.rows[self.current_row_index]
             client = row.cells[row.current_cell_index].current_client
-            result = row.focus_right(client)
+            result = row.focus_right(client, skip_tabs = skip_tabs)
 
             if result is None and self.is_horizontal() is False and self.current_row_index +1 < len(self.rows):
                 next_row = self.rows[self.current_row_index + 1]
@@ -542,11 +543,11 @@ class Tabs(Layout):
                 self.group.focus(result, True)
 
     @expose_command()
-    def left(self) -> None:
+    def left(self, skip_tabs = False) -> None:
         if self.current_row_index is not None:
             row = self.rows[self.current_row_index]
             client = row.cells[row.current_cell_index].current_client
-            result = row.focus_left(client)
+            result = row.focus_left(client, skip_tabs = skip_tabs)
 
             if result is None and self.is_horizontal() is False and self.current_row_index > 0:
                 previous_row = self.rows[self.current_row_index - 1]
@@ -589,9 +590,9 @@ class Tabs(Layout):
 
 
     @expose_command()
-    def shuffle_right(self) -> None:
+    def shuffle_right(self, skip_tabs = False) -> None:
         if self.current_row_index is not None:
-            result = self.rows[self.current_row_index].shuffle_right()
+            result = self.rows[self.current_row_index].shuffle_right(skip_tabs = skip_tabs)
             if result is False:
                 row = self.rows[self.current_row_index]
                 client = row.cells[row.current_cell_index].current_client
@@ -601,9 +602,9 @@ class Tabs(Layout):
             self.group.layout_all()
 
     @expose_command()
-    def shuffle_left(self) -> None:
+    def shuffle_left(self, skip_tabs = False) -> None:
         if self.current_row_index is not None:
-            result = self.rows[self.current_row_index].shuffle_left()
+            result = self.rows[self.current_row_index].shuffle_left(skip_tabs = skip_tabs)
             if result is False:
                 row = self.rows[self.current_row_index]
                 client = row.cells[row.current_cell_index].current_client
