@@ -131,7 +131,6 @@ class Cell(_ClientList):
     def shuffle_left(self) -> bool:
         if len(self.clients) > 1 and self.current_index > 0:
             self.shuffle_up()
-            self.draw()
 
             return True
         return False
@@ -282,23 +281,24 @@ class Row:
         cell = self.cells[self.current_cell_index]
         result = cell.shuffle_right() if container is False else False
 
-        if result is False and self._root.is_horizontal:
+        if result is False and self._root.is_horizontal():
             self.add_client(cell.current_client, "next_cell")
 
             return True
 
         return result
 
-
     def shuffle_left(self, container) -> bool:
+        logger.exception("shuffle left!")
         cell = self.cells[self.current_cell_index]
         result = cell.shuffle_left() if container is False else False
+        logger.exception(result)
 
-        if result is False and self._root.is_horizontal:
+        if result is False and self._root.is_horizontal():
             self.add_client(cell.current_client, "previous_cell")
 
             return True
-        return False
+        return result
 
     def shuffle_down(self) -> bool:
         if self._root.is_horizontal is False:
