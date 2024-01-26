@@ -62,8 +62,6 @@ class Cell(_ClientList):
         else:
             client.hide()
 
-
-
     def remove(self, client):
         self._tabs.pop(client.wid)
         _ClientList.remove(self, client)
@@ -328,7 +326,7 @@ class Row:
 class Tabs(Layout):
     defaults = [
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
-        ("primary_weight", 1.5, "Percentage of how the primary containers should be weighted"),
+        ("primary_weight", 1.3, "Percentage of how the primary containers should be weighted"),
         ("window_gap", 0, "Background between windows"),
         ("tab_bar_height", 24, "Height of the tab bar"),
         ("tab_bar_background_color", "000000", "Background of the tab bar"),
@@ -444,6 +442,14 @@ class Tabs(Layout):
             elif self.current_row_index >= row_index:
                 self.current_row_index -= 1
 
+    def _is_primary(self, row_index: int) -> bool:
+        if self.primary_position is "top" or self.primary_position is "left":
+            return row_index is 0
+        elif self.primary_position is "right" or self.primary_position is "bottom":
+            return row_index + 1 is len(self.rows)
+        else:
+            raise ValueError("Not allowed value")
+
     def configure(self, client: Window, screen_rect: ScreenRect) -> None:
         """Configure the layout
 
@@ -454,13 +460,14 @@ class Tabs(Layout):
             - Call either `.hide()` or `.unhide()` on the window.
         """
         row_length = len(self.rows)
-        row_amount = row_length # @TODO add weight of each row
+        row_amount = row_length + self.primary_weight - 1
 
         for row_index in range(len(self.rows)):
             if row_index + 1 is row_length:
                 row_rect = screen_rect
             else:
-                (row_rect, screen_rect) = screen_rect.vsplit(int((1 / row_length) * screen_rect.height))
+                weight = self.primary_weight if self._is_primary(row_index) else 1
+                (row_rect, screen_rect) = screen_rect.vsplit(int((weight / row_length) * screen_rect.height))
 
             row = self.rows[row_index]
             if self._clients[client.wid] is row:
