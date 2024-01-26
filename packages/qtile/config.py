@@ -129,7 +129,7 @@ screens = [
                     active = catpuccin.blue.hex,
                     font = "FiraCode Nerd Font"
                 ),
-                widget.WindowName(),
+                widget.Spacer(bar.STRETCH),
                 widget.Clock(format="%H:%M"),
                 widget.QuickExit(),
             ],
