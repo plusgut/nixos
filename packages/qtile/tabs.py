@@ -16,12 +16,15 @@ class Tab:
 class Cell(_ClientList):
     def __init__(self, root):
         _ClientList.__init__(self)
+        hook.subscribe.client_name_updated(self.draw)
+
         self._root = root
         self._tab_bar = None
         self._drawer = None
         self._tabs = {}
 
     def finalize(self):
+        hook.unsubscribe.client_name_updated(self.draw)
         if self._tab_bar is not None:
             self._tab_bar.kill()
         if self._drawer is not None:
@@ -29,7 +32,6 @@ class Cell(_ClientList):
 
     def add_client(self, client: Window):
         self._tabs[client.wid] = Tab()
-        hook.subscribe.client_name_updated(self.draw)
         _ClientList.add_client(self, client, 1)
 
     def configure(self, client: Window, screen_rect: ScreenRect):
@@ -354,7 +356,6 @@ class Tabs(Layout):
         self.current_row_index = None
 
     def show(self, screen_rect):
-        hook.subscribe.focus_change(self.focus_change)
         for row in self.rows:
             for cell in row.cells:
                 if cell._tab_bar is not None:
@@ -372,6 +373,7 @@ class Tabs(Layout):
         return self.primary_position is "top" or self.primary_position is "bottom"
 
     def finalize(self):
+        hook.unsubscribe.focus_change(self.focus_change)
         for row in self.rows:
             row.finalize()
 
@@ -531,6 +533,7 @@ class Tabs(Layout):
     def clone(self, group):
         clone = Layout.clone(self, group)
         Tabs.setup(clone)
+        hook.subscribe.focus_change(clone.focus_change)
         return clone
 
     @expose_command()
