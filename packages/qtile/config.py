@@ -37,7 +37,7 @@ from tabs import Tabs
 
 catpuccin = Flavour.mocha()
 
-mod = "Control"
+mod = "mod4"
 
 terminal = "foot"
 browser = "firefox"
@@ -181,7 +181,8 @@ wl_input_rules = {
 @hook.subscribe.startup_once
 def autostart():
     processes = [
-      ["swaybg", "-m", "center", "-c", f"#{catpuccin.base.hex}", "-i", os.path.expandvars("$XDG_CONFIG_HOME/qtile/assets/catpuccin.png")]
+      ["swaybg", "-m", "center", "-c", f"#{catpuccin.base.hex}", "-i", os.path.expandvars("$XDG_CONFIG_HOME/qtile/assets/catpuccin.png")],
+      ["dbus-update-activation-environment", "systemd", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP=qtile"]
     ]
 
     for process in processes:
