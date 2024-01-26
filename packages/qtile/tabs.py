@@ -1,11 +1,9 @@
 from libqtile import hook
 from libqtile.command.base import expose_command
 from libqtile.layout.base import _ClientList, Layout
-from libqtile.layout.base import Layout
 from libqtile.backend.base import Window
 from libqtile.config import ScreenRect
 from libqtile.log_utils import logger
-from libqtile.group import _Group
 
 class Tab:
     left = 0
