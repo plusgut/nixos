@@ -289,7 +289,6 @@ class Row:
         return result
 
     def shuffle_left(self, container) -> bool:
-        logger.exception("shuffle left!")
         cell = self.cells[self.current_cell_index]
         result = cell.shuffle_left() if container is False else False
         logger.exception(result)
