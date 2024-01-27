@@ -2,6 +2,7 @@ evaluate-commands %sh{
   kcr init kakoune
 }
 
+source "/home/plusgut/nixos/packages/kak/plugins/wayland.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
@@ -16,8 +17,7 @@ add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
-map global user t -docstring "new tab" %{:connect terminal "broot -c \":toggle_preview" %val(bufname)" <ret>}
-map global user T -docstring "new window" %{:with-option windowing_placement window connect terminal broot -c ":toggle_preview" %val(bufname) <ret>}
+map global user t -docstring "new tab" ":new<ret>"
 map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
 map global user w -docstring "close buffer" ":delete-buffer!<ret>"
 
@@ -25,7 +25,7 @@ map global user g -docstring "git" ":enter-user-mode git<ret>"
 map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
 map global user n -docstring 'notes' ':enter-user-mode kak-notes<ret>'
 
-set-option global windowing_placement "window"
+set-option global windowing_placement "tab"
 
 # notes
 set-option global kak_notes_root_dir %sh{ echo $HOME/brain }
@@ -81,4 +81,5 @@ define-command -override fzf-buffers %{
 define-command -override lf %{
   connect terminal-window lf %arg{@}
 }
+
 
