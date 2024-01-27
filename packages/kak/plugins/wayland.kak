@@ -31,7 +31,7 @@ The program passed as argument will be executed in the new terminal' \
             termcmd=$kak_opt_termcmd
             args=$kak_quoted_reg_a
             unset kak_opt_termcmd kak_quoted_reg_a
-            setsid foot --app-id=floating sh -c "$args"< /dev/null > /dev/null 2>&1 &
+            setsid foot --app-id=floating -m sh -c "$args"< /dev/null > /dev/null 2>&1 &
         }
     }
 }
