@@ -8,8 +8,6 @@ from libqtile.log_utils import logger
 class Tab:
     left = 0
     right = 0
-    def draw(self, layout, client, left):
-        return left + framed.width
 
 class Cell(_ClientList):
     def __init__(self, root):
@@ -92,8 +90,9 @@ class Cell(_ClientList):
     def draw(self, *args):
         self._drawer.clear(self._root.tab_bar_background_color)
 
+        client_amount = len(self.clients)
         left = 0
-        for client_index in range(len(self.clients)):
+        for client_index in range(client_amount):
             client = self.clients[client_index]
             layout = self._drawer.textlayout(
                 "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
@@ -103,20 +102,21 @@ class Cell(_ClientList):
 
             layout.text = client.name
 
+            padding = 0 if client_index is 0 else self._root.tab_gap
+
             framed = layout.framed(
                 border_width = 1,
-                border_color = "000000", # background color
-                pad_x = 0,
+                border_color = self._root.tab_bar_background_color,
+                pad_x = padding,
                 pad_y = 0,
             )
 
             framed.draw_fill(left, 0, rounded=True)
 
-
-            self._tabs[client.wid].left = left
-            self._tabs[client.wid].right = left + framed.width
-
-            left = self._tabs[client.wid].right + self._root.tab_gap
+            self._tabs[client.wid].left = left + padding
+            max_width = (self._drawer.width - left) / (client_amount - client_index)
+            self._tabs[client.wid].right = left + min(framed.width, max_width)
+            left = self._tabs[client.wid].right
 
         self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
 
