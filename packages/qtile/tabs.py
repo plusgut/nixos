@@ -89,6 +89,7 @@ class Cell(_ClientList):
 
     def draw(self, *args):
         self._drawer.clear(self._root.tab_bar_background_color)
+        margin = 1
 
         client_amount = len(self.clients)
         left = 0
@@ -102,10 +103,10 @@ class Cell(_ClientList):
 
             layout.text = client.name
 
-            padding = 0 if client_index is 0 else self._root.tab_gap
+            padding = margin if client_index is 0 else self._root.tab_gap
 
             framed = layout.framed(
-                border_width = 1,
+                border_width = 0,
                 border_color = self._root.tab_bar_background_color,
                 pad_x = padding,
                 pad_y = 0,
@@ -114,7 +115,7 @@ class Cell(_ClientList):
             framed.draw_fill(left, 0, rounded=True)
 
             self._tabs[client.wid].left = left + padding
-            max_width = (self._drawer.width - left) / (client_amount - client_index)
+            max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
             self._tabs[client.wid].right = left + min(framed.width, max_width)
             left = self._tabs[client.wid].right
 
