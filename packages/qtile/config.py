@@ -37,7 +37,7 @@ from tabs import Tabs
 
 catpuccin = Flavour.mocha()
 
-mod = "mod4"
+mod = "mod4" if os.environ["DEBUG"] is not "1" else "control"
 
 terminal = "foot"
 browser = "firefox"
