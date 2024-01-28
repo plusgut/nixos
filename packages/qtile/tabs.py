@@ -287,7 +287,6 @@ class Row:
     def shuffle_left(self, container) -> bool:
         cell = self.cells[self.current_cell_index]
         result = cell.shuffle_left() if container is False else False
-        logger.exception(result)
 
         if result is False and self._root.is_horizontal():
             self.add_client(cell.current_client, "previous_cell")
