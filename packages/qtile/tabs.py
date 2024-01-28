@@ -255,10 +255,10 @@ class Row:
         cell = self._clients[client.wid]
         result = cell.focus_next(client) if container is False else None
 
-        if result is None and self._root.is_horizontal() :
+        if result is None and self._root.is_horizontal():
             cell_index = self.cells.index(cell)
             if cell_index + 1 < len(self.cells):
-                result = self.cells[cell_index - 1].current_client
+                result = self.cells[cell_index + 1].current_client
         return result
 
     def focus_down(self, client: Window) -> Window | None:
