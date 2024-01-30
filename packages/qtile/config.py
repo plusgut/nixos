@@ -139,6 +139,8 @@ screens = [
                     font = "FiraCode Nerd Font"
                 ),
                 widget.Spacer(bar.STRETCH),
+                widget.PulseVolume(emoji=True),
+                widget.BatteryIcon(),
                 widget.Clock(format="%H:%M"),
                 widget.QuickExit(),
             ],
