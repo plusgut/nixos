@@ -100,10 +100,9 @@ class Cell(_ClientList):
                 wrap=False
             )
             layout.colour = self._root.tab_active_font_color if self.current_index is client_index else self._root.tab_inactive_font_color 
-
             layout.text = client.name
-
             padding = margin if client_index is 0 else self._root.tab_gap
+            max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
 
             framed = layout.framed(
                 border_width = 0,
@@ -111,12 +110,13 @@ class Cell(_ClientList):
                 pad_x = padding,
                 pad_y = 0,
             )
+            if framed.width > max_width:
+                framed.layout.width = max_width - padding
 
             framed.draw_fill(left, 0, rounded=True)
 
             self._tabs[client.wid].left = left + padding
-            max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
-            self._tabs[client.wid].right = left + min(framed.width, max_width)
+            self._tabs[client.wid].right = left + framed.width
             left = self._tabs[client.wid].right
 
         self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
