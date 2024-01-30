@@ -75,6 +75,15 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "e", lazy.spawn(applicationLauncher), desc="Spawn a command using a prompt widget"),
     Key([mod], "b", lazy.spawn(browser), desc="Spawn a command using a prompt widget"),
+
+    Key([], "XF86ScreenSaver", lazy.spawn("swaylock")),
+
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set 5%+")),
+
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pulsemixer --change-volume +5")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pulsemixer --change-volume -5")),
+    Key([], "XF86AudioMute", lazy.spawn("pulsemixer --toggle-mute")),
 ]
 
 groups = [Group(name, label = label) for (name, label) in [("a", "\ue7a2"), ("s", "\ue745"), ("d", "\ueac4"), ("f", "foobar"), ("g", "mep")]]
