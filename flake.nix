@@ -99,6 +99,7 @@
                 xdg-desktop-portal-gtk
               ];
             };
+            icons.enable = true;
           };
 
           users.users.root.initialHashedPassword = "";
@@ -109,9 +110,10 @@
             shell = pkgs.fish;
           };
 
+
           environment.loginShellInit = ''
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-              exec ${localPackages.qtile.packages.${pkgs.system}.default} start -b wayland
+              exec qtile start -b wayland
             fi
           '';
 
