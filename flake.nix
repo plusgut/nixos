@@ -161,7 +161,6 @@
               font-awesome
               pulsemixer
               mtr
-              phinger-cursors
               nmap
               steam
               xdg-utils
