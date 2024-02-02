@@ -9,11 +9,19 @@
     let
       common = ({ pkgs, ... }:
         let
-          localPackages =
-            (map (x: builtins.getFlake (toString x))
-              (builtins.filter (x: builtins.pathExists (x + "/flake.nix"))
-                (map (x: ./. + "/packages/${x}")
-                  (builtins.attrNames (builtins.readDir ./packages)))));
+          flakes = builtins.listToAttrs
+            (map
+              (x:
+                {
+                  name = x;
+                  value = builtins.getFlake (toString (./packages + "/${x}"));
+                }
+              )
+              (builtins.filter
+                (x: builtins.pathExists (./packages + "/${x}/flake.nix"))
+                (builtins.attrNames (builtins.readDir ./packages))
+              )
+            );
         in
         {
           nix = {
@@ -113,7 +121,7 @@
 
           environment.loginShellInit = ''
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-              exec qtile start -b wayland
+              exec ${flakes.qtile.packages.${pkgs.system}.default}/bin/qtile start -b wayland
             fi
           '';
 
@@ -136,7 +144,7 @@
           # $ nix search wget
           #
           environment.systemPackages =
-            builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) localPackages
+            builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
               foot
               nixfmt
