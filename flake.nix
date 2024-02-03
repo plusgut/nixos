@@ -101,11 +101,15 @@
             portal = {
               enable = true;
               wlr.enable = true;
-              configPackages = [ pkgs.river ];
               extraPortals = with pkgs; [
                 xdg-desktop-portal-wlr
                 xdg-desktop-portal-gtk
               ];
+              config = {
+                qtile = {
+                  default = ["wlr" "gtk"];
+                };
+              };
             };
             icons.enable = true;
           };
