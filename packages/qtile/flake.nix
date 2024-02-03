@@ -14,8 +14,10 @@
             default = pkgs.python3.withPackages (_p: [
               pkgs.python3.pkgs.qtile
               pkgs.python3.pkgs.catppuccin
+              pkgs.wlroots_0_16
             ]);
             swaybg = pkgs.swaybg;
+            swaylock = pkgs.swaylock;
         };
 
     }

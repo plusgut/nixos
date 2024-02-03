@@ -189,7 +189,10 @@
               qutebrowser
             ]);
 
-          hardware.opengl.driSupport32Bit = true;
+          hardware.opengl = {
+            enable = true;
+            driSupport32Bit = true;
+          };
           # Some programs need SUID wrappers, can be configured further or are
           # started in user sessions.
           # programs.mtr.enable = true;
@@ -197,8 +200,15 @@
           #   enable = true;
           #   enableSSHSupport = true;
           # };
+          #
+          #
+          programs = {
+            dconf.enable = true;
+            xwayland.enable = true;
+          };
+
           programs.river = {
-            enable = true;
+            enable = false;
           };
 
           programs.sway = {
@@ -213,10 +223,6 @@
             ];
           };
 
-          fonts.packages = with pkgs; [
-            font-awesome
-            (nerdfonts.override { fonts = [ "FiraCode" ]; })
-          ];
 
           programs.git = {
             enable = true;
@@ -246,6 +252,14 @@
                 opt = [ ];
               };
             };
+          };
+
+          fonts = {
+            enableDefaultPackages = true;
+            packages = with pkgs; [
+              font-awesome
+              (nerdfonts.override { fonts = [ "FiraCode" ]; })
+            ];
           };
 
           # List services that you want to enable:
