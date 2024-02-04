@@ -187,7 +187,11 @@ class Row:
             if cell_index + 1 is cell_length:
                 cell_rect = screen_rect
             else:
-                (cell_rect, screen_rect) = screen_rect.hsplit(int((1 / cell_length) * screen_rect.width))
+                ratio = 1 / cell_length
+                if self._root.is_horizontal():
+                    (cell_rect, screen_rect) = screen_rect.hsplit(int(ratio * screen_rect.width))
+                else:
+                    (cell_rect, screen_rect) = screen_rect.vsplit(int(ratio * screen_rect.height))
 
             cell = self.cells[cell_index]
             if cell is self._clients[client.wid]:
@@ -296,7 +300,7 @@ class Row:
         return result
 
     def shuffle_down(self) -> bool:
-        if self._root.is_horizontal is False:
+        if self._root.is_horizontal() is False:
             cell = self.cells[self.current_cell_index]
             self.add_client(cell.current_client, "next_cell")
 
@@ -306,7 +310,7 @@ class Row:
 
 
     def shuffle_up(self) -> bool:
-        if self._root.is_horizontal is False:
+        if self._root.is_horizontal() is False:
             cell = self.cells[self.current_cell_index]
             self.add_client(cell.current_client, "previous_cell")
 
@@ -467,7 +471,11 @@ class Tabs(Layout):
                 row_rect = screen_rect
             else:
                 weight = self.primary_weight if self._is_primary(row_index) else 1
-                (row_rect, screen_rect) = screen_rect.vsplit(int((weight / row_length) * screen_rect.height))
+                ratio = weight / row_length
+                if self.is_horizontal():
+                    (row_rect, screen_rect) = screen_rect.vsplit(int(ratio * screen_rect.height))
+                else:
+                    (row_rect, screen_rect) = screen_rect.hsplit(int(ratio * screen_rect.width))
 
             row = self.rows[row_index]
             if self._clients[client.wid] is row:
