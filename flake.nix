@@ -125,7 +125,7 @@
 
           environment.loginShellInit = ''
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-              exec ${flakes.qtile.packages.${pkgs.system}.default}/bin/qtile start -b wayland
+              XCURSOR_SIZE=48 exec ${flakes.qtile.packages.${pkgs.system}.default}/bin/qtile start -b wayland
             fi
           '';
 
