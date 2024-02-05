@@ -16,15 +16,20 @@ class Tab:
     def get_title(self):
         return self._client.name
 
-
-    def draw(self, left, client_index, client_amount, active, focus) -> ScreenRect:
+    def draw(self, left, client_index, client_amount, active) -> ScreenRect:
         margin = 1
 
         layout = self._drawer.textlayout(
             "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
             wrap=False
         )
-        layout.colour = self._root.tab_active_font_color if active else self._root.tab_inactive_font_color 
+        if self._root.group.current_window is self._client:
+            layout.colour = self._root.tab_focus_font_color
+        elif active:
+            layout.colour = self._root.tab_active_font_color
+        else:
+            layout.colour = self._root.tab_inactive_font_color
+
         layout.text = self.get_title()
         padding = margin if client_index is 0 else self._root.tab_gap
         max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
@@ -140,7 +145,6 @@ class Cell(_ClientList):
                 client_index = client_index,
                 client_amount = client_amount,
                 active = self.current_index is client_index,
-                focus = False # @TODO
             )
 
         self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
@@ -361,9 +365,12 @@ class Tabs(Layout):
         ("tab_gap", 10, "Gaps between tabs"),
         ("tab_font", "sans", "Font size of tab"),
         ("tab_fontsize", 14, "Font size of tab"),
-        ("tab_active_font_color", "ff0000", "Background color of an inactive tab"),
-        ("tab_active_border_color", "ff0000", "Background color of an inactive tab"),
-        ("tab_active_background_color", "000000", "Background color of an inactive tab"),
+        ("tab_focus_font_color", "00ff00", "Background color of an focused tab"),
+        ("tab_focus_border_color", "00ff00", "Background color of an focused tab"),
+        ("tab_focus_background_color", "000000", "Background color of an focused tab"),
+        ("tab_active_font_color", "009900", "Background color of an active tab"),
+        ("tab_active_border_color", "009900", "Background color of an active tab"),
+        ("tab_active_background_color", "000000", "Background color of an active tab"),
         ("tab_inactive_font_color", "ffffff", "Background color of an inactive tab"),
         ("tab_inactive_border_color", "ffffff", "Background color of an inactive tab"),
         ("tab_inactive_background_color", "000000", "Background color of an inactive tab"),
