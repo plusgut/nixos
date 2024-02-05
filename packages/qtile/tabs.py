@@ -6,8 +6,45 @@ from libqtile.config import ScreenRect
 from libqtile.log_utils import logger
 
 class Tab:
-    left = 0
-    right = 0
+    def __init__(self, root, drawer, client):
+        self._drawer = drawer
+        self._client = client
+        self._root = root
+        self._left = 0
+        self._right = 0
+
+    def get_title(self):
+        return self._client.name
+
+
+    def draw(self, left, client_index, client_amount, active, focus) -> ScreenRect:
+        margin = 1
+
+        layout = self._drawer.textlayout(
+            "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
+            wrap=False
+        )
+        layout.colour = self._root.tab_active_font_color if active else self._root.tab_inactive_font_color 
+        layout.text = self.get_title()
+        padding = margin if client_index is 0 else self._root.tab_gap
+        max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
+
+        framed = layout.framed(
+            border_width = 0,
+            border_color = self._root.tab_bar_background_color,
+            pad_x = padding,
+            pad_y = 0,
+        )
+
+        if framed.width > max_width:
+            framed.layout.width = max_width - padding
+
+        framed.draw_fill(left, 0, rounded=True)
+
+        self._left = left + padding
+        self._right = left + framed.width
+
+        return self._right
 
 class Cell(_ClientList):
     def __init__(self, root):
@@ -27,7 +64,6 @@ class Cell(_ClientList):
             self._drawer.finalize()
 
     def add_client(self, client: Window):
-        self._tabs[client.wid] = Tab()
         _ClientList.add_client(self, client, 1)
 
     def configure(self, client: Window, screen_rect: ScreenRect):
@@ -77,47 +113,35 @@ class Cell(_ClientList):
         self._create_drawer(screen_rect)
 
     def _create_drawer(self, screen_rect):
-        if self._drawer is not None and (self._drawer.height != screen_rect.height or self._drawer.width != screen_rect.width):
-            self._drawer.finalize()
-            self._drawer = None
-
         if self._drawer is None:
             self._drawer = self._tab_bar.create_drawer(
                 screen_rect.width,
                 screen_rect.height,
             )
+        else:
+            if self._drawer.height != screen_rect.height:
+                self._drawer.height = screen_rect.height
+
+            if self._drawer.width != screen_rect.width:
+                self._drawer.width = screen_rect.width
+
 
     def draw(self, *args):
         self._drawer.clear(self._root.tab_bar_background_color)
-        margin = 1
 
         client_amount = len(self.clients)
         left = 0
         for client_index in range(client_amount):
             client = self.clients[client_index]
-            layout = self._drawer.textlayout(
-                "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
-                wrap=False
+            if client.wid not in self._tabs:
+                self._tabs[client.wid] = Tab(root = self._root, drawer = self._drawer, client = client)
+            left = self._tabs[client.wid].draw(
+                left = left,
+                client_index = client_index,
+                client_amount = client_amount,
+                active = self.current_index is client_index,
+                focus = False # @TODO
             )
-            layout.colour = self._root.tab_active_font_color if self.current_index is client_index else self._root.tab_inactive_font_color 
-            layout.text = client.name
-            padding = margin if client_index is 0 else self._root.tab_gap
-            max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
-
-            framed = layout.framed(
-                border_width = 0,
-                border_color = self._root.tab_bar_background_color,
-                pad_x = padding,
-                pad_y = 0,
-            )
-            if framed.width > max_width:
-                framed.layout.width = max_width - padding
-
-            framed.draw_fill(left, 0, rounded=True)
-
-            self._tabs[client.wid].left = left + padding
-            self._tabs[client.wid].right = left + framed.width
-            left = self._tabs[client.wid].right
 
         self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
 
