@@ -18,7 +18,14 @@ class Tab:
 
     def draw(self, left, client_index, client_amount, active) -> ScreenRect:
         margin = 1
+        padding = margin if client_index is 0 else self._root.tab_gap
+        self._left = left + padding
 
+        self._right = self._draw_text(self._left, client_index, client_amount, active)
+
+        return self._right
+
+    def _draw_text(self, left, client_index, client_amount, active):
         layout = self._drawer.textlayout(
             "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
             wrap=False
@@ -31,13 +38,12 @@ class Tab:
             layout.colour = self._root.tab_inactive_font_color
 
         layout.text = self.get_title()
-        padding = margin if client_index is 0 else self._root.tab_gap
-        max_width = (self._drawer.width - left - self._root.tab_gap - margin) / (client_amount - client_index)
+        max_width = (self._drawer.width - left - self._root.tab_gap) / (client_amount - client_index)
 
         framed = layout.framed(
             border_width = 0,
             border_color = self._root.tab_bar_background_color,
-            pad_x = padding,
+            pad_x = 0,
             pad_y = 0,
         )
 
@@ -46,10 +52,7 @@ class Tab:
 
         framed.draw_fill(left, 0, rounded=True)
 
-        self._left = left + padding
-        self._right = left + framed.width
-
-        return self._right
+        return left + framed.width
 
 class Cell(_ClientList):
     def __init__(self, root):
