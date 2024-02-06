@@ -116,8 +116,6 @@ layouts = [
     Tabs(
         tab_bar_height = 26,
         tab_fontsize = 22,
-        primary_position = "left"
-
     ),
 ]
 

@@ -5,6 +5,14 @@ from libqtile.backend.base import Window
 from libqtile.config import ScreenRect
 from libqtile.log_utils import logger
 
+LEFT_CLICK = 1
+MIDDLE_CLICK = 2
+RIGHT_CLICK = 3
+SCROLL_UP = 4
+SCROLL_DOWN = 5
+SCROLL_LEFT = 6
+SCROLL_RIGHT = 7
+
 class Tab:
     def __init__(self, root, drawer, client):
         self._drawer = drawer
@@ -17,10 +25,7 @@ class Tab:
         return self._client.name
 
     def draw(self, left, client_index, client_amount, active) -> ScreenRect:
-        margin = 1
-        padding = margin if client_index is 0 else self._root.tab_gap
-        self._left = left + padding
-
+        self._left = left
         self._right = self._draw_text(self._left, client_index, client_amount, active)
 
         return self._right
@@ -48,11 +53,18 @@ class Tab:
         )
 
         if framed.width > max_width:
-            framed.layout.width = max_width - padding
+            framed.layout.width = max_width
 
         framed.draw_fill(left, 0, rounded=True)
 
         return left + framed.width
+
+    def click(self, x, y, button):
+        if button is LEFT_CLICK and self._left < x and x < self._right:
+            self._root.group.focus(self._client)
+            return True
+        else:
+            return False
 
 class Cell(_ClientList):
     def __init__(self, root):
@@ -148,13 +160,23 @@ class Cell(_ClientList):
                 client_index = client_index,
                 client_amount = client_amount,
                 active = self.current_index is client_index,
-            )
+            ) + self._root.tab_gap 
 
         self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
 
 
-    def process_button_click(self, x, y, _button):
-        pass
+    def process_button_click(self, x, y, button):
+        for tab_index in self._tabs:
+            if self._tabs[tab_index].click(x = x, y = y, button = button) is True:
+                return
+        result = None
+        if button is SCROLL_DOWN or button is SCROLL_RIGHT:
+            result = self.focus_next(self.current_client)
+        if button is SCROLL_UP or button is SCROLL_LEFT:
+            result = self.focus_previous(self.current_client)
+
+        if result is not None:
+            self._root.group.focus(result)
 
     def shuffle_left(self) -> bool:
         if len(self.clients) > 1 and self.current_index > 0:
