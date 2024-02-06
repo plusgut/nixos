@@ -116,6 +116,7 @@ layouts = [
     Tabs(
         tab_bar_height = 26,
         tab_fontsize = 22,
+        window_margin = 10,
     ),
 ]
 
@@ -192,7 +193,7 @@ wl_input_rules = {
 @hook.subscribe.startup_once
 def autostart():
     processes = [
-      ["swaybg", "-m", "center", "-c", f"#{catpuccin.base.hex}", "-i", os.path.expandvars("$XDG_CONFIG_HOME/qtile/assets/catpuccin.png")],
+      ["swaybg", "-m", "center", "-c", f"#{catpuccin.base.hex}" ],
       ["dbus-update-activation-environment", "systemd", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP=qtile"]
     ]
 

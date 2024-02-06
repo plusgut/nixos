@@ -169,6 +169,7 @@ class Cell(_ClientList):
         for tab_index in self._tabs:
             if self._tabs[tab_index].click(x = x, y = y, button = button) is True:
                 return
+
         result = None
         if button is SCROLL_DOWN or button is SCROLL_RIGHT:
             result = self.focus_next(self.current_client)
@@ -232,9 +233,8 @@ class Row:
         self.cells[self.current_cell_index].add_client(client)
 
     def configure(self, client: Window, screen_rect):
-        self._screen_rect = screen_rect
         cell_length = len(self.cells)
-        cell_amount = cell_length # @TODO add weight of each cell
+        cell_amount = cell_length
 
         for cell_index in range(len(self.cells)):
             if cell_index + 1 is cell_length:
@@ -248,12 +248,13 @@ class Row:
 
             cell = self.cells[cell_index]
             if cell is self._clients[client.wid]:
-                cell.configure(client, cell_rect)
-
-    def configure_all(self):
-        for cell in self.cells:
-            self.configure(cell.current_client, self._screen_rect)
-
+                shrinked_rect = ScreenRect(
+                    x = cell_rect.x + self._root.window_margin,
+                    y = cell_rect.y + self._root.window_margin,
+                    width = cell_rect.width - self._root.window_margin * 2,
+                    height = cell_rect.height - self._root.window_margin * 2,
+                )
+                cell.configure(client, shrinked_rect)
 
     def remove(self, client):
         cell = self._clients[client.wid]
@@ -384,7 +385,7 @@ class Tabs(Layout):
     defaults = [
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
         ("primary_weight", 1.3, "Percentage of how the primary containers should be weighted"),
-        ("window_gap", 0, "Background between windows"),
+        ("window_margin", 0, "Background between windows"),
         ("tab_bar_height", 24, "Height of the tab bar"),
         ("tab_bar_background_color", "000000", "Background of the tab bar"),
         ("tab_gap", 10, "Gaps between tabs"),
