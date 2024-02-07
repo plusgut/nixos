@@ -88,26 +88,27 @@ class Cell(_ClientList):
 
     def configure(self, client: Window, screen_rect: ScreenRect):
         tab_screen_rect, client_screen_rect = screen_rect.vsplit(self._root.tab_bar_height)
+        border_color = self._root.window_border_color_focus if self._root.group.current_window is client else self._root.window_border_color_inactive
 
         self._create_tab_bar(tab_screen_rect)
         self._tab_bar.place(
-            tab_screen_rect.x,
-            tab_screen_rect.y,
-            tab_screen_rect.width,
-            tab_screen_rect.height,
-            0,
-            None
+            x = tab_screen_rect.x,
+            y = tab_screen_rect.y,
+            width = tab_screen_rect.width,
+            height = tab_screen_rect.height,
+            borderwidth = 0,
+            bordercolor = None
         )
         self.draw()
         self._tab_bar.unhide()
 
         client.place(
-            client_screen_rect.x,
-            client_screen_rect.y,
-            client_screen_rect.width,
-            client_screen_rect.height,
-            0,
-            None
+            x = client_screen_rect.x,
+            y = client_screen_rect.y,
+            width = client_screen_rect.width - self._root.window_border_width * 2,
+            height = client_screen_rect.height - self._root.window_border_width * 2,
+            bordercolor = border_color,
+            borderwidth = self._root.window_border_width
         )
 
         if client is self.current_client:
@@ -386,6 +387,9 @@ class Tabs(Layout):
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
         ("primary_weight", 1.3, "Percentage of how the primary containers should be weighted"),
         ("window_margin", 0, "Background between windows"),
+        ("window_border_color_focus", "9C9C9C", "Color of the window, when it is focused"),
+        ("window_border_color_inactive", "2C2C2C", "Color of the window when it is not focused"),
+        ("window_border_width", 1, "Width of border"),
         ("tab_bar_height", 24, "Height of the tab bar"),
         ("tab_bar_background_color", "000000", "Background of the tab bar"),
         ("tab_gap", 10, "Gaps between tabs"),
