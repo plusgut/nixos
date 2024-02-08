@@ -4,6 +4,8 @@ from libqtile.layout.base import _ClientList, Layout
 from libqtile.backend.base import Window
 from libqtile.config import ScreenRect
 from libqtile.log_utils import logger
+from libqtile.images import Img
+from xdg.IconTheme import getIconPath
 
 LEFT_CLICK = 1
 MIDDLE_CLICK = 2
@@ -29,15 +31,45 @@ class Tab:
         self._root = root
         self._left = 0
         self._right = 0
+        self._icon_surface = self._get_icon()
 
     def get_title(self):
         return self._client.name
 
-    def draw(self, left, client_index, client_amount, active) -> ScreenRect:
+    def _get_icon(self):
+        for window_class in self._client.get_wm_class():
+            for app in set([window_class, window_class.lower()]):
+                icon = getIconPath(app, size=self._root.tab_icon_size, theme=None)
+                if icon is not None:
+                    img = Img.from_path(icon)
+                    img.resize(self._root.tab_icon_size)
+                    return img.pattern
+                else:
+                    continue
+            break
+
+        return None
+
+
+    def draw(self, left, client_index, client_amount, active) -> int:
         self._left = left
-        self._right = self._draw_text(self._left, client_index, client_amount, active)
+        left = self._draw_icon(self._left)
+        self._right = self._draw_text(left, client_index, client_amount, active)
 
         return self._right
+
+    def _draw_icon(self, left) -> int:
+        if self._icon_surface:
+            self._drawer.ctx.save()
+            self._drawer.ctx.translate(left, 0)
+            self._drawer.ctx.set_source(self._icon_surface)
+            self._drawer.ctx.paint()
+            self._drawer.ctx.restore()
+
+            return left + self._root.tab_icon_size + 4
+
+        else:
+            return left
 
     def _draw_text(self, left, client_index, client_amount, active):
         layout = self._drawer.textlayout(
@@ -410,6 +442,7 @@ class Tabs(Layout):
         ("tab_gap", 10, "Gaps between tabs"),
         ("tab_font", "sans", "Font size of tab"),
         ("tab_fontsize", 14, "Font size of tab"),
+        ("tab_icon_size", 24, "icon size"),
         ("tab_focus_font_color", "00ff00", "Background color of an focused tab"),
         ("tab_focus_border_color", "00ff00", "Background color of an focused tab"),
         ("tab_focus_background_color", "000000", "Background color of an focused tab"),

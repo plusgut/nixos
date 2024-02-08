@@ -19,6 +19,7 @@
               (pkgs.python3.pkgs.qtile.overrideAttrs { src = qtile; })
               pkgs.python3.pkgs.catppuccin
               pkgs.wlroots_0_16
+              pkgs.python3.pkgs.pyxdg
             ]);
             swaybg = pkgs.swaybg;
             swaylock = pkgs.swaylock;
