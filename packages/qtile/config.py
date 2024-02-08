@@ -117,6 +117,7 @@ layouts = [
         tab_bar_height = 26,
         tab_fontsize = 22,
         window_margin = 10,
+        tab_bar_background_color = catpuccin.base.hex,
     ),
 ]
 
