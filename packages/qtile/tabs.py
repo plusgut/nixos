@@ -235,17 +235,17 @@ class Row:
 
     def configure(self, client: Window, screen_rect):
         cell_length = len(self.cells)
-        cell_amount = cell_length
+        ratio = 1 / cell_length
+        screen_size = screen_rect.width if self._root.is_horizontal() else screen_rect.height
 
-        for cell_index in range(len(self.cells)):
+        for cell_index in range(cell_length):
             if cell_index + 1 is cell_length:
                 cell_rect = screen_rect
             else:
-                ratio = 1 / cell_length
                 if self._root.is_horizontal():
-                    (cell_rect, screen_rect) = screen_rect.hsplit(int(ratio * screen_rect.width))
+                    (cell_rect, screen_rect) = screen_rect.hsplit(int(ratio * screen_size))
                 else:
-                    (cell_rect, screen_rect) = screen_rect.vsplit(int(ratio * screen_rect.height))
+                    (cell_rect, screen_rect) = screen_rect.vsplit(int(ratio * screen_size))
 
             cell = self.cells[cell_index]
             if cell is self._clients[client.wid]:
@@ -526,17 +526,18 @@ class Tabs(Layout):
         """
         row_length = len(self.rows)
         row_amount = row_length + self.primary_weight - 1
+        screen_size = screen_rect.height if self.is_horizontal() else screen_rect.width
 
-        for row_index in range(len(self.rows)):
+        for row_index in range(row_length):
             if row_index + 1 is row_length:
                 row_rect = screen_rect
             else:
                 weight = self.primary_weight if self._is_primary(row_index) else 1
-                ratio = weight / row_length
+                ratio = weight / row_amount
                 if self.is_horizontal():
-                    (row_rect, screen_rect) = screen_rect.vsplit(int(ratio * screen_rect.height))
+                    (row_rect, screen_rect) = screen_rect.vsplit(int(ratio * screen_size))
                 else:
-                    (row_rect, screen_rect) = screen_rect.hsplit(int(ratio * screen_rect.width))
+                    (row_rect, screen_rect) = screen_rect.hsplit(int(ratio * screen_size))
 
             row = self.rows[row_index]
             if self._clients[client.wid] is row:
