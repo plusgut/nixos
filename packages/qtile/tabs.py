@@ -13,6 +13,15 @@ SCROLL_DOWN = 5
 SCROLL_LEFT = 6
 SCROLL_RIGHT = 7
 
+
+def shrink_rect(screen_rect: ScreenRect, top: int, right: int, bottom: int, left: int) -> ScreenRect:
+    return ScreenRect(
+        x = screen_rect.x + left,
+        y = screen_rect.y + top,
+        width = screen_rect.width - left - right,
+        height = screen_rect.height - top - bottom,
+    )
+
 class Tab:
     def __init__(self, root, drawer, client):
         self._drawer = drawer
@@ -249,12 +258,18 @@ class Row:
 
             cell = self.cells[cell_index]
             if cell is self._clients[client.wid]:
-                shrinked_rect = ScreenRect(
-                    x = cell_rect.x + self._root.window_margin,
-                    y = cell_rect.y + self._root.window_margin,
-                    width = cell_rect.width - self._root.window_margin * 2,
-                    height = cell_rect.height - self._root.window_margin * 2,
-                )
+                top = 0
+                right = 0
+                bottom = 0
+                left = 0
+
+                if cell_index + 1 is not cell_length:
+                    if self._root.is_horizontal():
+                        right = self._root.window_gap 
+                    else:
+                        bottom = self._root.window_gap
+
+                shrinked_rect = shrink_rect(cell_rect, top, right, bottom, left)
                 cell.configure(client, shrinked_rect)
 
     def remove(self, client):
@@ -386,7 +401,7 @@ class Tabs(Layout):
     defaults = [
         ("primary_position", "top", "Position of the primary containers, can be either 'top', 'right', 'bottom' or 'left'"),
         ("primary_weight", 1.3, "Percentage of how the primary containers should be weighted"),
-        ("window_margin", 0, "Background between windows"),
+        ("window_gap", 20, "Background between windows"),
         ("window_border_color_focus", "9C9C9C", "Color of the window, when it is focused"),
         ("window_border_color_inactive", "2C2C2C", "Color of the window when it is not focused"),
         ("window_border_width", 1, "Width of border"),
@@ -541,7 +556,19 @@ class Tabs(Layout):
 
             row = self.rows[row_index]
             if self._clients[client.wid] is row:
-                row.configure(client, row_rect)
+                top = self.window_gap
+                right = self.window_gap
+                bottom = self.window_gap
+                left = self.window_gap
+
+                if row_index is not 0:
+                    if self.is_horizontal():
+                        top = 0
+                    else:
+                        left
+
+                shrinked_rect = shrink_rect(row_rect, top, right, bottom, left)
+                row.configure(client, shrinked_rect)
 
     def focus_first(self) -> Window | None:
         """Called when the first client in Layout shall be focused.
