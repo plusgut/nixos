@@ -7,4 +7,5 @@ result
 /packages/pulse
 /packages/chromium
 /packages/qtile/__pycache__
+/packages/nom/nom.db
 /private
