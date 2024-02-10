@@ -150,6 +150,7 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
+              nom
               foot
               nixfmt
               gh
