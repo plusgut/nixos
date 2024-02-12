@@ -24,4 +24,4 @@ nord15 = "B48EAD"
 
 background = [nord3, nord2, nord1, nord0]
 foreground = [nord6, nord5, nord4]
-accent = [nord10, nord9, nord8, nord7]
+accent = [nord8, nord9, nord7, nord10]

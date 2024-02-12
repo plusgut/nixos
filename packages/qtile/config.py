@@ -115,6 +115,14 @@ layouts = [
         tab_fontsize = 22,
         window_margin = 10,
         tab_bar_background_color = background[3],
+
+        tab_active_focus_font_color = accent[0],
+
+        tab_inactive_focus_font_color = foreground[0],
+
+        tab_active_unfocus_font_color = accent[2],
+
+        tab_inactive_unfocus_font_color = foreground[0],
     ),
 ]
 
