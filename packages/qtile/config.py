@@ -28,14 +28,11 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.backend.wayland import InputConfig
-
 import subprocess
 import os
-from catppuccin import Flavour
 
 from tabs import Tabs
-
-catpuccin = Flavour.mocha()
+from color import background, foreground, accent
 
 mod = "mod4" if os.environ.get("DEBUG") is not "1" else "control"
 
@@ -117,7 +114,7 @@ layouts = [
         tab_bar_height = 26,
         tab_fontsize = 22,
         window_margin = 10,
-        tab_bar_background_color = catpuccin.base.hex,
+        tab_bar_background_color = background[3],
     ),
 ]
 
@@ -125,7 +122,7 @@ widget_defaults = dict(
     font="sans",
     fontsize=24,
     padding=3,
-    foreground= catpuccin.text.hex
+    foreground= foreground[0]
 )
 extension_defaults = widget_defaults.copy()
 
@@ -135,8 +132,8 @@ screens = [
             [
                 widget.GroupBox(
                     highlight_method = "block",
-                    inactive = catpuccin.overlay1.hex,
-                    active = catpuccin.blue.hex,
+                    inactive = foreground[2],
+                    active = accent[0],
                     font = "FiraCode Nerd Font"
                 ),
                 widget.Spacer(bar.STRETCH),
@@ -146,7 +143,7 @@ screens = [
                 widget.QuickExit(),
             ],
             24,
-            background = f"{catpuccin.crust.hex}"
+            background = background[3]
         ),
    ),
 ]
@@ -194,7 +191,7 @@ wl_input_rules = {
 @hook.subscribe.startup_once
 def autostart():
     processes = [
-      ["swaybg", "-m", "center", "-c", f"#{catpuccin.base.hex}" ],
+      ["swaybg", "-m", "center", "-c", f"#{background[3]}"],
       ["dbus-update-activation-environment", "systemd", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP=qtile"]
     ]
 

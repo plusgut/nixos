@@ -51,10 +51,16 @@ class Tab:
         return None
 
 
-    def draw(self, left, client_index, client_amount, active) -> int:
+    def draw(self, left, client_index, client_amount, active, focus) -> int:
         self._left = left
         left = self._draw_icon(self._left)
-        self._right = self._draw_text(left, client_index, client_amount, active)
+        self._right = self._draw_text(
+          left = left,
+          client_index = client_index,
+          client_amount = client_amount,
+          active = active,
+          focus = focus
+        )
 
         return self._right
 
@@ -71,18 +77,24 @@ class Tab:
         else:
             return left
 
-    def _draw_text(self, left, client_index, client_amount, active):
+    def _draw_text(self, left, client_index, focus, client_amount, active):
+        if self._root.group.current_window is self._client:
+            font_color = self._root.tab_active_focus_font_color
+            border_color = self._root.tab_active_focus_border_color
+        elif active:
+            font_color = self._root.tab_active_unfocus_font_color
+            border_color = self._root.tab_active_unfocus_border_color
+        elif focus:
+            font_color = self._root.tab_inactive_focus_font_color
+            border_color = self._root.tab_inactive_focus_border_color
+        else:
+            font_color = self._root.tab_inactive_unfocus_font_color
+            border_color = self._root.tab_inactive_unfocus_border_color
+
         layout = self._drawer.textlayout(
-            "", self._root.tab_active_font_color, self._root.tab_font, self._root.tab_fontsize, None,
+            "", font_color, self._root.tab_font, self._root.tab_fontsize, None,
             wrap=False
         )
-        if self._root.group.current_window is self._client:
-            layout.colour = self._root.tab_focus_font_color
-        elif active:
-            layout.colour = self._root.tab_active_font_color
-        else:
-            layout.colour = self._root.tab_inactive_font_color
-
         layout.text = self.get_title()
         max_width = (self._drawer.width - left - self._root.tab_gap) / (client_amount - client_index)
 
@@ -202,6 +214,7 @@ class Cell(_ClientList):
                 client_index = client_index,
                 client_amount = client_amount,
                 active = self.current_index is client_index,
+                focus = self._root.group.current_window is self.current_client
             ) + self._root.tab_gap 
 
         self._drawer.draw(offsetx=0, offsety=0, width = self._drawer.width)
@@ -443,15 +456,22 @@ class Tabs(Layout):
         ("tab_font", "sans", "Font size of tab"),
         ("tab_fontsize", 14, "Font size of tab"),
         ("tab_icon_size", 24, "icon size"),
-        ("tab_focus_font_color", "00ff00", "Background color of an focused tab"),
-        ("tab_focus_border_color", "00ff00", "Background color of an focused tab"),
-        ("tab_focus_background_color", "000000", "Background color of an focused tab"),
-        ("tab_active_font_color", "009900", "Background color of an active tab"),
-        ("tab_active_border_color", "009900", "Background color of an active tab"),
-        ("tab_active_background_color", "000000", "Background color of an active tab"),
-        ("tab_inactive_font_color", "ffffff", "Background color of an inactive tab"),
-        ("tab_inactive_border_color", "ffffff", "Background color of an inactive tab"),
-        ("tab_inactive_background_color", "000000", "Background color of an inactive tab"),
+
+        ("tab_active_focus_font_color", "00ff00", "Background color of an focused tab"),
+        ("tab_active_focus_border_color", "00ff00", "Background color of an focused tab"),
+        ("tab_active_focus_background_color", "000000", "Background color of an focused tab"),
+
+        ("tab_active_unfocus_font_color", "009900", "Background color of an focused tab"),
+        ("tab_active_unfocus_border_color", "009900", "Background color of an focused tab"),
+        ("tab_active_unfocus_background_color", "000000", "Background color of an focused tab"),
+
+        ("tab_inactive_focus_font_color", "ffffff", "Background color of an focused tab"),
+        ("tab_inactive_focus_border_color", "006600", "Background color of an focused tab"),
+        ("tab_inactive_focus_background_color", "000000", "Background color of an focused tab"),
+
+        ("tab_inactive_unfocus_font_color", "ffffff", "Background color of an focused tab"),
+        ("tab_inactive_unfocus_border_color", "006600", "Background color of an focused tab"),
+        ("tab_inactive_unfocus_background_color", "000000", "Background color of an focused tab"),
     ]
 
     def __init__(self, **config):
