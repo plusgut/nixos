@@ -91,26 +91,19 @@ class Tab:
             font_color = self._root.tab_inactive_unfocus_font_color
             border_color = self._root.tab_inactive_unfocus_border_color
 
-        layout = self._drawer.textlayout(
+        text_layout = self._drawer.textlayout(
             "", font_color, self._root.tab_font, self._root.tab_fontsize, None,
             wrap=False
         )
-        layout.text = self.get_title()
+        text_layout.text = self.get_title()
         max_width = (self._drawer.width - left - self._root.tab_gap) / (client_amount - client_index)
 
-        framed = layout.framed(
-            border_width = 0,
-            border_color = self._root.tab_bar_background_color,
-            pad_x = 0,
-            pad_y = 0,
-        )
+        if text_layout.width > max_width:
+            text_layout.width = max_width
 
-        if framed.width > max_width:
-            framed.layout.width = max_width
+        text_layout.draw(left, 0)
 
-        framed.draw_fill(left, 0, rounded=True)
-
-        return left + framed.width
+        return left + text_layout.width
 
     def click(self, x, y, button):
         if button is LEFT_CLICK and self._left < x and x < self._right:
