@@ -67,7 +67,6 @@ keys = [
 
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "e", lazy.spawn(applicationLauncher), desc="Spawn a command using a prompt widget"),
