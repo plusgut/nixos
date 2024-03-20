@@ -183,7 +183,6 @@
               rm-improved
               mpv
               fuzzel
-              waybar
               mako
               grim
               qutebrowser
