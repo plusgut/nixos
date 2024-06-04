@@ -34,10 +34,27 @@
         "type": "github"
       }
     },
+    "qtile": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717428597,
+        "narHash": "sha256-dfffy1heXjKdnDm950qabKV905aI5Rs5R5B/8LhBx8I=",
+        "owner": "qtile",
+        "repo": "qtile",
+        "rev": "20f983829aced54a0f7155b43b3cf525e6361c68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qtile",
+        "repo": "qtile",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "qtile": "qtile"
       }
     },
     "systems": {
