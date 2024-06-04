@@ -181,6 +181,8 @@ reconfigure_screens = True
 # focus, should we respect this or not?
 auto_minimize = True
 
+wl_xcursor_size = 48
+
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = {
     "type:touchpad": InputConfig(tap=True),
