@@ -69,11 +69,11 @@
     "kakoune": {
       "flake": false,
       "locked": {
-        "lastModified": 1717123127,
-        "narHash": "sha256-7tM0cdPSnG8JGsRAzEf4RK7enaVl6kcIIfLpbSc5lg8=",
+        "lastModified": 1717581758,
+        "narHash": "sha256-fDcSLbvbGEyQHDj64HPOozI1Y3gNxjcnmg2GYSk1m2s=",
         "owner": "mawww",
         "repo": "kakoune",
-        "rev": "727d2391c7695056ce6bb170b127c6e6ca9e1ab4",
+        "rev": "1c352e996c265cb0b1a6eb5478f171916ccb605f",
         "type": "github"
       },
       "original": {
