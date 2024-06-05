@@ -65,21 +65,12 @@ hook global NormalKey y|d|c %{ nop %sh{
 }}
 
 
-define-command -override fzf-files %{
-  connect kitty-terminal-overlay sh -c %{
-    fd --type f --strip-cwd-prefix | fzf | xargs kcr edit --
-  }
-}
-
 define-command -override fzf-buffers %{
-  connect terminal-window sh -c %{
-    kcr get --raw --value buflist | fzf --preview "kcr cat --raw {}" | xargs kcr send buffer --
+  evaluate-commands %{
+    set local windowing_placement floating
+    connect terminal sh -c %{
+      kcr get --raw --value buflist | fzf --preview "kcr cat --raw {}" | xargs kcr send buffer --
+    }
   }
 }
-
-
-define-command -override lf %{
-  connect terminal-window lf %arg{@}
-}
-
 
