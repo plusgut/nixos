@@ -1,0 +1,129 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "kak-active-window": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668444692,
+        "narHash": "sha256-6GLt9g20ddbXb29Vdl0YXFDWC73qip9cVU8EgdNlYbs=",
+        "owner": "greenfork",
+        "repo": "active-window.kak",
+        "rev": "36bf0364eed856a52cddf274072e9f255902c0ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "greenfork",
+        "repo": "active-window.kak",
+        "type": "github"
+      }
+    },
+    "kak-auto-pairs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690749471,
+        "narHash": "sha256-V8++6qZFsUOQsg0GCC+5PpPgAHsR9mCKB4YDnNBL/QQ=",
+        "owner": "alexherbo2",
+        "repo": "auto-pairs.kak",
+        "rev": "d4b33b783ea42a536c848296b5b6d434b4d1470f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexherbo2",
+        "repo": "auto-pairs.kak",
+        "type": "github"
+      }
+    },
+    "kak-wakatime": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648487078,
+        "narHash": "sha256-juDRQ+ICJUOKa2HPk7JiMd/h+V2tKa9rfTquvaZHHcw=",
+        "owner": "WhatNodyn",
+        "repo": "kakoune-wakatime",
+        "rev": "d3529c13c9227b2de89e4cd53ada43a5b83d7844",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WhatNodyn",
+        "repo": "kakoune-wakatime",
+        "type": "github"
+      }
+    },
+    "kakoune": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717123127,
+        "narHash": "sha256-7tM0cdPSnG8JGsRAzEf4RK7enaVl6kcIIfLpbSc5lg8=",
+        "owner": "mawww",
+        "repo": "kakoune",
+        "rev": "727d2391c7695056ce6bb170b127c6e6ca9e1ab4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mawww",
+        "repo": "kakoune",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1717196966,
+        "narHash": "sha256-yZKhxVIKd2lsbOqYd5iDoUIwsRZFqE87smE2Vzf6Ck0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "57610d2f8f0937f39dbd72251e9614b1561942d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "kak-active-window": "kak-active-window",
+        "kak-auto-pairs": "kak-auto-pairs",
+        "kak-wakatime": "kak-wakatime",
+        "kakoune": "kakoune",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
