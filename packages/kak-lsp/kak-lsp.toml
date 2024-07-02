@@ -1,4 +1,0 @@
-[language.markdown]
-filetypes = ["markdown"]
-roots = [ ".marksman.toml" ]
-command = "marksman"
