@@ -222,7 +222,7 @@ animations {
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    slowdown 0.5
+    slowdown 0.3
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -396,8 +396,8 @@ binds {
     // Switches focus between the current and the previous workspace.
     // Mod+Tab { focus-workspace-previous; }
 
-    Mod+Comma  { consume-window-into-column; }
-    Mod+Period { expel-window-from-column; }
+    Mod+C { consume-window-into-column; }
+    Mod+V { expel-window-from-column; }
 
     // There are also commands that consume or expel a single window to the side.
     // Mod+BracketLeft  { consume-or-expel-window-left; }
@@ -406,7 +406,7 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { reset-window-height; }
     Mod+W { maximize-column; }
-    Mod+C { center-column; }
+    // Mod+C { center-column; }
 
     // Finer width adjustments.
     // This command can also:
