@@ -103,11 +103,18 @@
               wlr.enable = true;
               extraPortals = with pkgs; [
                 xdg-desktop-portal-wlr
+                xdg-desktop-portal-gnome
                 xdg-desktop-portal-gtk
               ];
               config = {
                 qtile = {
                   default = ["wlr" "gtk"];
+                };
+                niri-session = {
+                  default = ["gnome" "gtk"];
+                };
+                niri = {
+                  default = ["gnome" "gtk"];
                 };
               };
             };
@@ -125,7 +132,7 @@
 
           environment.loginShellInit = ''
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-              XCURSOR_SIZE=48 exec ${flakes.qtile.packages.${pkgs.system}.default}/bin/qtile start -b wayland
+              systemctl --user start niri.service
             fi
           '';
 
@@ -150,6 +157,7 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
+              niri
               foot
               nixfmt
               gh
