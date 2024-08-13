@@ -397,7 +397,7 @@ binds {
     // Mod+Tab { focus-workspace-previous; }
 
     Mod+C { consume-window-into-column; }
-    Mod+V { expel-window-right; }
+    Mod+V { expel-window-from-column; }
 
     // There are also commands that consume or expel a single window to the side.
     // Mod+BracketLeft  { consume-or-expel-window-left; }
