@@ -195,7 +195,6 @@
               nix-prefetch-scripts
               nodePackages.typescript-language-server
               broot
-              kak-lsp
               wakatime
               fzf
               wl-clipboard
