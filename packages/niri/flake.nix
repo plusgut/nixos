@@ -12,9 +12,7 @@
       {
         packages = {
           default = pkgs.niri;
-          swaylock = pkgs.swaylock;
         };
-
       }
     );
 }
