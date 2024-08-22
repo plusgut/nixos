@@ -7,6 +7,9 @@ const date = Variable("", {
     poll: [1000, 'date "+%H:%M"'],
 })
 
+const workspaces = Variable([], {
+    poll: [1000, ['niri', "msg", "--json", "workspaces"], JSON.parse]
+});
 
 
 
@@ -17,7 +20,14 @@ const date = Variable("", {
 function Workspaces() {
     return Widget.Box({
         class_name: "workspaces",
-        children: [],
+        vertical: true,
+        children: workspaces.bind().as(workspaces => 
+            workspaces.map(workspace =>
+                Widget.Label({
+                    label: `${workspace.idx}`
+                })
+            )
+        ),
     })
 }
 
@@ -44,15 +54,6 @@ function Volume() {
 
         return `${audio.speaker.is_muted ? "01" : audio.speaker.volume}% ${icons[icon]}`;
     }
-
-    const slider = Widget.Slider({
-        hexpand: true,
-        draw_value: false,
-        on_change: ({ value }) => audio.speaker.volume = value,
-        setup: self => self.hook(audio.speaker, () => {
-            self.value = audio.speaker.volume || 0
-        }),
-    })
 
     return Widget.Box({
         class_name: "volume",
@@ -86,19 +87,11 @@ function BatteryLabel() {
 }
 
 // layout of the bar
-function Left() {
+function Left(_monitor) {
     return Widget.Box({
         spacing: WIDGET_SPACING,
         children: [
             Workspaces(),
-        ],
-    })
-}
-
-function Center() {
-    return Widget.Box({
-        spacing: WIDGET_SPACING,
-        children: [
         ],
     })
 }
@@ -123,8 +116,7 @@ function Bar(monitor = 0) {
         anchor: ["top", "left", "right"],
         exclusivity: "exclusive",
         child: Widget.CenterBox({
-            start_widget: Left(),
-            center_widget: Center(),
+            start_widget: Left(monitor),
             end_widget: Right(),
         }),
     })
