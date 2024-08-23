@@ -17,14 +17,14 @@ const workspaces = Variable([], {
 // so to make a reuseable widget, make it a function
 // then you can simply instantiate one by calling it
 
-function Workspaces() {
+function WorkspaceNames() {
     return Widget.Box({
-        class_name: "workspaces",
+        class_name: "workspace_names",
         vertical: true,
-        children: workspaces.bind().as(workspaces => 
+        children: workspaces.bind().as(workspaces =>
             workspaces.map(workspace =>
                 Widget.Label({
-                    label: `${workspace.idx}`
+                    label: `${workspace.name ?? workspace.idx}`
                 })
             )
         ),
@@ -32,6 +32,22 @@ function Workspaces() {
 }
 
 
+function WorkspaceWindows() {
+    return Widget.Box({
+        class_name: "workspace_windows",
+        vertical: true,
+        children: workspaces.bind().as(workspaces =>
+            workspaces.map((workspace, _index) =>
+                Widget.Button({
+                    child: Widget.Label({
+                        class_name: workspace.is_active ? "active" : "",
+                        label: `${workspace.name ?? workspace.idx}`
+                    })
+                })
+            )
+        ),
+    })
+}
 function Clock() {
     return Widget.Label({
         class_name: "clock",
@@ -87,11 +103,20 @@ function BatteryLabel() {
 }
 
 // layout of the bar
-function Left(_monitor) {
+function Left(monitor) {
     return Widget.Box({
         spacing: WIDGET_SPACING,
         children: [
-            Workspaces(),
+            WorkspaceNames(monitor),
+        ],
+    })
+}
+
+function Center(monitor) {
+    return Widget.Box({
+        spacing: WIDGET_SPACING,
+        children: [
+            WorkspaceWindows(monitor),
         ],
     })
 }
@@ -117,6 +142,7 @@ function Bar(monitor = 0) {
         exclusivity: "exclusive",
         child: Widget.CenterBox({
             start_widget: Left(monitor),
+            center_widget: Center(monitor),
             end_widget: Right(),
         }),
     })
