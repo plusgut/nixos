@@ -24,7 +24,7 @@ function WorkspaceNames() {
         children: workspaces.bind().as(workspaces =>
             workspaces.map(workspace =>
                 Widget.Label({
-                    label: `${workspace.name ?? workspace.idx}`
+                    label: workspace.name ?? workspace.idx.toString()
                 })
             )
         ),
@@ -39,9 +39,10 @@ function WorkspaceWindows() {
         children: workspaces.bind().as(workspaces =>
             workspaces.map((workspace, _index) =>
                 Widget.Button({
+                    "on-clicked": () => Utils.execAsync(["niri", "msg", "action", "focus-workspace", workspace.name ?? workspace.idx.toString()]),
+                    class_name: workspace.is_active ? "focused" : "",
                     child: Widget.Label({
-                        class_name: workspace.is_active ? "active" : "",
-                        label: `${workspace.name ?? workspace.idx}`
+                        label: workspace.name ?? workspace.idx.toString()
                     })
                 })
             )

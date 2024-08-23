@@ -11,7 +11,7 @@ button {
 }
 
 button:active {
-    background-color: @theme_selected_bg_color;
+    background-color: red;
 }
 
 button:hover {
@@ -22,7 +22,7 @@ label {
     font-weight: bold;
 }
 
-.workspaces button.focused {
+.workspace_names button.focused, .workspace_windows button.focused {
     border-bottom: 3px solid @theme_selected_bg_color;
 }
 
