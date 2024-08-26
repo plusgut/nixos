@@ -1,14 +1,12 @@
 (defwidget bar []
   (centerbox :orientation "h"
     (workspaces)
-    (music)
+    (windows)
     (sidestuff)))
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "🔊"
-            :value volume
-            :onchange "amixer -D pulse sset Master {}%")
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
+    "${volume <= 0 ? "🔇" : volume <= 50 ? "🔈" : volume >= 80  ? "🔊" : "🔉"}${volume}%"
     time))
 
 (defwidget workspaces []
@@ -21,32 +19,10 @@
         (button :onclick "niri msg action focus-workspace ${workspace.idx}" {workspace.name ?: workspace.idx})
     )))
 
-(defwidget music []
-  (box :class "music"
-       :orientation "h"
-       :space-evenly false
-       :halign "center"
-    {music != "" ? "🎵${music}" : ""}))
+(defwidget windows [] "")
 
-
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
-
-
-
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
-
-(defpoll volume :interval "1s"
-  "scripts/getvol")
+(defpoll volume :interval "100"
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if($3 == \"[MUTED]\") {print -1} else {printf(\"%02d\", $2 * 100)}}'")
 
 (defpoll time :interval "10s"
   "date '+%H:%M'")
