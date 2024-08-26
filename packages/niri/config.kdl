@@ -446,7 +446,7 @@ binds {
 
 window-rule {
     match app-id="firefox" title="WhatsApp"
-    match app-id="firefox" title="^Element"
+    match app-id="firefox" title="Element"
     match app-id="firefox" title="Discord"
     match app-id="mako"
 
