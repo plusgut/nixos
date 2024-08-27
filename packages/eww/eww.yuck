@@ -10,17 +10,18 @@
     time))
 
 (defwidget workspaces []
-  (box :class "workspaces"
-       :orientation "h"
-       :space-evenly true
-       :halign "start"
-       :spacing 10
-    (for workspace in workspaces
-        (button 
-            :onclick "niri msg action focus-workspace ${workspace.idx}"
-            :class {workspace.is_active ? "active" : ""}
-            {workspace.name ?: workspace.idx})
-    )))
+  (eventbox :onscroll "niri msg action focus-workspace-{}"
+      (box :class "workspaces"
+           :orientation "h"
+           :space-evenly true
+           :halign "start"
+           :spacing 10
+        (for workspace in workspaces
+            (button 
+                :onclick "niri msg action focus-workspace ${workspace.idx}"
+                :class {workspace.is_active ? "active" : ""}
+                {workspace.name ?: workspace.idx})
+        ))))
 
 (defwidget windows [] "")
 
