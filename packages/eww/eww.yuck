@@ -1,12 +1,12 @@
 (defwidget bar []
-  (centerbox :orientation "h"
+  (centerbox :class "bar" :orientation "h"
     (workspaces)
     (windows)
     (sidestuff)))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
-    "${volume <= 0 ? "🔇" : volume <= 50 ? "🔈" : volume >= 80  ? "🔊" : "🔉"}${volume}%"
+    "${volume <= 0 ? "🔇" : volume <= 50 ? "🔈" : volume >= 80  ? "🔊" : "🔉"} ${volume < 0 ? "00" : volume}%"
     time))
 
 (defwidget workspaces []
@@ -16,19 +16,22 @@
        :halign "start"
        :spacing 10
     (for workspace in workspaces
-        (button :onclick "niri msg action focus-workspace ${workspace.idx}" {workspace.name ?: workspace.idx})
+        (button 
+            :onclick "niri msg action focus-workspace ${workspace.idx}"
+            :class {workspace.is_active ? "active" : ""}
+            {workspace.name ?: workspace.idx})
     )))
 
 (defwidget windows [] "")
 
-(defpoll volume :interval "100"
-  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if($3 == \"[MUTED]\") {print -1} else {printf(\"%02d\", $2 * 100)}}'")
+(deflisten volume :initial "00"
+  "scripts/monitor.sh 0.1 scripts/volume.sh") 
 
 (defpoll time :interval "10s"
   "date '+%H:%M'")
 
-(defpoll workspaces :interval "100ms" :initial "[]"
-  "niri msg --json workspaces")
+(deflisten workspaces :initial "[]"
+  "scripts/monitor.sh 0.1 \"niri msg --json workspaces\"")
 
 (defwindow bar
   :monitor 0
