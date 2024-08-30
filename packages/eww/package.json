@@ -1,0 +1,14 @@
+{
+  "name": "niri-bar",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carlo Jeske",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.5.1"
+  }
+}

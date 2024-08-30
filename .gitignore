@@ -1,4 +1,5 @@
 result
+node_modules
 /packages/VSCodium/*
 /packages/gh/hosts.yml
 /packages/btop

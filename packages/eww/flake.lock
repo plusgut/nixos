@@ -34,10 +34,27 @@
         "type": "github"
       }
     },
+    "nixpkgs-staging": {
+      "locked": {
+        "lastModified": 1724911529,
+        "narHash": "sha256-etvNCgp7YC5nBXxYJhi5uoBjtyeBxFviYOG4FIxVHqA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4a1df248856ca3c3e611a222c858ff6d009fc82d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "staging",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-staging": "nixpkgs-staging"
       }
     },
     "systems": {
