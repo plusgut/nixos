@@ -4,3 +4,10 @@
 
 [pull]
 	rebase = false
+
+[includeIf "hasconfig:remote.*.url:ssh://git@stash.scn.local:7999/**"]
+	path = "./config-work"
+[includeIf "hasconfig:remote.*.url:ssh://git@stash:7999/**"]
+	path = "./config-work"
+
+
