@@ -14,7 +14,7 @@
       in
       {
         packages = {
-          default = niri;
+          default = pkgs.niri;
         };
       }
     );
