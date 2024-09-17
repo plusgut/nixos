@@ -49,9 +49,10 @@
 
           # networking.hstName = "nixos"; # Define your hostname.
           networking.wireless = {
+              secretsFile = "/root/secrets/wireless.conf";
               enable = true; # Enables wireless support via wpa_supplicant.
               networks = {
-                  BlackRain.pskRaw= ext:blackrain;
+                  BlackRain.pskRaw="ext:blackrain";
               };
           };
 
