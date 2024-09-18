@@ -18,9 +18,9 @@
            :spacing 10
         (for workspace in workspaces
             (button 
-                :onclick "niri msg action focus-workspace ${workspace.idx}"
-                :class {workspace.is_active ? "active" : ""}
-                {workspace.name ?: workspace.idx})
+                :onclick "niri msg action focus-workspace ${workspace.id}"
+                :class {workspace.id == workspace_active ? "active" : ""}
+                {workspace.name})
         ))))
 
 (defwidget windows [] "")
@@ -31,8 +31,8 @@
 (defpoll time :interval "10s"
   "date '+%H:%M'")
 
-(deflisten workspaces :initial "[]"
-  "scripts/monitor.sh 0.1 \"niri msg --json workspaces\"")
+(defvar workspaces "[]")
+(defvar workspace_active "null")
 
 (defwindow bar
   :monitor 0
