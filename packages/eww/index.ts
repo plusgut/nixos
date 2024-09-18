@@ -2,28 +2,26 @@ import { spawn } from "node:child_process";
 
 const niri = spawn("niri", ["msg", "--json", "event-stream"])
 
-let currentEwwState: EwwState = {
-    workspaces: [],
-    workspace_active: null
-}
-
 let pendingMessage = "";
 niri.stdout.on("data", (data) => {
     pendingMessage += data.toString();
-    const newEwwState = handleMessage(currentEwwState);
+    const newEwwState = handleMessage({});
     const changeEwwVariables = Object.entries(newEwwState).flatMap(([key, value]) => {
         const variableState = JSON.stringify(value)
-        if (variableState !== JSON.stringify(currentEwwState[key as keyof EwwState])) {
+        if (variableState !== currentEwwState[key as keyof EwwState]) {
             return [[key, variableState]]
         }
         return []
     })
 
-    if(changeEwwVariables.length > 0) {
+    if (changeEwwVariables.length > 0) {
         try {
             spawn("eww", ["update", ...changeEwwVariables.map(([key, variable]) => `${key}=${variable}`)]).on("exit", (code) => {
                 if (code === 0) {
-                    currentEwwState = newEwwState
+                    currentEwwState = {
+                        ...currentEwwState,
+                        ...Object.fromEntries(changeEwwVariables)
+                    }
                 } else {
                     console.log(`eww: ${code}`)
                 }
@@ -34,7 +32,7 @@ niri.stdout.on("data", (data) => {
     }
 })
 
-function handleMessage(ewwState: EwwState) {
+function handleMessage(ewwState: Partial<EwwState>) {
     const newlinePosition = pendingMessage.indexOf("\n");
     if (newlinePosition !== -1) {
         const firstMessage = pendingMessage.slice(0, newlinePosition)
@@ -44,7 +42,10 @@ function handleMessage(ewwState: EwwState) {
             const data = JSON.parse(firstMessage);
             for (const key in data) {
                 if (key in niriHandler) {
-                    ewwState = niriHandler[key](ewwState, data[key])
+                    ewwState = {
+                        ...ewwState,
+                        ...niriHandler[key](data[key])
+                    }
                 } else {
                     console.warn(`${key} is not yet implemented`)
                 }
@@ -56,7 +57,6 @@ function handleMessage(ewwState: EwwState) {
     }
     return ewwState
 }
-
 
 type WindowsChanged = { windows: Window[] };
 type WindowFocusChanged = { id: number | null }
@@ -74,43 +74,55 @@ type EwwState = {
     workspace_active: number | null
 }
 
-const niriHandler: {[niriEvent: string]: (ewwState: EwwState, event: any) =>  EwwState} = {
-    WorkspacesChanged(ewwState, data: WorkspacesChanged) {
+let currentEwwState: {[ewwVariable in keyof EwwState]: string} = {
+    workspaces: JSON.stringify([]),
+    workspace_active: JSON.stringify(null)
+}
+
+let workspaces: WorkspacesChanged["workspaces"] = [];
+function filterWorkspaces(activeWorkspace: number | null) {
+    return workspaces.sort((a, b) => a.idx - b.idx)
+        .filter(workspace => workspace.active_window_id !== null || workspace.id === activeWorkspace)
+        .map(workspace => ({
+            id: workspace.id,
+            name: `${workspace.name ?? workspace.idx}`,
+            idx: workspace.idx
+        })) 
+}
+
+const niriHandler: {[niriEvent: string]: (event: any) => Partial<EwwState>} = {
+    WorkspacesChanged(data: WorkspacesChanged) {
+        workspaces = data.workspaces
+        const activeWorkspace = data.workspaces.find(workspace => workspace.is_active)?.id ?? null
+
         return {
-            ...ewwState,
-            workspaces: data.workspaces
-                .sort((a, b) => a.idx - b.idx)
-                .map(workspace => ({
-                    id: workspace.id,
-                    name: `${workspace.name ?? workspace.idx}`,
-                    idx: workspace.idx
-                })),
-            workspace_active: data.workspaces.find(workspace => workspace.is_active)?.idx ?? null
+            workspaces: filterWorkspaces(activeWorkspace),
+            workspace_active: activeWorkspace
         }
     },
-    WindowOpenedOrChanged(ewwState, _data: WindowOpenedOrChanged) {
-        return ewwState;
+    WindowOpenedOrChanged(_data: WindowOpenedOrChanged) {
+        return {};
     },
-    WindowFocusChanged(ewwState, _data: WindowFocusChanged) {
-        return ewwState
+    WindowFocusChanged(_data: WindowFocusChanged) {
+        return {}
     },
-    WorkspaceActiveWindowChanged(ewwState, _data: WorkspaceActiveWindowChanged) {
-        return ewwState
+    WorkspaceActiveWindowChanged(_data: WorkspaceActiveWindowChanged) {
+        return {}
     },
-    WindowsChanged(ewwState, _data: WindowsChanged) {
-        return ewwState
+    WindowsChanged(_data: WindowsChanged) {
+        return {}
     },
-    WorkspaceActivated(ewwState, data: WorkspaceActivated) {
+    WorkspaceActivated(data: WorkspaceActivated) {
         return {
-            ...ewwState,
-            workspace_active: data.id
+            workspace_active: data.id,
+            workspaces: filterWorkspaces(data.id)
         }
     },
-    KeyboardLayoutsChanged(ewwState, _data: KeyboardLayoutsChanged) {
-        return ewwState
+    KeyboardLayoutsChanged(_data: KeyboardLayoutsChanged) {
+        return {}
     },
-    WindowClosed(ewwState, _data: WindowClosed) {
-        return ewwState
+    WindowClosed(_data: WindowClosed) {
+        return {}
     }
 }
 
