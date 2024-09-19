@@ -4,11 +4,6 @@
     (windows)
     (sidestuff)))
 
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
-    "${volume <= 0 ? "🔇" : volume <= 50 ? "🔈" : volume >= 80  ? "🔊" : "🔉"} ${volume < 0 ? "00" : volume}%"
-    time))
-
 (defwidget workspaces []
   (eventbox :onscroll "niri msg action focus-workspace-{}"
       (box :class "workspaces"
@@ -18,12 +13,25 @@
            :spacing 10
         (for workspace in workspaces
             (button 
-                :onclick "niri msg action focus-workspace ${workspace.id}"
+                :onclick "niri msg action focus-workspace ${workspace.idx}"
                 :class {workspace.id == workspace_active ? "active" : ""}
                 {workspace.name})
         ))))
 
+(defwidget volume []
+    "${volume <= 0 ? "🔇" : volume <= 50 ? "🔈" : volume >= 80  ? "🔊" : "🔉"} ${volume < 0 ? "00" : volume}%"
+)
+
+(defwidget time []
+  "🕒 ${time}"
+)
+
 (defwidget windows [] "")
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
+    (volume)
+    (time)))
 
 (deflisten volume :initial "00"
   "scripts/monitor.sh 0.1 scripts/volume.sh") 
@@ -31,7 +39,9 @@
 (defpoll time :interval "10s"
   "date '+%H:%M'")
 
-(defvar workspaces "[]")
+;(defvar workspaces "[]")
+(deflisten workspaces :initial "[]" "niri-bar")
+
 (defvar workspace_active "null")
 
 (defwindow bar
