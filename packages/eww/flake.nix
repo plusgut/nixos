@@ -13,7 +13,10 @@
         packages = {
           default = pkgs.eww;
           niri-bar = pkgs.writeShellScriptBin "niri-bar" ''
-              NODE_NO_WARNINGS=1 ${pkgs.nodejs_22}/bin/node --experimental-transform-types ./index.ts
+              NODE_NO_WARNINGS=1 ${pkgs.nodejs_22}/bin/node --experimental-transform-types ./niri-bar.ts
+          '';
+          screencast-on = pkgs.writeShellScriptBin "screencast-on" ''
+              NODE_NO_WARNINGS=1 ${pkgs.nodejs_22}/bin/node --experimental-transform-types ./screencast-on.ts
           '';
         };
       }

@@ -110,9 +110,6 @@ layout {
         proportion 0.96
         proportion 0.48
         proportion 0.32
-
-        // Fixed sets the width in logical pixels exactly.
-        // fixed 1920
     }
 
     // You can change the default width of the new windows.
@@ -380,6 +377,7 @@ binds {
     // Mod+BracketRight { consume-or-expel-window-right; }
 
     Mod+R { switch-preset-column-width; }
+    Mod+T { maximize-column; }
     Mod+Shift+R { reset-window-height; }
     // Mod+C { center-column; }
 
@@ -416,6 +414,10 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+}
+
+window-rule {
+    // open-maximized true
 }
 
 window-rule {

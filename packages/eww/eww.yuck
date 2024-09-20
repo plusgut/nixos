@@ -18,6 +18,9 @@
                 {workspace.name})
         ))))
 
+(defwidget screencast []
+    "${screencast == true ? "📸" : "📷"}"
+)
 (defwidget volume []
     "${volume <= 0 ? "🔇" : volume <= 50 ? "🔈" : volume >= 80  ? "🔊" : "🔉"} ${volume < 0 ? "00" : volume}%"
 )
@@ -30,6 +33,7 @@
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
+    (screencast)
     (volume)
     (time)))
 
@@ -43,6 +47,8 @@
 (deflisten workspaces :initial "[]" "niri-bar")
 
 (defvar workspace_active "null")
+
+(deflisten screencast "screencast-on")
 
 (defwindow bar
   :monitor 0
