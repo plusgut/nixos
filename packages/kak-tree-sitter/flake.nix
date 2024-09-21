@@ -27,27 +27,7 @@
 
       in {
         packages = {
-            default =
-                (pkgs.wrapKakoune (pkgs.kakoune-unwrapped.overrideAttrs (oldAttrs: { src = kakoune; patches = []; })) {
-                  plugins = with pkgs.kakounePlugins; [
-                    (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-                      pname = "auto-pairs";
-                      version = "master";
-                      src = kak-auto-pairs;
-                    })
-                    (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-                      pname = "wakatime";
-                      version = "master";
-                      src = kak-wakatime;
-                    })
-                    (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-                      pname = "active-window";
-                      version = "master";
-                      src = kak-active-window;
-                    })
-                  ];
-            });
-            kakoune-cr = pkgs.kakoune-cr;
+            default = pkgs.kak-tree-sitter;
         };
     }
   );

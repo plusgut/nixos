@@ -1,3 +1,4 @@
+eval %sh{ kak-tree-sitter -dks --init $kak_session }
 evaluate-commands %sh{
   kcr init kakoune
 }
@@ -11,10 +12,12 @@ source "/home/plusgut/nixos/packages/kak/plugins/notes.kak"
 
 enable-auto-pairs
 
-colorscheme nord
-add-highlighter global/ number-lines
-add-highlighter global/ show-matching
-add-highlighter global/ show-whitespaces
+#colorscheme nightowl
+colorscheme catpuccin_mocha
+
+#add-highlighter global/ number-lines
+#add-highlighter global/ show-matching
+#add-highlighter global/ show-whitespaces
 #add-highlighter window/git-diff flag-lines Default git_diff_flags
 
 map global user t -docstring "new tab" ":new<ret>"
