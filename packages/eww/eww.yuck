@@ -18,6 +18,8 @@
                 {workspace.name})
         ))))
 
+(defwidget windows [] "")
+
 (defwidget screencast []
     "${screencast == true ? "📸" : "📷"}"
 )
@@ -29,12 +31,15 @@
   "🕒 ${time}"
 )
 
-(defwidget windows [] "")
+(defwidget battery []
+  "${EWW_BATTERY.BAT0.status == "Discharging" ? EWW_BATTERY.BAT0.capacity <= 15 ? "🪫" : "🔋" : "🔌"} ${EWW_BATTERY.BAT0.capacity}%"
+)
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 15
     (screencast)
     (volume)
+    (battery)
     (time)))
 
 (deflisten volume :initial "00"
