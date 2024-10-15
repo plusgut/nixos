@@ -35,3 +35,6 @@ alias codium="codium --ozone-platform-hint=auto"
 alias rm="rip"
 alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
+
+bind \ch backward-bigword
+bind \cl forward-bigword
