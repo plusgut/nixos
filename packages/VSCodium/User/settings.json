@@ -16,6 +16,9 @@
         "editor.insertSpaces": false,
         "editor.tabSize": 4
     },
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
     "[typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
