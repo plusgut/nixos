@@ -212,7 +212,6 @@
               fuzzel
               mako
               grim
-              qutebrowser
             ]);
 
           hardware.opengl = {
