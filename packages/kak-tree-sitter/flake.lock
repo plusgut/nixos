@@ -37,11 +37,11 @@
     "kak-auto-pairs": {
       "flake": false,
       "locked": {
-        "lastModified": 1690749471,
+        "lastModified": 1733147311,
         "narHash": "sha256-V8++6qZFsUOQsg0GCC+5PpPgAHsR9mCKB4YDnNBL/QQ=",
         "owner": "alexherbo2",
         "repo": "auto-pairs.kak",
-        "rev": "d4b33b783ea42a536c848296b5b6d434b4d1470f",
+        "rev": "e812ee6006b1c3d8c9afa45a0a90d28714636f81",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "kakoune": {
       "flake": false,
       "locked": {
-        "lastModified": 1732742429,
-        "narHash": "sha256-HnUTYV4lCHyVx8qUBGpPTFtLMspBvxfMz/SIudp54Gk=",
+        "lastModified": 1733745824,
+        "narHash": "sha256-hKsfxfjli6RwujdmFUJ64vxClwKAyCrkcAa8WKAaVsI=",
         "owner": "mawww",
         "repo": "kakoune",
-        "rev": "7ae1fd683defbd11b54ba7046df69be692ce4de5",
+        "rev": "9c458c50661446fc6e7295787b06422137af099d",
         "type": "github"
       },
       "original": {
@@ -84,11 +84,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1732521221,
-        "narHash": "sha256-2ThgXBUXAE1oFsVATK1ZX9IjPcS4nKFOAjhPNKuiMn0=",
+        "lastModified": 1734649271,
+        "narHash": "sha256-4EVBRhOjMDuGtMaofAIqzJbg4Ql7Ai0PSeuVZTHjyKQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4633a7c72337ea8fd23a4f2ba3972865e3ec685d",
+        "rev": "d70bd19e0a38ad4790d3913bf08fcbfc9eeca507",
         "type": "github"
       },
       "original": {
