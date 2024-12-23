@@ -283,7 +283,7 @@
             enableDefaultPackages = true;
             packages = with pkgs; [
               font-awesome
-              (nerdfonts.override { fonts = [ "FiraCode" ]; })
+              nerd-fonts.fira-code
             ];
           };
 
