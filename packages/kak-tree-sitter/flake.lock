@@ -18,77 +18,13 @@
         "type": "github"
       }
     },
-    "kak-active-window": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1668444692,
-        "narHash": "sha256-6GLt9g20ddbXb29Vdl0YXFDWC73qip9cVU8EgdNlYbs=",
-        "owner": "greenfork",
-        "repo": "active-window.kak",
-        "rev": "36bf0364eed856a52cddf274072e9f255902c0ee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "greenfork",
-        "repo": "active-window.kak",
-        "type": "github"
-      }
-    },
-    "kak-auto-pairs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733147311,
-        "narHash": "sha256-V8++6qZFsUOQsg0GCC+5PpPgAHsR9mCKB4YDnNBL/QQ=",
-        "owner": "alexherbo2",
-        "repo": "auto-pairs.kak",
-        "rev": "e812ee6006b1c3d8c9afa45a0a90d28714636f81",
-        "type": "github"
-      },
-      "original": {
-        "owner": "alexherbo2",
-        "repo": "auto-pairs.kak",
-        "type": "github"
-      }
-    },
-    "kak-wakatime": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1648487078,
-        "narHash": "sha256-juDRQ+ICJUOKa2HPk7JiMd/h+V2tKa9rfTquvaZHHcw=",
-        "owner": "WhatNodyn",
-        "repo": "kakoune-wakatime",
-        "rev": "d3529c13c9227b2de89e4cd53ada43a5b83d7844",
-        "type": "github"
-      },
-      "original": {
-        "owner": "WhatNodyn",
-        "repo": "kakoune-wakatime",
-        "type": "github"
-      }
-    },
-    "kakoune": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1735105189,
-        "narHash": "sha256-KDicbaJLJsiCS4KpyydU5FQT2BGAkxXZutgdbCsGze4=",
-        "owner": "mawww",
-        "repo": "kakoune",
-        "rev": "54084900624493033cb24640d864c109cdac40a7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mawww",
-        "repo": "kakoune",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1735291276,
-        "narHash": "sha256-NYVcA06+blsLG6wpAbSPTCyLvxD/92Hy4vlY9WxFI1M=",
+        "lastModified": 1734649271,
+        "narHash": "sha256-4EVBRhOjMDuGtMaofAIqzJbg4Ql7Ai0PSeuVZTHjyKQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "634fd46801442d760e09493a794c4f15db2d0cbb",
+        "rev": "d70bd19e0a38ad4790d3913bf08fcbfc9eeca507",
         "type": "github"
       },
       "original": {
@@ -101,10 +37,6 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "kak-active-window": "kak-active-window",
-        "kak-auto-pairs": "kak-auto-pairs",
-        "kak-wakatime": "kak-wakatime",
-        "kakoune": "kakoune",
         "nixpkgs": "nixpkgs"
       }
     },
