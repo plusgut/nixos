@@ -37,7 +37,7 @@
             invocation: ok
             key: enter
             external: "$EDITOR {file}"
-            leave_broot: true
+            leave_broot: false
             apply_to: "file"
         }
 
@@ -46,7 +46,7 @@
         {
             invocation: create {subpath}
             external: "$EDITOR {directory}/{subpath}"
-            leave_broot: true
+            leave_broot: false
         }
 
         {

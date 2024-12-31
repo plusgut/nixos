@@ -1,13 +1,11 @@
 eval %sh{ kak-tree-sitter -dks --init $kak_session }
-evaluate-commands %sh{
-  kcr init kakoune
-}
 
 source "/home/plusgut/nixos/packages/kak/plugins/wayland.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/ide.kak"
 
 enable-auto-pairs
 

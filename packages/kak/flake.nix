@@ -1,4 +1,3 @@
-
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -48,6 +47,15 @@
                   ];
             });
             kakoune-cr = pkgs.kakoune-cr;
+            ide = pkgs.writeShellScriptBin "ide" ''
+              KAK_SESSION=ide_$$
+              kak -d -s $KAK_SESSION &
+
+              KAK_SESSION=$KAK_SESSION EDITOR=ide-edit broot
+            '';
+            ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
+              echo "ide-edit $1" | kak -p $KAK_SESSION
+            '';
         };
     }
   );
