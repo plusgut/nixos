@@ -165,7 +165,7 @@
             XDG_CONFIG_HOME = "/home/plusgut/nixos/packages";
             CHROME_BIN = "chromium";
             EDITOR = "kak";
-            TERMINAL = "ghostty";
+            TERMINAL = "foot";
           };
 
           environment.etc = {
