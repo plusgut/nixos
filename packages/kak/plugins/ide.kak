@@ -18,10 +18,15 @@ define-command update-broot -hidden %{
 
 hook global FocusIn .* %{
   set-option global last_client %val{client}
-  update-broot
 }
 
-hook global WinDisplay .* %{
+hook global WinDisplay ^(?!\*).* %{
   update-broot
+  hook global FocusIn -group foo .* update-broot
 }
+
+hook global WinDisplay ^\*.* %{
+  remove-hooks global foo 
+}
+
 
