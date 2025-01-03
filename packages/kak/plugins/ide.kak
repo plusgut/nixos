@@ -1,6 +1,6 @@
 declare-option str last_client ""
 
-define-command ide-edit -params 1 %{
+define-command ide-edit -hidden -params 1 %{
   evaluate-commands %sh{
       if [ -n "$kak_opt_last_client" ]; then
         echo evaluate-commands -client $kak_opt_last_client e $1
@@ -10,7 +10,18 @@ define-command ide-edit -params 1 %{
   }
 }
 
+define-command update-broot -hidden %{
+  nop %sh{
+    broot --send $kak_session -c ep/$(realpath $kak_buffile --relative-base=$(broot --send $kak_session --get-root) | sed 's;/;\\/;g')
+  }
+}
+
 hook global FocusIn .* %{
   set-option global last_client %val{client}
+  update-broot
+}
+
+hook global WinDisplay .* %{
+  update-broot
 }
 
