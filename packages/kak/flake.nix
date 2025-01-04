@@ -50,13 +50,11 @@
             ide = pkgs.writeShellScriptBin "ide" ''
               KAK_SESSION=ide_$$
               kak -d -s $KAK_SESSION &
-              KAK_SESSION_ID=$last_pid
+              kak_session_pid=$!
 
               KAK_SESSION=$KAK_SESSION EDITOR=ide-edit broot --listen=$KAK_SESSION
 
-              echo $KAK_SESSION_ID
-
-              kill $KAK_SESSION_ID
+              kill $kak_session_pid
             '';
             ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
               echo "ide-edit $1" | kak -p $KAK_SESSION
