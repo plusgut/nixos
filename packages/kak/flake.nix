@@ -24,42 +24,43 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-      in {
+      in
+      {
         packages = {
-            default =
-                (pkgs.wrapKakoune (pkgs.kakoune-unwrapped.overrideAttrs (oldAttrs: { src = kakoune; patches = []; })) {
-                  plugins = with pkgs.kakounePlugins; [
-                    (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-                      pname = "auto-pairs";
-                      version = "master";
-                      src = kak-auto-pairs;
-                    })
-                    (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-                      pname = "wakatime";
-                      version = "master";
-                      src = kak-wakatime;
-                    })
-                    (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
-                      pname = "active-window";
-                      version = "master";
-                      src = kak-active-window;
-                    })
-                  ];
+          default =
+            (pkgs.wrapKakoune (pkgs.kakoune-unwrapped.overrideAttrs (oldAttrs: { src = kakoune; patches = [ ]; })) {
+              plugins = with pkgs.kakounePlugins; [
+                (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+                  pname = "auto-pairs";
+                  version = "master";
+                  src = kak-auto-pairs;
+                })
+                (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+                  pname = "wakatime";
+                  version = "master";
+                  src = kak-wakatime;
+                })
+                (pkgs.kakouneUtils.buildKakounePluginFrom2Nix {
+                  pname = "active-window";
+                  version = "master";
+                  src = kak-active-window;
+                })
+              ];
             });
-            kakoune-cr = pkgs.kakoune-cr;
-            ide = pkgs.writeShellScriptBin "ide" ''
-              KAK_SESSION=ide_$$
-              kak -d -s $KAK_SESSION &
-              kak_session_pid=$!
+          kakoune-cr = pkgs.kakoune-cr;
+          ide = pkgs.writeShellScriptBin "ide" ''
+            KAK_SESSION=ide_$$
+            kak -d -s $KAK_SESSION &
+            kak_session_pid=$!
 
-              KAK_SESSION=$KAK_SESSION EDITOR=ide-edit broot --listen=$KAK_SESSION
+            KAK_SESSION=$KAK_SESSION EDITOR=ide-edit broot --listen=$KAK_SESSION
 
-              kill $kak_session_pid
-            '';
-            ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
-              echo "ide-edit $1" | kak -p $KAK_SESSION
-            '';
+            kill $kak_session_pid
+          '';
+          ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
+            echo "ide-edit $1" | kak -p $KAK_SESSION
+          '';
         };
-    }
-  );
+      }
+    );
 }

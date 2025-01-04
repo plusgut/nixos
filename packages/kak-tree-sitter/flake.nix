@@ -1,4 +1,3 @@
-
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -9,10 +8,11 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-      in {
+      in
+      {
         packages = {
-#            default = pkgs.kak-tree-sitter;
+          #            default = pkgs.kak-tree-sitter;
         };
-    }
-  );
+      }
+    );
 }
