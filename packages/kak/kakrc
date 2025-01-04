@@ -8,8 +8,6 @@ source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/ide.kak"
 
-enable-auto-pairs
-
 #colorscheme nightowl
 colorscheme catpuccin_mocha
 
