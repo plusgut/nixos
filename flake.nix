@@ -10,7 +10,7 @@
       common = ({ pkgs, ... }:
         let
           flakes = builtins.listToAttrs
-            (map
+              (map
               (x:
                 {
                   name = x;
