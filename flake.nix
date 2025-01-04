@@ -97,7 +97,7 @@
 
           services.avahi = {
             enable = true;
-            nssmdns = true;
+            nssmdns4 = true;
             publish.userServices = true;
           };
 
@@ -179,7 +179,7 @@
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
               foot
-              nixfmt
+              nixfmt-rfc-style
               gh
               lsd
               pciutils
@@ -214,9 +214,9 @@
               grim
             ]);
 
-          hardware.opengl = {
+          hardware.graphics = {
             enable = true;
-            driSupport32Bit = true;
+            enable32Bit = true;
           };
           # Some programs need SUID wrappers, can be configured further or are
           # started in user sessions.
@@ -255,29 +255,6 @@
           };
 
           programs.fish = { enable = true; };
-
-          programs.neovim = {
-            enable = true;
-            withRuby = false;
-            withPython3 = false;
-            defaultEditor = false;
-            configure = {
-              customRC =
-                "\n            source $XDG_CONFIG_HOME/nvim/init.lua\n          ";
-              packages.myVimPackage = with pkgs.vimPlugins; {
-                # loaded on launch
-                start = [
-                  barbar-nvim
-                  telescope-nvim
-                  nord-nvim
-                  nerdtree
-                  nvim-lspconfig
-                ];
-                # manually loadable by calling `:packadd $plugin-name`
-                opt = [ ];
-              };
-            };
-          };
 
           fonts = {
             enableDefaultPackages = true;
