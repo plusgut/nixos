@@ -34,22 +34,6 @@
         "type": "github"
       }
     },
-    "kak-auto-pairs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733147311,
-        "narHash": "sha256-V8++6qZFsUOQsg0GCC+5PpPgAHsR9mCKB4YDnNBL/QQ=",
-        "owner": "alexherbo2",
-        "repo": "auto-pairs.kak",
-        "rev": "e812ee6006b1c3d8c9afa45a0a90d28714636f81",
-        "type": "github"
-      },
-      "original": {
-        "owner": "alexherbo2",
-        "repo": "auto-pairs.kak",
-        "type": "github"
-      }
-    },
     "kak-wakatime": {
       "flake": false,
       "locked": {
@@ -102,7 +86,6 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "kak-active-window": "kak-active-window",
-        "kak-auto-pairs": "kak-auto-pairs",
         "kak-wakatime": "kak-wakatime",
         "kakoune": "kakoune",
         "nixpkgs": "nixpkgs"
