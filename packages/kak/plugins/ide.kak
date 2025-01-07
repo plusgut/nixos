@@ -22,11 +22,6 @@ hook global FocusIn .* %{
 
 hook global WinDisplay ^(?!\*).* %{
   update-broot
-  hook global FocusIn -group ide .* update-broot
+  hook global FocusIn .* update-broot
 }
-
-hook global WinDisplay ^\*.* %{
-  remove-hooks global ide 
-}
-
 
