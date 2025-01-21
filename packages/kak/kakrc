@@ -1,4 +1,6 @@
 eval %sh{ kak-tree-sitter -dks --init $kak_session }
+eval %sh{kak-lsp --kakoune -s $kak_session}
+
 
 source "/home/plusgut/nixos/packages/kak/plugins/wayland.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/git.kak"
@@ -8,15 +10,19 @@ source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/ide.kak"
 
+
+lsp-enable
+lsp-inlay-hints-enable global
+lsp-inlay-diagnostics-enable global
+
+
 #colorscheme nightowl
 colorscheme catpuccin_mocha
 
-define-command -override tree-sitter-user-after-highlighter %{
-  add-highlighter global/ number-lines
-  add-highlighter global/ show-matching
-  add-highlighter global/ show-whitespaces
-  add-highlighter window/git-diff flag-lines Default git_diff_flags
-}
+
+set-option global windowing_placement "tab"
+set-option global grepcmd "rg"
+
 
 map global user n -docstring "new window" ":new<ret>"
 map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
@@ -31,7 +37,6 @@ map global normal <right> ':tree-sitter-nav next_sibling<ret>'
 map global user g -docstring "git" ":enter-user-mode git<ret>" 
 map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
 
-set-option global windowing_placement "tab"
 
 hook global InsertCompletionShow .* %{
   map window insert <tab> <c-n>
@@ -43,10 +48,6 @@ hook global InsertCompletionHide .* %{
   unmap window insert <s-tab> <c-p>
 }
 
-eval %sh{kak-lsp --kakoune -s $kak_session}
-lsp-enable
-lsp-inlay-hints-enable global
-
 hook global WinSetOption filetype=<language> %{
   hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
   hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
@@ -56,13 +57,18 @@ hook global WinSetOption filetype=<language> %{
   }
 }
 
-lsp-inlay-diagnostics-enable global
-
 # Use system"s clipboard
 hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | wl-copy > /dev/null 2>&1 &
 }}
 
+
+define-command -override tree-sitter-user-after-highlighter %{
+  add-highlighter global/ number-lines
+  add-highlighter global/ show-matching
+  add-highlighter global/ show-whitespaces
+  add-highlighter window/git-diff flag-lines Default git_diff_flags
+}
 
 define-command -override fzf-buffers %{
   evaluate-commands %{

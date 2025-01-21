@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = { self, nixpkgs, flake-utils }:
@@ -11,7 +11,7 @@
       in
       {
         packages = {
-          #            default = pkgs.kak-tree-sitter;
+          default = pkgs.kak-tree-sitter;
         };
       }
     );
