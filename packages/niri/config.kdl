@@ -352,16 +352,14 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
-    Mod+a { focus-workspace 1; }
-    Mod+s { focus-workspace 2; }
-    Mod+d { focus-workspace 3; }
-    Mod+f { focus-workspace 4; }
-    Mod+g { focus-workspace 5; }
-    Mod+Shift+a { move-column-to-workspace 1; }
-    Mod+Shift+s { move-column-to-workspace 2; }
-    Mod+Shift+d { move-column-to-workspace 3; }
-    Mod+Shift+f { move-column-to-workspace 4; }
-    Mod+Shift+g { move-column-to-workspace 5; }
+    Mod+a { focus-workspace "home"; }
+    Mod+s { focus-workspace "browser"; }
+    Mod+d { focus-workspace "code"; }
+    Mod+f { focus-workspace "stuff"; }
+    Mod+Shift+a { move-column-to-workspace "home"; }
+    Mod+Shift+s { move-column-to-workspace "browser"; }
+    Mod+Shift+d { move-column-to-workspace "code"; }
+    Mod+Shift+f { move-column-to-workspace "stuff"; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
@@ -416,8 +414,8 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-window-rule {
-    // open-maximized true
+hotkey-overlay {
+    skip-at-startup
 }
 
 window-rule {
@@ -434,4 +432,27 @@ layer-rule {
 
     block-out-from "screencast"
 }
+
+workspace "home" {}
+window-rule {
+    match at-startup=true app-id="home-terminal"
+    open-on-workspace "home"
+}
+spawn-at-startup "sh" "-c" "foot --app-id=home-terminal -D ~/nixos"
+
+workspace "browser" {}
+window-rule {
+    match at-startup=true app-id="firefox"
+    open-on-workspace "browser"
+}
+spawn-at-startup "firefox"
+
+workspace "code" {}
+window-rule {
+    match at-startup=true app-id="code"
+    open-on-workspace "code"
+}
+spawn-at-startup "sh" "-c" "foot --app-id=code -D ~/projects"
+
+workspace "stuff" {}
 

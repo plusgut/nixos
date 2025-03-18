@@ -82,7 +82,7 @@ let currentEwwState: {[ewwVariable in keyof EwwState]: string} = {
 let workspaces: WorkspacesChanged["workspaces"] = [];
 function filterWorkspaces(activeWorkspace: number | null) {
     return workspaces.sort((a, b) => a.idx - b.idx)
-        .filter(workspace => workspace.active_window_id !== null || workspace.id === activeWorkspace)
+        .filter(workspace => workspace.active_window_id !== null || workspace.name !== null || workspace.id === activeWorkspace)
         .map(workspace => ({
             id: workspace.id,
             name: `${workspace.name ?? workspace.idx}`,
