@@ -6,6 +6,9 @@ auto-save = true
 bufferline = "always"
 color-modes = true
 
+[editor.whitespace]
+render = "all"
+
 [editor.soft-wrap]
 enable = true
 
