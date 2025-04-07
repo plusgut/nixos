@@ -5,6 +5,7 @@ cursorline = true
 auto-save = true
 bufferline = "always"
 color-modes = true
+auto-pairs = false
 
 [editor.whitespace]
 render = "all"
