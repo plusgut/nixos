@@ -4,8 +4,6 @@ define-command ide-edit -hidden -params 1 %{
   evaluate-commands %sh{
       if [ -n "$kak_opt_last_client" ]; then
         echo evaluate-commands -client $kak_opt_last_client e $1
-      else
-        echo new e $1
       fi
   }
 }
@@ -21,6 +19,7 @@ hook global FocusIn .* %{
 }
 
 hook global WinDisplay ^(?!\*).* %{
+  set-option global last_client %val{client}
   update-broot
   hook global FocusIn .* update-broot
 }

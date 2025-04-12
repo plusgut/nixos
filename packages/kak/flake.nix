@@ -40,16 +40,15 @@
             });
           kakoune-cr = pkgs.kakoune-cr;
           ide = pkgs.writeShellScriptBin "ide" ''
-            KAK_SESSION=ide_$$
-            kak -d -s $KAK_SESSION &
-            kak_session_pid=$!
-
-            KAK_SESSION=$KAK_SESSION EDITOR=ide-edit broot --listen=$KAK_SESSION
-
-            kill $kak_session_pid
+            KAK_SESSION=ide_$$ EDITOR=ide-edit broot --listen=$KAK_SESSION
           '';
           ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
-            echo "ide-edit $1" | kak -p $KAK_SESSION
+            if kak -l | grep -wq $KAK_SESSION
+            then
+              echo "ide-edit $1" | kak -p $KAK_SESSION;
+            else
+              $TERM kak -s $KAK_SESSION $1 > /dev/null &
+            fi
           '';
         };
       }
