@@ -40,14 +40,15 @@
             });
           kakoune-cr = pkgs.kakoune-cr;
           ide = pkgs.writeShellScriptBin "ide" ''
-            KAK_SESSION=ide_$$ EDITOR=ide-edit broot --listen=$KAK_SESSION
+            KAK_SESSION=ide_$$; EDITOR="ide-edit $KAK_SESSION"; broot --listen=$KAK_SESSION
           '';
           ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
-            if kak -l | grep -wq $KAK_SESSION
+            echo $1 $2> /home/plusgut/ide.log
+            if kak -l | grep -wq $1
             then
-              echo "ide-edit $1" | kak -p $KAK_SESSION;
+              echo "ide-edit $2" | kak -p $1;
             else
-              $TERM kak -s $KAK_SESSION $1 > /dev/null &
+              $TERM kak -s $1 $2 > /dev/null &
             fi
           '';
         };
