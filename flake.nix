@@ -28,11 +28,11 @@
             settings = {
               auto-optimise-store = true;
               experimental-features = [ "nix-command" "flakes" ];
-              substituters = [ "https://helix.cachix.org" ];
-              trusted-public-keys = [
-                "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-              ];
             };
+            extraOptions = ''
+              extra-substituters = https://devenv.cachix.org
+              extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+            '';
           };
           nixpkgs.config.allowUnfree = true;
           nixpkgs.config.chromium.commandLineArgs =
@@ -178,6 +178,7 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
+              devenv
               ripgrep
               foot
               nixfmt-rfc-style
