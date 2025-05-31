@@ -46,7 +46,7 @@
         # the current directory or below
         {
             invocation: create {subpath}
-            external: "touch {directory}/{subpath}; $EDITOR {directory}/{subpath}"
+            external: "sh -c \"touch {directory}/{subpath}; $EDITOR {directory}/{subpath}\""
             leave_broot: false
         }
 
