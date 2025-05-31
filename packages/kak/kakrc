@@ -8,8 +8,6 @@ source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/nix.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
-source "/home/plusgut/nixos/packages/kak/plugins/ide.kak"
-
 
 lsp-enable
 lsp-inlay-hints-enable global
