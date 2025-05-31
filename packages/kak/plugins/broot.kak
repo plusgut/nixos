@@ -1,6 +1,6 @@
 map global user f -docstring "file explorer cwd" ":broot-cwd<ret>"
 
-declare-option str last_client ""
+declare-option str last_client %val{client}
 
 define-command -override broot-cwd %{
   evaluate-commands %{
@@ -29,10 +29,18 @@ hook global FocusIn .* %{
   set-option global last_client %val{client}
 }
 
+hook global ClientCreate .* %{
+  set-option global last_client %val{client}
+}
+
 hook global WinDisplay ^(?!\*).* %{
   set-option global last_client %val{client}
-  update-broot
   hook global FocusIn .* update-broot
 }
 
+hook global KakEnd .* %{
+  nop %sh{
+    broot --send $kak_session -c :q 2> /dev/null
+  }
+}
 

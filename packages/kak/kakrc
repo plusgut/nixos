@@ -8,6 +8,7 @@ source "/home/plusgut/nixos/packages/kak/plugins/javascript.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/nix.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/broot.kak"
+source "/home/plusgut/nixos/packages/kak/plugins/fuzzel.kak"
 
 lsp-enable
 lsp-inlay-hints-enable global
@@ -23,8 +24,8 @@ set-option global grepcmd "rg"
 
 
 map global user n -docstring "new window" ":new<ret>"
-map global user b -docstring "fuzzy buffers" ":fzf-buffers<ret>"
-map global user w -docstring "close buffer" ":delete-buffer!<ret>"
+map global user b -docstring "fuzzy buffers" ":pick-buffers<ret>"
+map global user w -docstring "close buffer" ":delete-buffer<ret>"
 
 # comment
 map global user c ':comment-line<ret>' -docstring 'comment line'
