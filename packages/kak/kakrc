@@ -22,7 +22,6 @@ colorscheme catpuccin_mocha
 set-option global windowing_placement "tab"
 set-option global grepcmd "rg"
 
-
 map global user n -docstring "new window" ":new<ret>"
 map global user b -docstring "fuzzy buffers" ":pick-buffers<ret>"
 map global user w -docstring "close buffer" ":delete-buffer<ret>"
@@ -62,11 +61,11 @@ hook global NormalKey y|d|c %{ nop %sh{
 }}
 
 
+add-highlighter global/ number-lines
+add-highlighter global/ show-whitespaces
+
 define-command -override tree-sitter-user-after-highlighter %{
-  add-highlighter global/ number-lines
-  add-highlighter global/ show-matching
-  add-highlighter global/ show-whitespaces
-  add-highlighter window/git-diff flag-lines Default git_diff_flags
+  add-highlighter -override buffer/show-matching show-matching
 }
 
 define-command -override fzf-buffers %{
