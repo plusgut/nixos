@@ -10,7 +10,7 @@
       common = ({ pkgs, ... }:
         let
           flakes = builtins.listToAttrs
-              (map
+            (map
               (x:
                 {
                   name = x;
@@ -49,11 +49,11 @@
 
           # networking.hstName = "nixos"; # Define your hostname.
           networking.wireless = {
-              secretsFile = "/root/secrets/wireless.conf";
-              enable = true; # Enables wireless support via wpa_supplicant.
-              networks = {
-                  BlackRain.pskRaw="ext:blackrain";
-              };
+            secretsFile = "/root/secrets/wireless.conf";
+            enable = true; # Enables wireless support via wpa_supplicant.
+            networks = {
+              BlackRain.pskRaw = "ext:blackrain";
+            };
           };
 
           # Set your time zone.
@@ -114,13 +114,13 @@
               ];
               config = {
                 qtile = {
-                  default = ["wlr" "gtk"];
+                  default = [ "wlr" "gtk" ];
                 };
                 niri-session = {
-                  default = ["gnome" "gtk"];
+                  default = [ "gnome" "gtk" ];
                 };
                 niri = {
-                  default = ["gnome" "gtk"];
+                  default = [ "gnome" "gtk" ];
                 };
               };
             };
@@ -178,7 +178,8 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
-              devenv
+              pkgs.nodePackages.typescript-language-server
+              calc
               ripgrep
               foot
               nixfmt-rfc-style
