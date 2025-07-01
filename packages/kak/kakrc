@@ -60,14 +60,6 @@ hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | wl-copy > /dev/null 2>&1 &
 }}
 
-hook global BufWritePre .* %{
-    evaluate-commands %sh{
-        if [ -n "$kak_opt_formatcmd" ]; then
-            echo format
-        fi
-    }
-}
-
 add-highlighter global/ number-lines
 add-highlighter global/ show-whitespaces
 
