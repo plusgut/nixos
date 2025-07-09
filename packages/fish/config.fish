@@ -37,5 +37,15 @@ alias rm="rip"
 alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
 
+alias gs="git status"
+alias gd="git diff"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gu="git pull"
+alias gl="git log --all --graph"
+alias gb="git branch"
+alias gap="git add --patch"
+
 bind \ch backward-bigword
 bind \cl forward-bigword

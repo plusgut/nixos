@@ -2,8 +2,22 @@
 	email = github@webentwickler2-0.de
 	name = plusgut
 
+[core]
+	whitespace = error
+
+[interactive]
+	singlekey = true
+[diff]
+	renames = copies
+
 [pull]
 	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[branch]
+	sort = -committerdate
 
 [includeIf "hasconfig:remote.*.url:ssh://git@git.scn.internal:2222/**"]
 	path = "./config-work"
