@@ -29,7 +29,6 @@
                       rust-lang.rust-analyzer
                       wakatime.vscode-wakatime
                       dbaeumer.vscode-eslint
-                      orta.vscode-jest
                       strictly-vscode-extension.packages.${system}.strictly
                     ];
                 });
