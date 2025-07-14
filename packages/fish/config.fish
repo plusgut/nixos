@@ -27,6 +27,7 @@ function fish_title
     end
 end
 
+set -g EDITOR k
 set -g fish_prompt_pwd_dir_length 0
 set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
 
@@ -37,15 +38,16 @@ alias rm="rip"
 alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
 
-alias gs="git status"
-alias gd="git diff"
-alias ga="git add"
-alias gc="git commit"
-alias gp="git push"
-alias gu="git pull"
-alias gl="git log --all --graph"
-alias gb="git branch"
-alias gap="git add --patch"
+abbr --add gco git checkout
+abbr --add gs git status
+abbr --add gd git diff
+abbr --add ga git add
+abbr --add gc git commit
+abbr --add gp git push
+abbr --add gu git pull
+abbr --add gl git log --all --graph
+abbr --add gb git branch
+abbr --add ga git add --patch
 
 bind \ch backward-bigword
 bind \cl forward-bigword
