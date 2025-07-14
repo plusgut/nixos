@@ -1,4 +1,3 @@
-set -g EDITOR k
 set -g fish_prompt_pwd_dir_length 0
 set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
 set -g FZF_FILE_OPTS "--preview \"fzf-file-preview {}\""
