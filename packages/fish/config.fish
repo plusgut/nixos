@@ -1,9 +1,9 @@
 set -g EDITOR k
 set -g fish_prompt_pwd_dir_length 0
 set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
-set -g FZF_DEFAULT_OPTS "--preview \"fzf-preview {}\""
-set -g FZF_CTRL_T_OPTS $FZF_DEFAULT_OPTS
-set -g FZF_ALT_C_OPTS $FZF_DEFAULT_OPTS
+set -g FZF_FILE_OPTS "--preview \"fzf-file-preview {}\""
+set -g FZF_CTRL_T_OPTS $FZF_FILE_OPTS
+set -g FZF_ALT_C_OPTS $FZF_FILE_OPTS
 
 # alias cd="_ZO_ECHO=1 z"
 alias cd="z"
@@ -49,8 +49,9 @@ if status is-interactive
     abbr --add gu git pull
     abbr --add gl git log --all --graph
     abbr --add gb git branch
-    abbr --add ga git add --patch
+    abbr --add ga git add
 
-    bind \ch backward-bigword
-    bind \cl forward-bigword
+    bind ctrl-h backward-bigword
+    bind ctrl-l forward-bigword
+    bind ctrl-g fzf-git-widget
 end
