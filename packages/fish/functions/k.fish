@@ -1,27 +1,31 @@
+function __k_getinode
+    echo inode_$(ls -id $argv[1] | awk '{print $1}')
+end
+
 function k
-    set -g servers $(kak -l)
+    set -l servers $(kak -l)
     set -l cwd $(pwd)
+    set -l search $cwd
+    set -l result
 
-    function __k_getinode
-        echo inode_$(ls -id $argv[1] | awk '{print $1}')
-    end
-
-    function __k_search
-        if test $argv[1] = "/"
-            set -l inode $(__k_getinode $(pwd))
+    while true
+        if test $search = "/"
+            set -l inode $(__k_getinode $cwd)
             setsid -f kak -d -s $inode
             sleep 0.5
-            echo $inode
+            set result $inode
+            break;
         else
-            set -l inode $(__k_getinode $argv[1])
+            set -l inode $(__k_getinode $search)
             set -l index $(contains -i $inode $servers)
             if test -z $index
-                __k_search $(path normalize $(echo $argv/..))
+                set search $(path normalize $search/..)
             else
-                echo $servers[$index]
+                set result $servers[$index]
+                break
             end
         end
     end
 
-    kak -c $(__k_search $(pwd)) $argv
+    kak -c $result $argv
 end
