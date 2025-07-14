@@ -12,9 +12,12 @@ function k
         if test $search = "/"
             set -l inode $(__k_getinode $cwd)
             setsid -f kak -d -s $inode
-            sleep 0.5
+            while not contains $inode $(kak -l)
+                 sleep 0.1
+            end
+
             set result $inode
-            break;
+            break
         else
             set -l inode $(__k_getinode $search)
             set -l index $(contains -i $inode $servers)
