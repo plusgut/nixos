@@ -433,6 +433,12 @@ window-rule {
     block-out-from "screencast"
 }
 
+window-rule {
+    match app-id="floating"
+
+    open-floating true
+}
+
 layer-rule {
     match namespace="^notifications$"
 

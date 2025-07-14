@@ -26,11 +26,13 @@ map global user n -docstring "new window" ":new<ret>"
 map global user b -docstring "fuzzy buffers" ":pick-buffers<ret>"
 map global user w -docstring "close buffer" ":delete-buffer<ret>"
 
+map global user t -docstring "open terminal" ":wayland-terminal-window fish <ret>"
+
 # comment
 map global user c ':comment-line<ret>' -docstring 'comment line'
 
 # tree-sitter
-map global user t ':enter-user-mode tree-sitter<ret>' -docstring 'tree-sitter'
+# map global user t ':enter-user-mode tree-sitter<ret>' -docstring 'tree-sitter'
 map global normal <right> ':tree-sitter-nav next_sibling<ret>'
 map global user g -docstring "git" ":enter-user-mode git<ret>" 
 map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
@@ -65,14 +67,5 @@ add-highlighter global/ show-whitespaces
 
 define-command -override tree-sitter-user-after-highlighter %{
   add-highlighter -override buffer/show-matching show-matching
-}
-
-define-command -override fzf-buffers %{
-  evaluate-commands %{
-    set local windowing_placement floating
-    connect terminal sh -c %{
-      kcr get --raw --value buflist | fzf --preview "kcr cat --raw {}" | xargs kcr send buffer --
-    }
-  }
 }
 
