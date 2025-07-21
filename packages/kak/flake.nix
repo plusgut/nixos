@@ -43,7 +43,6 @@
             KAK_SESSION=ide_$$; EDITOR="ide-edit $KAK_SESSION"; broot --listen=$KAK_SESSION
           '';
           ide-edit = pkgs.writeShellScriptBin "ide-edit" ''
-            echo $1 $2> /home/plusgut/ide.log
             if kak -l | grep -wq $1
             then
               echo "ide-edit $2" | kak -p $1;

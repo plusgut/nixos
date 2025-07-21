@@ -3,7 +3,7 @@ function __k_getinode
 end
 
 function k
-    set -l result $(kak_get_server)
+    set -l result $(kak-get-server)
     if test -z $result
         set -l inode $(__k_getinode $cwd)
         setsid -f kak -d -s $inode

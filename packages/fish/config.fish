@@ -53,4 +53,5 @@ if status is-interactive
     bind ctrl-h backward-bigword
     bind ctrl-l forward-bigword
     bind ctrl-g fzf-git-widget
+    bind ctrl-b fzf-buffer-widget
 end
