@@ -19,7 +19,7 @@ lsp-inlay-diagnostics-enable global
 colorscheme catpuccin_mocha
 
 
-set-option global windowing_placement "tab"
+set-option global windowing_placement "window"
 set-option global grepcmd "rg"
 
 map global user n -docstring "new window" ":new<ret>"
