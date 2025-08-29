@@ -6,5 +6,6 @@ function kak-get-bufferfiles
     printf 'try %%{ evaluate-commands -try-client "%s" %%{ echo -to-file %s %%val{buflist} } }' "client0" "$output" | kak -p $argv[1]
     # read the value ASAP and delete FIFO to avoid lag in client
     set -l mod $(timeout 2s cat $output)
+    echo $mod | tr ' ' '\n'
     rm  $tempdir
 end
