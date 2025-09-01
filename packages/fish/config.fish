@@ -1,9 +1,3 @@
-set -g fish_prompt_pwd_dir_length 0
-set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
-set -g FZF_FILE_OPTS "--preview \"fzf-file-preview {}\""
-set -g FZF_CTRL_T_OPTS $FZF_FILE_OPTS
-set -g FZF_ALT_C_OPTS $FZF_FILE_OPTS
-
 # alias cd="_ZO_ECHO=1 z"
 alias cd="z"
 alias codium="codium --ozone-platform-hint=auto"
@@ -12,10 +6,55 @@ alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
 
 if status is-interactive
-    zoxide init fish | source
+    set -g fish_prompt_pwd_dir_length 0
+    set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
+    set -g FZF_FILE_OPTS "--preview \"fzf-file-preview {}\""
+    set -g FZF_CTRL_T_OPTS $FZF_FILE_OPTS
+    set -g FZF_ALT_C_OPTS $FZF_FILE_OPTS
+    set -x DIRPREVARROW 󰧀
+    set -x DIRNEXTARROW 󰧂
+
     starship init fish | source
+    zoxide init fish | source
     direnv hook fish | source
     fzf --fish | source
+
+    function fish_right_prompt
+	if test -n "$dirprev"
+            set -x DIRPREVARROW 󰜱
+        else
+            set -x DIRPREVARROW 󰧀
+        end
+
+        if test -n "$dirnext"
+            set -x DIRNEXTARROW 󰜴
+        else
+            set -x DIRNEXTARROW 󰧂
+        end
+
+        switch "$fish_key_bindings"
+            case fish_hybrid_key_bindings fish_vi_key_bindings
+                set STARSHIP_KEYMAP "$fish_bind_mode"
+            case '*'
+                set STARSHIP_KEYMAP insert
+        end
+        set STARSHIP_CMD_PIPESTATUS $pipestatus
+        set STARSHIP_CMD_STATUS $status
+        # Account for changes in variable name between v2.7 and v3.0
+        set STARSHIP_DURATION "$CMD_DURATION$cmd_duration"
+        set STARSHIP_JOBS (count (jobs -p))
+        if test "$RIGHT_TRANSIENT" = "1"
+            set -g RIGHT_TRANSIENT 0
+            if type -q starship_transient_rprompt_func
+                starship_transient_rprompt_func --terminal-width="$COLUMNS" --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION --jobs=$STARSHIP_JOBS
+            else
+                printf ""
+            end
+        else
+            /run/current-system/sw/bin/starship prompt --right --terminal-width="$COLUMNS" --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION --jobs=$STARSHIP_JOBS
+        end
+    end
+
 
     function fish_greeting
     end
