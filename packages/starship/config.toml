@@ -59,27 +59,6 @@ style = 'bold blue'
 symbol = '󱄅 '
 command = 'cat flake.lock | jq ".nodes.nixpkgs?.locked.lastModified" | duration'
 
-[custom.dirprev]
-format = '[$output]($style)'
-when = true
-shell = 'sh'
-# command = '''
-	# if test -n "$dirprev";
-	# 	echo 󰜱;
-	# else;
-	# 	echo 󰧀;
-	# end;
-
-	# if test -n "$dirprev";
-	# 	echo 󰜱;
-	# else;
-	# 	echo 󰧀;
-	# end;
-	# '''
-# command = 'if [ -n "$dirprev" ]; then echo 󰜱 ; else echo 󰧀 ; fi'
-command = 'if [ -n "$dirnext" ]; then echo 󰜱 ; else echo 󰧀 ; fi'
-
-
 [env_var.DIRPREVARROW]
 style = 'green'
 format = '[$env_value]($style) '
