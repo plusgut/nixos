@@ -12,7 +12,6 @@ $character"""
 right_format = """
 $package\
 $haskell\
-$nodejs\
 $rust\
 ${custom.nix_flake}\
 $env_var\
@@ -57,7 +56,7 @@ detect_files = ['flake.lock']
 format = '[$symbol$output]($style) '
 style = 'bold blue'
 symbol = '󱄅 '
-command = 'cat flake.lock | jq ".nodes.nixpkgs?.locked.lastModified" | duration'
+command = 'cat flake.lock | jq ".nodes[.nodes.[.root].inputs.nixpkgs].locked.lastModified" | duration'
 
 [env_var.DIRPREVARROW]
 style = 'green'
