@@ -50,8 +50,8 @@ if status is-interactive
     abbr --add gb git branch
     abbr --add ga git add
 
-    bind ctrl-h backward-bigword
-    bind ctrl-l forward-bigword
+    bind ctrl-h prevd-or-backward-word 
+    bind ctrl-l nextd-or-forward-word
     bind ctrl-g fzf-git-widget
     bind ctrl-b fzf-buffer-widget
 end
