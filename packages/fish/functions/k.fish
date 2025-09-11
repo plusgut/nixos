@@ -14,9 +14,15 @@ function k
         set result $inode
     end
 
-    if string match -r -g "^(?<path>.+?):(?<line>\d+(:\d+)?)\$" $argv > /dev/null 2> /dev/null
-        kak -c $result +$line $path
-    else
-        kak -c $result $argv
+    set -l args
+
+    for arg in $argv
+        if string match -r -g "^(?<path>.+?):(?<line>\d+(:\d+)?)\$" $arg > /dev/null 2> /dev/null
+            set args $args +$line $path
+        else
+            set args $args $arg
+        end
     end
+
+    kak -c $result $args
 end
