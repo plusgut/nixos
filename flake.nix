@@ -2,10 +2,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    helix = { url = "github:helix-editor/helix"; };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, helix, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware,  ... }@attrs:
     let
       common = ({ pkgs, ... }:
         let
@@ -43,7 +42,7 @@
 
           # Use the systemd-boot EFI boot loader.
           boot.loader.systemd-boot.enable = true;
-          boot.loader.systemd-boot.configurationLimit = 8;
+          boot.loader.systemd-boot.configurationLimit = 6;
           boot.loader.efi.canTouchEfiVariables = true;
           boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -177,7 +176,7 @@
           #
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
-            ++ [ helix.packages.${pkgs.system}.default ] ++ (with pkgs; [
+            ++ (with pkgs; [
               pkgs.nodePackages.typescript-language-server
               pkgs.zls
               calc
