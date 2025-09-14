@@ -235,8 +235,12 @@
             xwayland.enable = true;
           };
 
-          programs.river = {
-            enable = false;
+          programs.river-classic = {
+            enable = true;
+            extraPackages = [
+                pkgs.waybar
+
+            ];
           };
 
           programs.sway = {
