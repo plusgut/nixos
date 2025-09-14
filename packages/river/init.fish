@@ -83,8 +83,9 @@ riverctl border-color-unfocused 0x586e75
 
 # Set keyboard repeat rate
 riverctl set-repeat 35 300
-
-riverctl input touchpad tap enable
+riverctl list-inputs \
+    | grep '_Touchpad$'  \
+    | xargs -I '{}' riverctl input '{}' tap enabled
 
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
 riverctl rule-add -app-id 'float*' -title 'foo' float

@@ -137,22 +137,7 @@
 
           environment.loginShellInit = ''
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-                # Reset failed state of all user units.
-                systemctl --user reset-failed
-
-                # Import the login manager environment.
-                systemctl --user import-environment
-
-                dbus-update-activation-environment --all
-
-                # Start niri and wait for it to terminate.
-                systemctl --user --wait start niri.service
-
-                # Force stop of graphical-session.target.
-                systemctl --user start --job-mode=replace-irreversibly niri-shutdown.target
-
-                # Unset environment that we've set.
-                systemctl --user unset-environment WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
+              river -c $XDG_CONFIG_HOME/river/init.fish
             fi
           '';
 
