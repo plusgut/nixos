@@ -59,7 +59,7 @@ set-face global MenuForeground     "%opt{text},%opt{surface1}+b"
 set-face global MenuBackground     "%opt{text},%opt{surface0}"
 set-face global MenuInfo           "%opt{crust},%opt{teal}"
 set-face global Information        "%opt{crust},%opt{teal}"
-set-face global Error              "%opt{crust},%opt{red}"
+set-face global Error              "default,default,%opt{red}+c"
 set-face global DiagnosticError    Error
 set-face global DiagnosticWarning  "%opt{yellow}"
 set-face global StatusLine         "%opt{text},%opt{mantle}"
