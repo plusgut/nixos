@@ -165,8 +165,9 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ (with pkgs; [
-              pkgs.nodePackages.typescript-language-server
-              pkgs.zls
+              nodePackages.typescript-language-server
+              zls
+              libnotify
               calc
               ripgrep
               foot
