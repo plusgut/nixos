@@ -115,6 +115,9 @@
                 qtile = {
                   default = [ "wlr" "gtk" ];
                 };
+                river = {
+                  default = [ "wlr" "gtk" ];
+                };
                 niri-session = {
                   default = [ "gnome" "gtk" ];
                 };
@@ -145,7 +148,7 @@
             MOZ_ENABLE_WAYLAND = "1";
             QT_SCALE_FACTOR = "2";
             NIXOS_OZONE_WL = "1";
-            XDG_CURRENT_DESKTOP = "qtile";
+            XDG_CURRENT_DESKTOP = "river";
             XDG_CONFIG_HOME = "/home/plusgut/nixos/packages";
             CHROME_BIN = "chromium";
             EDITOR = "kak";
