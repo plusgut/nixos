@@ -15,7 +15,7 @@ set -l notifcation_timeout 6000
 riverctl map normal $mod Return spawn $TERMINAL
 riverctl map normal $mod E spawn fuzzel
 riverctl map normal $mod B spawn firefox
-riverctl map normal $mod T spawn "notify-send -t $notifcation_timeout \"\$(date \"+%H:%m - %a %d.%m.\")\""
+riverctl map normal $mod T spawn "notify-send -t $notifcation_timeout \"\$(date \"+%H:%M - %a %d.%m.\")\""
 
 riverctl map normal $mod Q close
 
@@ -39,10 +39,13 @@ riverctl map normal $mod+Shift Period send-to-output next
 riverctl map normal $mod+Shift Comma send-to-output previous
 
 set -l workspaces A S D F G
+set -l colors 0xfab387 0xf9e2af 0xa6e3a1 0x74c7ec 0xb4befe
+
 for index in $(seq $(count $workspaces))
     set -l tag $(math 2 ^ $(math $index - 1))
     set -l char $workspaces[$(math $index)]
-    riverctl map normal $mod $char set-focused-tags $tag
+    set -l color $colors[$(math $index)]
+    riverctl map normal $mod $char spawn "riverctl background-color $color && riverctl set-focused-tags $tag"
     riverctl map normal $mod+Shift $char set-view-tags $tag
 end
 
@@ -59,9 +62,6 @@ riverctl map passthrough $mod F11 enter-mode normal
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
 for mode in normal locked
-    # Eject the optical drive (well if you still have one that is)
-    riverctl map $mode None XF86Eject spawn 'eject -T'
-
     riverctl map $mode None XF86AudioRaiseVolume spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+'
     riverctl map $mode None XF86AudioLowerVolume spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-'
     riverctl map $mode None XF86AudioMute        spawn 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
@@ -79,7 +79,7 @@ for mode in normal locked
 end
 
 # Set background and border color
-riverctl background-color 0x002b36
+riverctl background-color $colors[1]
 riverctl border-color-focused 0x93a1a1
 riverctl border-color-unfocused 0x586e75
 
