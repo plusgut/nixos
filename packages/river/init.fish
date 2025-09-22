@@ -89,8 +89,9 @@ riverctl list-inputs \
     | grep '_Touchpad$'  \
     | xargs -I '{}' riverctl input '{}' tap enabled
 
+riverctl rule-add -app-id '*' ssd
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
-riverctl rule-add -app-id 'float*' -title 'foo' float
+riverctl rule-add -app-id 'float*' float
 
 riverctl focus-follows-cursor normal
 riverctl keyboard-layout de
