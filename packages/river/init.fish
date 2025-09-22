@@ -98,9 +98,9 @@ riverctl keyboard-layout de
 riverctl default-attach-mode below
 riverctl xcursor-theme "phinger-cursors-light" 48
 
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 6 -outer-padding 6 &
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+rivertile -view-padding 8 -outer-padding 8 &
