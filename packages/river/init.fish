@@ -9,12 +9,13 @@
 # documentation.
 
 set -l mod Super
+set -l notifcation_timeout 6000
 
 
 riverctl map normal $mod Return spawn $TERMINAL
 riverctl map normal $mod E spawn fuzzel
 riverctl map normal $mod B spawn firefox
-riverctl map normal $mod T spawn "notify-send -t 10000 $(date +%H:%M)"
+riverctl map normal $mod T spawn "notify-send -t $notifcation_timeout \"\$(date \"+%H:%m - %a %d.%m.\")\""
 
 riverctl map normal $mod Q close
 
