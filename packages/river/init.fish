@@ -14,7 +14,7 @@ set -l mod Super
 riverctl map normal $mod Return spawn $TERMINAL
 riverctl map normal $mod E spawn fuzzel
 riverctl map normal $mod B spawn firefox
-riverctl map normal $mod T spawn "notify-send -t 10000 $(date +%H:%k)"
+riverctl map normal $mod T spawn "notify-send -t 10000 $(date +%H:%M)"
 
 riverctl map normal $mod Q close
 
