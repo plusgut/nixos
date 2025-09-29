@@ -11,7 +11,7 @@ if status is-interactive
     set -g FZF_FILE_OPTS "--preview \"fzf-file-preview {}\""
     set -g FZF_CTRL_T_COMMAND "fd --type f --strip-cwd-prefix"
     set -g FZF_CTRL_T_OPTS $FZF_FILE_OPTS
-    set -g FZF_ALT_C_COMMAND "fd --type d --strip-cwd-prefix" 
+    set -g FZF_ALT_C_COMMAND "fd --type d --strip-cwd-prefix"
     set -g FZF_ALT_C_OPTS $FZF_FILE_OPTS
     set -x DIRPREVARROW 󰧀
     set -x DIRNEXTARROW 󰧂
