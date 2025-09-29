@@ -165,6 +165,7 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ (with pkgs; [
+              fd
               nodePackages.typescript-language-server
               zls
               libnotify
