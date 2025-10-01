@@ -10,13 +10,12 @@ $git_status\
 $character"""
 
 right_format = """
+$jobs\
+$cmd_duration\
 $package\
 $haskell\
 $rust\
 ${custom.nix_flake}\
-$env_var\
-$cmd_duration\
-$jobs\
 $status\
 ${env_var.DIRPREVARROW}
 ${env_var.DIRNEXTARROW}
@@ -50,6 +49,9 @@ format = '[$symbol$version]($style) '
 
 [rust]
 format = '[$symbol]($style)'
+
+[jobs]
+style = 'purple'
 
 [custom.nix_flake]
 detect_files = ['flake.lock']
