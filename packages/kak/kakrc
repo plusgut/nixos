@@ -68,3 +68,13 @@ define-command -override tree-sitter-user-after-highlighter %{
   add-highlighter -override buffer/show-matching show-matching
 }
 
+define-command mep %{
+  eval %sh{
+    client=$(echo $kak_client_list | awk '{print $1}');
+    if [ -n "$client" ]; then
+      echo evaluate-commands -client $client edit flake.nix
+    else
+      echo new edit flake.nix 
+    fi
+  } 
+}
