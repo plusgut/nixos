@@ -4,11 +4,11 @@
 
 [core]
 	whitespace = error
+	pager = delta
 
 [interactive]
 	singlekey = true
-[diff]
-	renames = copies
+	diffFilter = delta --color-only
 
 [pull]
 	rebase = false
@@ -18,6 +18,12 @@
 
 [branch]
 	sort = -committerdate
+
+[delta]
+	line-numbers = true
+	hunk-header-style = none
+	hyperlinks = true
+	hyperlinks-file-link-format = "file://localhost{path}#{line}"
 
 [includeIf "hasconfig:remote.*.url:ssh://git@git.scn.internal:2222/**"]
 	path = "./config-work"
