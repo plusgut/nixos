@@ -15,7 +15,7 @@
             name = "k";
             desktopName = "k";
             exec = ''
-                k-open
+                kak-open %u
             '';
             mimeTypes = [
               "text/english"
@@ -35,26 +35,7 @@
               "text/x-c++"
             ];
           });
-          k-open = pkgs.writeShellScriptBin "k-open" ''
-            kak_server=$(fish -c kak-get-server)
-            if [ -z "$kak_server" ]; then
-                kak_server=$(echo inode_$(ls -id . | awk '{print $1}'))
-                setsid -f kak -d -s $kak_server
-                while [-z $(kak -l | grep $kak_server ) ]
-                do
-                    sleep 0.1
-                done
-
-            fi
-            printf 'eval %%sh{
-                client=$(echo $kak_client_list | awk \"{print \$1}");
-                if [ -n "$client" ]; then
-                    echo evaluate-commands -client $client edit %s
-                else
-                    echo new edit %s
-                fi
-            }' $1 $1 | kak -p $kak_server
-          '';
+          kak-open = pkgs.writeScriptBin "kak-open" (builtins.readFile ./scripts/kak-open);
         };
       }
     );

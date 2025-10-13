@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+kak_server=$(fish -c kak-get-server)
+if [ -z "$kak_server" ]; then
+    kak_server=$(echo inode_$(ls -id . | awk '{print $1}'))
+    setsid -f kak -d -s $kak_server
+    while [ -z $(kak -l | grep $kak_server ) ]
+    do
+        sleep 0.1
+    done
+
+fi
+
+file=$1
+if [[ "$file" =~ ^file:\/\/[^\/]*(\/[^#]*)(#([0-9]+)(:([0-9]+))?)?$ ]]; then
+    file="${BASH_REMATCH[1]} ${BASH_REMATCH[3]} ${BASH_REMATCH[5]}"
+fi
+
+printf 'eval %%sh{
+    client=$(echo $kak_client_list | awk \"{print \$1}");
+    if [ -n "$client" ]; then
+        echo evaluate-commands -client $client edit %s;
+    else
+        echo new edit %s;
+    fi
+}' "$file" "$file" | kak -p $kak_server
+
