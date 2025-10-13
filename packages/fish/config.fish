@@ -4,7 +4,8 @@ alias codium="codium --ozone-platform-hint=auto"
 alias rm="rip"
 alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
-alias rg="rg --hyperlink-format='file://$hostname/{path}#{line}:{column} '"
+alias rg="rg --hyperlink-format='file://{host}{path}#{line}:{column}'"
+alias fd="fd --hyperlink=auto"
 
 if status is-interactive
     set -g fish_prompt_pwd_dir_length 0
