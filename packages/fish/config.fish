@@ -6,6 +6,7 @@ alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
 alias rg="rg --hyperlink-format='file://{host}{path}#{line}:{column}'"
 alias fd="fd --hyperlink=auto --hidden --exclude .git"
+alias ko="kak-open"
 
 if status is-interactive
     set -g fish_prompt_pwd_dir_length 0
