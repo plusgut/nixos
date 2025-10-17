@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-kak_server=$(fish -c kak-get-server)
+kak_server=$(kak-get-server)
 if [ -z "$kak_server" ]; then
     kak_server=$(echo inode_$(ls -id . | awk '{print $1}'))
     setsid -f kak -d -s $kak_server

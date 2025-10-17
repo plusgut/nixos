@@ -63,6 +63,7 @@
             ];
           });
           kak-open = pkgs.writeScriptBin "kak-open" (builtins.readFile ./scripts/kak-open);
+          kak-get-server = pkgs.writeScriptBin "kak-get-server" (builtins.readFile ./scripts/kak-get-server.fish);
           kak-get-bufferfiles = pkgs.writeScriptBin "kak-get-bufferfiles" (builtins.readFile ./scripts/kak-get-bufferfiles.fish);
         };
       }
