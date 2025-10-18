@@ -6,7 +6,6 @@ alias ls="lsd --hyperlink auto"
 alias ll="lsd --long --almost-all --hyperlink auto --git"
 alias rg="rg --hyperlink-format='file://{host}{path}#{line}:{column}'"
 alias fd="fd --hyperlink=auto --hidden --exclude .git"
-alias ko="kak-open"
 
 if status is-interactive
     set -g fish_prompt_pwd_dir_length 0
@@ -82,6 +81,8 @@ if status is-interactive
             echo -- $ssh (string sub -l 20 -- $command) (prompt_pwd)
         end
     end
+
+    abbr --add ko kak-open
 
     abbr --add gco git checkout
     abbr --add gs git status

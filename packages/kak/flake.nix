@@ -62,8 +62,10 @@
               "text/x-c++"
             ];
           });
-          kak-open = pkgs.writeScriptBin "kak-open" (builtins.readFile ./scripts/kak-open);
+          k = pkgs.writeScriptBin "k" (builtins.readFile ./scripts/k.fish);
+          kak-open = pkgs.writeScriptBin "kak-open" (builtins.readFile ./scripts/kak-open.fish);
           kak-get-server = pkgs.writeScriptBin "kak-get-server" (builtins.readFile ./scripts/kak-get-server.fish);
+          kak-create-server = pkgs.writeScriptBin "kak-create-server" (builtins.readFile ./scripts/kak-create-server.fish);
           kak-get-bufferfiles = pkgs.writeScriptBin "kak-get-bufferfiles" (builtins.readFile ./scripts/kak-get-bufferfiles.fish);
         };
       }
