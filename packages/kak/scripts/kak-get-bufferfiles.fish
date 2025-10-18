@@ -1,18 +1,21 @@
 #! /usr/bin/env fish
 
-set -l tempdir $(mktemp -d -t kak-temp-XXXXXXXX)
-set -l output $tempdir/fifo
-mkfifo $output
-# we ask the session to write the value of 'modified' for the current buffer of the list
+set index 100
+
+function end--on-signal SIGTERM
+    set index 0
+end
+
 printf 'try %%{
   evaluate-commands %%{
     nop %%sh{
       echo $kak_buflist | awk -v RS=\'[\n ]\' \'!/^\*/{print ENVIRON["PWD"] "/" $1}\' > %s
+      kill %s
     }
   }
-}' "$output" | kak -p $argv[1]
-# read the value ASAP and delete FIFO to avoid lag in client
-set -l mod $(timeout 2s cat $output)
-echo $mod | tr ' ' '\n'
-rm  $tempdir
+}' "/proc/$fish_pid/fd/1" "$fish_pid" | kak -p $argv[1]
 
+while test $index -gt 0
+    sleep 0.01
+    set index $(math $index - 1)
+end
