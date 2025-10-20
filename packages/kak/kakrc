@@ -25,9 +25,10 @@ set-option global grepcmd "rg"
 
 map global user n -docstring "new window" ":new<ret>"
 map global user b -docstring "fuzzy buffers" ":pick-buffers<ret>"
+map global user t -docstring "fuzzy file" ":pick-file<ret>"
 map global user w -docstring "close buffer" ":delete-buffer<ret>"
 
-map global user t -docstring "open terminal" ":wayland-terminal-window fish <ret>"
+# map global user t -docstring "open terminal" ":wayland-terminal-window fish <ret>"
 
 # comment
 map global user c ':comment-line<ret>' -docstring 'comment line'
