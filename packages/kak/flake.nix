@@ -39,8 +39,8 @@
               ];
             });
             kak-open-desktop = (pkgs.makeDesktopItem {
-            name = "k";
-            desktopName = "k";
+            name = "kak-open";
+            desktopName = "kak-open";
             exec = ''
                 kak-open %u
             '';
