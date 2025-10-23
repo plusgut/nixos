@@ -4,7 +4,6 @@ node_modules
 /packages/gh/hosts.yml
 /packages/btop
 /packages/dconf
-/packages/mimeapps.list
 /packages/pulse
 /packages/chromium
 /packages/qtile/__pycache__

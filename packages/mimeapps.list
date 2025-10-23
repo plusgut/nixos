@@ -1,0 +1,11 @@
+[Default Applications]
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+
+application/x-tiled-tsx=kak-open.desktop
+text/vnd.trolltech.linguist=kak-open.desktop
+text/x-scss=kak-open.desktop
+
+[Added Associations]
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;

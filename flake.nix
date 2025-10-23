@@ -171,7 +171,6 @@
               libnotify
               calc
               ripgrep
-              foot
               delta
               nixfmt-rfc-style
               gh
