@@ -9,12 +9,14 @@ define-command pick-buffers -docstring 'Select an open buffer using fuzzel' %{
 
 define-command pick-file -docstring 'Select an open buffer using fuzzel' %{
   evaluate-commands %sh{
-    query=""
     if [ -n "$kak_buffile" ]; then
-      query="--query=^$(realpath --relative-base=$PWD $(dirname $kak_buffile))/ "
+      directory=$(realpath --relative-base=$PWD $(dirname $kak_buffile))
+      if [ "$directory" != "." ]; then
+        query=$(printf -- '--query=^%s/ ' $directory)
+      fi
     fi
 
-    buffer=$(fd  --hidden --exclude .git --type f | ffzf "$query" --preview 'bat --style=numbers,changes --color=always  {}')
+    buffer=$(fd  --hidden --exclude .git --type f | ffzf $query --preview 'bat --style=numbers,changes --color=always  {}')
     if [ -n "$buffer" ]; then
       printf "edit %s\n" "${buffer}"
     fi
