@@ -7,17 +7,18 @@ alias ll="lsd --long --almost-all --hyperlink auto --git"
 alias rg="rg --hyperlink-format='file://{host}{path}#{line}:{column}'"
 alias fd="fd --hyperlink=auto --hidden --exclude .git"
 
-if status is-interactive
-    set -g fish_prompt_pwd_dir_length 0
-    set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
-    set -g FZF_FILE_OPTS "--preview \"fzf-file-preview \$dir/{}\""
-    set -g FZF_CTRL_T_COMMAND "fd --hidden --exclude .git --base-directory \$dir --type f --strip-cwd-prefix"
-    set -g FZF_CTRL_T_OPTS $FZF_FILE_OPTS
-    set -g FZF_ALT_C_COMMAND "fd --hidden --exclude .git --base-directory \$dir --type d --strip-cwd-prefix"
-    set -g FZF_ALT_C_OPTS $FZF_FILE_OPTS
-    set -x DIRPREVARROW 󰧀
-    set -x DIRNEXTARROW 󰧂
+set -g fish_prompt_pwd_dir_length 0
+set -x STARSHIP_CONFIG $XDG_CONFIG_HOME/starship/config.toml
+set -xg FZF_DEFAULT_OPTS "--bind \"Esc:cancel\""
+set -g FZF_FILE_OPTS "--preview \"fzf-file-preview \$dir/{}\""
+set -g FZF_CTRL_T_COMMAND "fd --hidden --exclude .git --base-directory \$dir --type f --strip-cwd-prefix"
+set -g FZF_CTRL_T_OPTS $FZF_FILE_OPTS
+set -g FZF_ALT_C_COMMAND "fd --hidden --exclude .git --base-directory \$dir --type d --strip-cwd-prefix"
+set -g FZF_ALT_C_OPTS $FZF_FILE_OPTS
+set -x DIRPREVARROW 󰧀
+set -x DIRNEXTARROW 󰧂
 
+if status is-interactive
     starship init fish | source
     zoxide init fish | source
     direnv hook fish | source
