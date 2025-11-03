@@ -2,8 +2,8 @@
 
 set index 100
 
-function end--on-signal SIGTERM
-    set index 0
+function end-on-signal -s SIGTERM
+  set index 0
 end
 
 printf 'try %%{
