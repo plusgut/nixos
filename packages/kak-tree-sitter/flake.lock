@@ -18,13 +18,29 @@
         "type": "github"
       }
     },
+    "kak-tree-sitter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761499645,
+        "narHash": "sha256-Q8R++fEJMZFftiI9zGjwF7X8mek2oc40Yl9WMUtQWEA=",
+        "owner": "~hadronized",
+        "repo": "kak-tree-sitter",
+        "rev": "cdcfb42da9affd9dd0db9e8df1173731c61e3d9f",
+        "type": "sourcehut"
+      },
+      "original": {
+        "owner": "~hadronized",
+        "repo": "kak-tree-sitter",
+        "type": "sourcehut"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1761544814,
-        "narHash": "sha256-t5f0A+2MtSWTfA6hzMNiotpIMGLlSQF2JnK9m6nkzIY=",
+        "lastModified": 1762080734,
+        "narHash": "sha256-fFunzA7ITlPHRr7dECaFGTBucNiWYEVDNPBw/9gFmII=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e5aa45ed6c45058ec109658b2b7352a9a062cdf3",
+        "rev": "bc7f6fa86de9b208edf4ea7bbf40bcd8cc7d70a5",
         "type": "github"
       },
       "original": {
@@ -37,6 +53,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "kak-tree-sitter": "kak-tree-sitter",
         "nixpkgs": "nixpkgs"
       }
     },
