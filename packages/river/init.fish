@@ -80,7 +80,8 @@ end
 
 # Set background and border color
 riverctl background-color $colors[1]
-riverctl border-color-focused 0x93a1a1
+riverctl border-width 4
+riverctl border-color-focused 0x9399b2
 riverctl border-color-unfocused 0x586e75
 
 # Set keyboard repeat rate
