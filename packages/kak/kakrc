@@ -1,4 +1,4 @@
-eval %sh{ kak-tree-sitter -dks --init $kak_session }
+eval %sh{kak-tree-sitter -dks --init $kak_session }
 eval %sh{kak-lsp --kakoune -s $kak_session}
 
 source "/home/plusgut/nixos/packages/kak/plugins/wayland.kak"
@@ -10,13 +10,10 @@ source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/fuzzel.kak"
 
 set-option global lsp_file_watch_support true
-
 lsp-enable
 lsp-inlay-hints-enable global
 lsp-inlay-diagnostics-enable global
 
-
-#colorscheme nightowl
 colorscheme catpuccin_mocha
 
 
