@@ -1,1 +1,16 @@
+# typescript
+[grammar.typescript.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-typescript"
+pin = "f975a621f4e7f532fe322e13c4f79495e0a7b2e7"
 
+[language.tsx.queries.source.git]
+url = "https://git.sr.ht/~hadronized/kak-tree-sitter"
+pin = "cdcfb42da9affd9dd0db9e8df1173731c61e3d9f"
+
+[grammar.typescript.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-typescript"
+pin = "f975a621f4e7f532fe322e13c4f79495e0a7b2e7"
+
+[language.typescript.queries.source.git]
+url = "https://git.sr.ht/~hadronized/kak-tree-sitter"
+pin = "cdcfb42da9affd9dd0db9e8df1173731c61e3d9f"
