@@ -21,11 +21,11 @@
     "kak-tree-sitter": {
       "flake": false,
       "locked": {
-        "lastModified": 1761499645,
-        "narHash": "sha256-Q8R++fEJMZFftiI9zGjwF7X8mek2oc40Yl9WMUtQWEA=",
+        "lastModified": 1764431679,
+        "narHash": "sha256-t7IN3ZIA80tZaOoiHNG9azCPjLfQ+aGHjJ9ZLoH8BVk=",
         "owner": "~hadronized",
         "repo": "kak-tree-sitter",
-        "rev": "cdcfb42da9affd9dd0db9e8df1173731c61e3d9f",
+        "rev": "586bb6380e39dbdf8760d324fa868b34d9584c9d",
         "type": "sourcehut"
       },
       "original": {
@@ -36,11 +36,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1763878491,
-        "narHash": "sha256-z+xEb8aeqMekmLNpwhy8K7nnVDb8bbXNC3sa1ZBXpV0=",
+        "lastModified": 1765183668,
+        "narHash": "sha256-TBA7CE44IHYfvOPBWcyLncpVrrKEiXWPdOrF8CD6W84=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bfdf4b3247f757c0400d02df2006b3068a6d3eb5",
+        "rev": "fc2de1563f89f0843eba27f14576d261df0e3b80",
         "type": "github"
       },
       "original": {
