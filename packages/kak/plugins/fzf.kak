@@ -25,3 +25,8 @@ define-command pick-file -docstring 'Select an open buffer using fuzzel' %{
   }
 }
 
+define-command -override lsp-show-goto-buffer -params 4 %{
+    evaluate-commands %sh{
+        echo "$4" | awk 'match($0, /^((.)+?:[0-9]+:[0-9]+):/, a){print a[1]}' | ffzf --scheme=path --delimiter=: --preview='bat --style=changes --color=always --highlight-line={2} {1}' --accept-nth "edit $3/{1} {2} {3}"
+    }
+}
