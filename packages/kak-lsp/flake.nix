@@ -11,7 +11,7 @@
       in
       {
         packages = {
-          default = pkgs.kak-lsp;
+          default = pkgs.kakoune-lsp;
         };
       }
     );

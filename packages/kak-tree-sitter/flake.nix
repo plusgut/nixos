@@ -18,7 +18,7 @@
           default = pkgs.rustPlatform.buildRustPackage {
             name = "kak-tree-sitter";
             src = kak-tree-sitter;
-            cargoHash = "sha256-lZNM5HqICP6JfaMiBjACcUNRTTTIRhq2ou8cOLU0yOU=";
+            cargoHash = "sha256-G4GBpoFiL/len/uE9CFPRwQPYAAMOhXZEDzV0BvRdRQ=";
           };
         };
       }

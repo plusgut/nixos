@@ -4,7 +4,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware,  ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, ... }@attrs:
     let
       common = ({ pkgs, ... }:
         let
@@ -165,6 +165,7 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ (with pkgs; [
+              fastmod
               fd
               nodePackages.typescript-language-server
               zls
@@ -193,7 +194,7 @@
               nix-prefetch-scripts
               nodePackages.typescript-language-server
               broot
-              wakatime
+              wakatime-cli
               fzf
               wl-clipboard
               zoxide
@@ -228,7 +229,7 @@
           programs.river-classic = {
             enable = true;
             extraPackages = [
-                pkgs.waybar
+              # pkgs.waybar
 
             ];
           };

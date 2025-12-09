@@ -38,11 +38,11 @@
                 })
               ];
             });
-            kak-open-desktop = (pkgs.makeDesktopItem {
+          kak-open-desktop = (pkgs.makeDesktopItem {
             name = "kak-open";
             desktopName = "kak-open";
             exec = ''
-                kak-open %u
+              kak-open %u
             '';
             mimeTypes = [
               "text/english"
