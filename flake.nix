@@ -188,7 +188,6 @@
               pulsemixer
               mtr
               nmap
-              steam
               xdg-utils
               nmap
               nix-prefetch-scripts
@@ -228,10 +227,6 @@
 
           programs.river-classic = {
             enable = true;
-            extraPackages = [
-              # pkgs.waybar
-
-            ];
           };
 
           programs.sway = {
@@ -250,6 +245,7 @@
           programs.git = {
             enable = true;
             config = { init = { defaultBranch = "main"; }; };
+            lfs.enable = true;
           };
 
           programs.fish = { enable = true; };
