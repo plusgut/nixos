@@ -44,7 +44,6 @@ if [[ ! $type =~ image/ ]]; then
     exit
   fi
 
-  echo $file
   ${batname} --style="${BAT_STYLE:-numbers,changes}" --color=always --pager=never --highlight-line="${center:-0}" -- "$file"
   exit
 fi
