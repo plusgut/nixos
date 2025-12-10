@@ -12,6 +12,9 @@
       {
         packages = {
           default = pkgs.writeScriptBin "ffzf" (builtins.readFile ./ffzf.fish);
+          fzf-preview = pkgs.writeScriptBin "fzf-preview" (builtins.readFile ./fzf-preview.sh);
+          file = pkgs.file;
+          chafa = pkgs.chafa;
         };
       }
     );
