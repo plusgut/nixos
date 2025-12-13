@@ -35,6 +35,7 @@ map global user c ':comment-line<ret>' -docstring 'comment line'
 map global normal <right> ':tree-sitter-nav next_sibling<ret>'
 map global user g -docstring "git" ":enter-user-mode git<ret>" 
 map global user l -docstring "languageserver" ":enter-user-mode lsp<ret>"
+
 hook global InsertCompletionShow .* %{
   map window insert <tab> <c-n>
   map window insert <s-tab> <c-p>

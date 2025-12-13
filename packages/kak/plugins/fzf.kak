@@ -1,4 +1,4 @@
-define-command pick-buffers -docstring 'Select an open buffer using fuzzel' %{
+define-command pick-buffers -docstring 'Select an open buffer using fzf' %{
   evaluate-commands %sh{
     BUFFER=$(printf "%s\n" "${kak_buflist}" | tr " " "\n" | grep -v "*" | ffzf --scheme=path --preview 'fzf-preview {}')
     if [ -n "$BUFFER" ]; then
@@ -7,7 +7,16 @@ define-command pick-buffers -docstring 'Select an open buffer using fuzzel' %{
   }
 }
 
-define-command pick-file -docstring 'Select an open buffer using fuzzel' %{
+define-command pick-modified -docstring 'Select an changed file using fzf' %{
+  evaluate-commands %sh{
+    BUFFER=$(git status --short --porcelain | awk '!match($1, /D/){print $2}' | ffzf --scheme=path --preview 'fzf-preview {}')
+    if [ -n "$BUFFER" ]; then
+      printf "edit %s\n" "${BUFFER}"
+    fi
+  }
+}
+
+define-command pick-file -docstring 'Select an open buffer using fzf' %{
   evaluate-commands %sh{
     query="--prompt=>" # Workaround of needing a valid default-option
     if [ -n "$kak_buffile" ]; then
