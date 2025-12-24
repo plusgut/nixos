@@ -137,7 +137,6 @@
             shell = pkgs.fish;
           };
 
-
           environment.loginShellInit = ''
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
               river -c $XDG_CONFIG_HOME/river/init.fish
