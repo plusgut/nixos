@@ -26,7 +26,7 @@ define-command pick-file -docstring 'Select an open buffer using fzf' %{
       fi
     fi
 
-    buffer=$(fd  --hidden --exclude .git --type f | ffzf "$query" --scheme=path  --preview 'fzf-preview  {}')
+    buffer=$(fd  --hidden --exclude .git --type f | ffzf "$query" --scheme=path --preview 'fzf-preview  {}')
 
     if [ -n "$buffer" ]; then
       printf "edit %s\n" "${buffer}"
@@ -36,6 +36,7 @@ define-command pick-file -docstring 'Select an open buffer using fzf' %{
 
 define-command -override lsp-show-goto-buffer -params 4 %{
     evaluate-commands %sh{
-        echo "$4" | awk 'match($0, /^((.)+?:[0-9]+:[0-9]+):/, a){print a[1]}' | ffzf --scheme=path --delimiter=: --preview='fzf-preview {1}:{2}' --preview-window="+{2}/2" --accept-nth "edit $3/{1} {2} {3}"
+        export FILE=$(realpath -m --relative-to=. $kak_buffile)
+        echo "$4" | grep -v '^$' | awk 'match($0, /^%:(.+)/, a){print ENVIRON["FILE"] ":" a[1]} !/^%/{print $0}' | ffzf --scheme=path --delimiter=':\s*'  --preview='fzf-preview {1}:{2}' --preview-window="+{2}/2" --accept-nth "edit $3/{1} {2} {3}"
     }
 }

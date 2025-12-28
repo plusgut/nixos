@@ -10,6 +10,7 @@ source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/fzf.kak"
 
 set-option global lsp_file_watch_support true
+set-option global modelinefmt "%opt{lsp_modeline} %opt{modelinefmt}"
 lsp-enable
 lsp-inlay-hints-enable global
 lsp-inlay-diagnostics-enable global
@@ -24,6 +25,9 @@ map global user n -docstring "new window" ":new<ret>"
 map global user b -docstring "fuzzy buffers" ":pick-buffers<ret>"
 map global user t -docstring "fuzzy file" ":pick-file<ret>"
 map global user w -docstring "close buffer" ":delete-buffer<ret>"
+map global goto d <esc>:lsp-definition<ret> -docstring 'LSP definition'
+map global goto r <esc>:lsp-references<ret> -docstring 'LSP references'
+map global goto s <esc>:lsp-document-symbol<ret> -docstring 'LSP symbols'
 
 # map global user t -docstring "open terminal" ":wayland-terminal-window fish <ret>"
 
