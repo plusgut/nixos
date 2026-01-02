@@ -37,7 +37,15 @@ define-command pick-file -docstring 'Select an open buffer using fzf' %{
 define-command -override -hidden lsp-show-goto-buffer -params 4 %{
    evaluate-commands %sh{
         export FILE=$(realpath -m --relative-to=. $kak_buffile)
-        echo "$4" | grep -v '^$' | awk 'match($0, /^%:(.+)/, a){print ENVIRON["FILE"] ":" a[1]} !/^%/{print $0}' | ffzf --scheme=path --delimiter=':\s*'  --preview='fzf-preview {1}:{2}' --preview-window="+{2}/2" --accept-nth "edit \"$3/{1}\" {2} {3}"
+        if [ "$2" == "lsp-document-symbol" ]; then
+          opts="--scheme=history --no-sort"
+          output=$(echo "$4" | tail -n +2 | sed -r 's/└/┌/g')
+        else
+          opts="--scheme=path --with-nth={1}:{2}"
+          output="$4"
+        fi
+
+        echo "$output" | awk 'match($0, /^%:(.+)/, a){print ENVIRON["FILE"] ":" a[1]} !/^%/{print $0}' | ffzf $opts --delimiter=':\s*'  --preview='fzf-preview {1}:{2}' --preview-window="+{2}/2" --accept-nth "edit \"$3/{1}\" {2} {3}"
     }
 }
 
