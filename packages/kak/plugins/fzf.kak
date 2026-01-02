@@ -45,7 +45,7 @@ define-command -override -hidden lsp-show-goto-buffer -params 4 %{
           output="$4"
         fi
 
-        echo "$output" | awk 'match($0, /^%:(.+)/, a){print ENVIRON["FILE"] ":" a[1]} !/^%/{print $0}' | ffzf $opts --delimiter=':\s*'  --preview='fzf-preview {1}:{2}' --preview-window="+{2}/2" --accept-nth "edit \"$3/{1}\" {2} {3}"
+        echo "$output" | grep -v '^$' | awk 'match($0, /^%:(.+)/, a){print ENVIRON["FILE"] ":" a[1]} !/^%/{print $0}' | ffzf $opts --delimiter=':\s*'  --preview='fzf-preview {1}:{2}' --preview-window="+{2}/2" --accept-nth "edit \"$3/{1}\" {2} {3}"
     }
 }
 
