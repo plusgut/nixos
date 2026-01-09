@@ -28,4 +28,6 @@
 [includeIf "hasconfig:remote.*.url:ssh://git@git.scn.internal:2222/**"]
 	path = "./config-work"
 
+[diff "image"]
+	command = image-diff
 
