@@ -24,6 +24,7 @@
 	hunk-header-style = none
 	hyperlinks = true
 	hyperlinks-file-link-format = "file://localhost{path}#{line}"
+	pager = "less -r"
 
 [includeIf "hasconfig:remote.*.url:ssh://git@git.scn.internal:2222/**"]
 	path = "./config-work"
