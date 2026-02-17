@@ -26,7 +26,7 @@ define-command pick-file -docstring 'Select an open buffer using fzf' %{
       fi
     fi
 
-    buffer=$(fd  --hidden --exclude .git --type f | ffzf "$query" --scheme=path --preview 'fzf-preview  {}')
+    buffer=$(fd --hidden --exclude .git --type f | ffzf "$query" --scheme=path --preview 'fzf-preview  {}')
 
     if [ -n "$buffer" ]; then
       printf "edit %s\n" "${buffer}"
