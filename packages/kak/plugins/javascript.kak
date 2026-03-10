@@ -1,9 +1,9 @@
 hook global WinSetOption filetype=(javascript|typescript) %{
   eval %sh{
-    if command -v prettier >/dev/null 2>&1; then
-      echo set-option window formatcmd \"prettier --stdin-filepath=%val{buffile}\"
-    elif command -v oxfmt >/dev/null 2>&1; then
+    if command -v oxfmt >/dev/null 2>&1; then
       echo set-option window formatcmd \"oxfmt --stdin-filepath=%val{buffile}\"
+    elif command -v prettier >/dev/null 2>&1; then
+      echo set-option window formatcmd \"prettier --stdin-filepath=%val{buffile}\"
     else
       echo nop
     fi
