@@ -136,6 +136,7 @@
           };
 
           environment.loginShellInit = ''
+            ssh-add
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
               river -c $XDG_CONFIG_HOME/river/init.fish
             fi
@@ -217,10 +218,9 @@
           # };
           #
           #
-          programs = {
-            dconf.enable = true;
-            xwayland.enable = true;
-          };
+          programs.dconf.enable = true;
+
+          programs.xwayland.enable = true;
 
           programs.river-classic = {
             enable = true;
@@ -238,6 +238,7 @@
             ];
           };
 
+          programs.ssh.startAgent = true;
 
           programs.git = {
             enable = true;
