@@ -165,7 +165,7 @@
             ++ (with pkgs; [
               fastmod
               fd
-              nodePackages.typescript-language-server
+              typescript-language-server
               zls
               libnotify
               calc
@@ -189,7 +189,6 @@
               xdg-utils
               nmap
               nix-prefetch-scripts
-              nodePackages.typescript-language-server
               broot
               wakatime-cli
               fzf
