@@ -10,6 +10,8 @@ source "/home/plusgut/nixos/packages/kak/plugins/rust.kak"
 source "/home/plusgut/nixos/packages/kak/plugins/fzf.kak"
 
 set-option global lsp_file_watch_support true
+set-option global wakatime_debug true
+set-option global wakatime_cli "wakatime-cli"
 set-option global modelinefmt "%opt{lsp_modeline} %opt{modelinefmt}"
 lsp-enable
 lsp-inlay-hints-enable global

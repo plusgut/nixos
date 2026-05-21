@@ -7,7 +7,7 @@
       flake = false;
     };
     kak-wakatime = {
-      url = "github:WhatNodyn/kakoune-wakatime";
+      url = "github:wakatime/kakoune-wakatime";
       flake = false;
     };
     kak-active-window = {

@@ -37,15 +37,15 @@
     "kak-wakatime": {
       "flake": false,
       "locked": {
-        "lastModified": 1648487078,
-        "narHash": "sha256-juDRQ+ICJUOKa2HPk7JiMd/h+V2tKa9rfTquvaZHHcw=",
-        "owner": "WhatNodyn",
+        "lastModified": 1710500694,
+        "narHash": "sha256-jdj61CzhlYtxDVGMtYnmZI00cysRNyLc/cu752uHB4w=",
+        "owner": "wakatime",
         "repo": "kakoune-wakatime",
-        "rev": "d3529c13c9227b2de89e4cd53ada43a5b83d7844",
+        "rev": "88b45d294a4ceef1a18b2ff0f72b8e2acaf5cc82",
         "type": "github"
       },
       "original": {
-        "owner": "WhatNodyn",
+        "owner": "wakatime",
         "repo": "kakoune-wakatime",
         "type": "github"
       }
