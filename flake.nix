@@ -279,14 +279,18 @@
       nixosConfigurations.plusgut-dell = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ common ./custom-dell.nix ];
+        modules = [
+          common
+          nixos-hardware.nixosModules.dell-xps-13-9380
+          ./custom-dell.nix
+        ];
       };
       nixosConfigurations.plusgut-lenovo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
           common
-          nixos-hardware.nixosModules.dell-xps-13-9380
+          nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen2
           ./custom-lenovo.nix
         ];
       };
