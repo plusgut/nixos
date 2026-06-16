@@ -3,8 +3,10 @@ node_modules
 /packages/VSCodium/*
 /packages/gh/hosts.yml
 /packages/btop
+/packages/wakatime
 /packages/dconf
 /packages/pulse
 /packages/chromium
 /packages/qtile/__pycache__
+/packages/mozilla/firefox
 /private
