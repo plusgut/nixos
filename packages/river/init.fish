@@ -87,7 +87,7 @@ riverctl border-color-unfocused 0x586e75
 # Set keyboard repeat rate
 riverctl set-repeat 35 300
 riverctl list-inputs \
-    | grep '_Touchpad$'  \
+    | grep '_Touch[pP]ad$'  \
     | xargs -I '{}' riverctl input '{}' tap enabled
 
 riverctl rule-add -app-id '*' ssd
