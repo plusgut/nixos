@@ -9,7 +9,7 @@ define-command pick-buffers -docstring 'Select an open buffer using fzf' %{
 
 define-command pick-modified -docstring 'Select an changed file using fzf' %{
   evaluate-commands %sh{
-    BUFFER=$(git status --short --porcelain | awk '!match($1, /D/){print $2}' | ffzf --scheme=path --preview 'fzf-preview {}')
+    BUFFER=$(git status --untracked-files=all --short --porcelain | awk '!match($1, /D/){print $2}' | ffzf --scheme=path --preview 'fzf-preview {}')
     if [ -n "$BUFFER" ]; then
       printf "edit %s\n" "${BUFFER}"
     fi
@@ -20,7 +20,7 @@ define-command pick-file -docstring 'Select an open buffer using fzf' %{
   evaluate-commands %sh{
     query="--prompt=>" # Workaround of needing a valid default-option
     if [ -n "$kak_buffile" ]; then
-      directory=$(realpath --relative-base=$PWD $(dirname $kak_buffile))
+      directory=$(realpath -m --relative-base=$PWD $(dirname $kak_buffile))
       if [ "$directory" != "." ]; then
         query="--query=^$directory/ "
       fi
@@ -36,7 +36,7 @@ define-command pick-file -docstring 'Select an open buffer using fzf' %{
 
 define-command -override -hidden lsp-show-goto-buffer -params 4 %{
    evaluate-commands %sh{
-        export FILE=$(realpath -m --relative-to=. $kak_buffile)
+        export FILE=$(realpath -m --relative-base=$PWD $kak_buffile)
         if [ "$2" == "lsp-document-symbol" ]; then
           opts="--scheme=history --no-sort"
           output=$(echo "$4" | tail -n +2 | sed -r 's/└/┌/g')
