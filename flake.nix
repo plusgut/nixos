@@ -166,13 +166,11 @@
               fastmod
               fd
               typescript-language-server
-              zls
               libnotify
               calc
               ripgrep
               delta
               nixfmt-rfc-style
-              gh
               lsd
               pciutils
               usbutils
@@ -187,9 +185,7 @@
               mtr
               nmap
               xdg-utils
-              nmap
               nix-prefetch-scripts
-              broot
               wakatime-cli
               fzf
               wl-clipboard
@@ -200,7 +196,6 @@
               rm-improved
               mpv
               fuzzel
-              mako
               grim
             ]);
 
