@@ -138,7 +138,8 @@
           environment.loginShellInit = ''
             ssh-add
             if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-              river -c $XDG_CONFIG_HOME/river/init.fish
+              # river -c $XDG_CONFIG_HOME/river/init.fish
+              mango -c $XDG_CONFIG_HOME/mango/config.conf
             fi
           '';
 
@@ -216,6 +217,11 @@
 
           programs.xwayland.enable = true;
 
+          programs.mangowc = {
+            enable = true;
+            package = pkgs.mango;
+          };
+          
           programs.river-classic = {
             enable = true;
           };
