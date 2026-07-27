@@ -365,6 +365,9 @@ end    = ["tray", "notifications", "battery", "volume", "session"]
 # [bar.main.monitor.dp1.dead_zone.actions]
 # left = "panel-toggle launcher"
 
+[widget.workspaces]
+hide_when_empty     = true
+
 # ── Dock ──────────────────────────────────────────────────────────────────────
 
 [dock]
