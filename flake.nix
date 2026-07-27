@@ -162,6 +162,7 @@
           environment.systemPackages =
             builtins.concatMap (flake: builtins.attrValues flake.packages.${pkgs.system}) (builtins.attrValues flakes)
             ++ (with pkgs; [
+              jq
               fastmod
               fd
               typescript-language-server
