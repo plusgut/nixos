@@ -78,27 +78,32 @@
           security.sudo.enable = true;
           security.rtkit.enable = true;
 
-          services.pipewire = {
-            enable = true;
-            alsa.enable = true;
-            alsa.support32Bit = true;
-            pulse.enable = true;
+          services = {
+            upower.enable = true;
+
+            pipewire = {
+              enable = true;
+              alsa.enable = true;
+              alsa.support32Bit = true;
+              pulse.enable = true;
+            };
+
+            fwupd.enable = true;
+
+            printing = {
+              enable = true;
+              drivers = [ pkgs.gutenprint ];
+            };
+
+            avahi = {
+              enable = true;
+              nssmdns4 = true;
+              publish.userServices = true;
+            };
+
+            tlp.enable = true;
           };
 
-          services.fwupd.enable = true;
-
-          services.printing = {
-            enable = true;
-            drivers = [ pkgs.gutenprint ];
-          };
-
-          services.avahi = {
-            enable = true;
-            nssmdns4 = true;
-            publish.userServices = true;
-          };
-
-          services.tlp = { enable = true; };
 
           xdg = {
             portal = {
@@ -109,17 +114,11 @@
                 xdg-desktop-portal-gtk
               ];
               config = {
-                qtile = {
-                  default = [ "wlr" "gtk" ];
-                };
+                # mango = {
+                #   default = [ "wlr" "gtk" ];
+                # };
                 river = {
                   default = [ "wlr" "gtk" ];
-                };
-                niri-session = {
-                  default = [ "gnome" "gtk" ];
-                };
-                niri = {
-                  default = [ "gnome" "gtk" ];
                 };
               };
             };
@@ -217,11 +216,10 @@
 
           programs.xwayland.enable = true;
 
-          programs.mangowc = {
+          programs.mango = {
             enable = true;
-            package = pkgs.mango;
           };
-          
+
           programs.river-classic = {
             enable = true;
           };
