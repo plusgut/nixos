@@ -348,7 +348,7 @@ capsule            = false
 
 start  = ["workspaces"]
 center = ["clock"]
-end    = ["tray", "notifications", "battery", "volume", "session"]
+end    = ["tray", "notifications", "volume", "battery", "session"]
 
 # Commands for the bar margin outside widget sections (dead zone):
 # [bar.main.dead_zone.actions]
