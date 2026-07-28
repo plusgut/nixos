@@ -367,6 +367,7 @@ end    = ["tray", "notifications", "volume", "battery", "session"]
 
 [widget.workspaces]
 hide_when_empty     = true
+active_pill_size    = 1.0
 
 # ── Dock ──────────────────────────────────────────────────────────────────────
 
