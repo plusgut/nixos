@@ -366,7 +366,7 @@ end    = ["tray", "notifications", "volume", "battery", "session"]
 # left = "panel-toggle launcher"
 
 [widget.workspaces]
-hide_when_empty     = true
+hide_when_empty     = false
 active_pill_size    = 1.0
 
 # ── Dock ──────────────────────────────────────────────────────────────────────
