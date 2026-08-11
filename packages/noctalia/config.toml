@@ -116,7 +116,7 @@ directory_light     = ""            # optional day-mode directory
 directory_dark      = ""            # optional night-mode directory
 
 [wallpaper.default]
-path = ""                            # optional initial/default wallpaper path
+path = "color:#1a1a2e"              # optional initial/default wallpaper path
 
 [wallpaper.automation]
 enabled                    = false
