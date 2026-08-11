@@ -13,7 +13,7 @@
 
   outputs = { self, nixpkgs, nixos-hardware, mangowm, ... }@attrs:
     let
-      common = ({ pkgs, ... }:
+      common = ({ pkgs, lib, ... }:
         let
           flakes = builtins.listToAttrs
             (map
@@ -85,6 +85,14 @@
           security.sudo.enable = true;
           security.rtkit.enable = true;
 
+          systemd.user.targets.mango-session = {
+            description = "mango compositor session";
+            documentation = [ "man:systemd.special(7)" ];
+            bindsTo = [ "graphical-session.target" ];
+            wants = [ "graphical-session-pre.target" ];
+            after = [ "graphical-session-pre.target" "xdg-desktop-autostart.target" ];
+          };
+
           services = {
             upower.enable = true;
 
@@ -121,9 +129,9 @@
                 xdg-desktop-portal-gtk
               ];
               config = {
-                # mango = {
-                #   default = [ "wlr" "gtk" ];
-                # };
+                mango = {
+                  default = lib.mkForce [ "wlr" "gtk" ];
+                };
                 river = {
                   default = [ "wlr" "gtk" ];
                 };
