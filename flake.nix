@@ -5,13 +5,9 @@
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mangowm = {
-      url = "github:mangowm/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, mangowm, ... }@attrs:
+  outputs = { self, nixpkgs, nixos-hardware, ... }@attrs:
     let
       common = ({ pkgs, lib, ... }:
         let
@@ -296,7 +292,6 @@
         specialArgs = attrs;
         modules = [
           common
-          mangowm.nixosModules.mango
           nixos-hardware.nixosModules.dell-xps-13-9380
           ./custom-dell.nix
         ];
@@ -306,7 +301,6 @@
         specialArgs = attrs;
         modules = [
           common
-          mangowm.nixosModules.mango
           nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen2
           ./custom-lenovo.nix
         ];
