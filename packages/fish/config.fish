@@ -88,7 +88,7 @@ if status is-interactive
 
     abbr --add gco git checkout
     abbr --add gs git status
-    abbr --add gd git diff
+    abbr --add gd git diff -w
     abbr --add ga git add
     abbr --add gc git commit
     abbr --add gp git push
