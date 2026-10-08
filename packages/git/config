@@ -6,6 +6,11 @@
 	whitespace = error
 	pager = delta
 
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = magenta
+
 [interactive]
 	singlekey = true
 	diffFilter = delta --color-only
