@@ -53,11 +53,11 @@
     "kakoune": {
       "flake": false,
       "locked": {
-        "lastModified": 1787124727,
-        "narHash": "sha256-txKLd1fkwrReny4FoM0CSiHwrqStYGvLcM6a8aPqL48=",
+        "lastModified": 1791695950,
+        "narHash": "sha256-pPnm0F4VKUwtFdmXZbYBYR/DQHiw71GXnvld+hAqH44=",
         "owner": "mawww",
         "repo": "kakoune",
-        "rev": "336aed9a5cb13fc3d15af2dc30cdda3f3bccee94",
+        "rev": "4d4ee86c2d039c2a5f29f109e7e59105d2073046",
         "type": "github"
       },
       "original": {
@@ -68,11 +68,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1788614874,
-        "narHash": "sha256-7QYjT2vHLuX9Z1pdxHXDKCbh1CR3D/2rywB9Tx0MPRg=",
+        "lastModified": 1791734076,
+        "narHash": "sha256-i5qk1kLiit98rRbh1AXmWBNT9QXC/y4l5Wk/u5EdpDQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
+        "rev": "7fd4004d0511991fff3a0524856a9be09e28c5f0",
         "type": "github"
       },
       "original": {
