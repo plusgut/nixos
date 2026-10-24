@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,7 +78,12 @@
           # Enable CUPS to print documents.
           # services.printing.enable = true;
 
-          security.sudo.enable = true;
+          security.sudo = {
+            enable = true;
+            extraConfig = ''
+              Defaults pwfeedback
+            '';
+          };
           security.rtkit.enable = true;
 
           systemd.user.targets.mango-session = {
